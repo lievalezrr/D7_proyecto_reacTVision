@@ -20,7 +20,6 @@ class Musica {
   float colorHue = 0;
   float size;
 
-
   public Musica(AudioPlayer _cancion) {
 
     minim = new Minim(this);
@@ -42,8 +41,6 @@ class Musica {
     // calcula linearmente las bandas en grupos con promedio de 30
     fftLin.linAverages( 30 );
   }
-
-
 
   void analizeColor() {
     fftLog.forward( cancion.mix );

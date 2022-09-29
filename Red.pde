@@ -1,5 +1,6 @@
 import ddf.minim.analysis.*;
 import ddf.minim.*;
+
 class Red {
   ParticleSystem mundoVirtual; // ambiente de la simulación
   Particle  puntero; // esta es la particula que se mueve con el mouse para atraer a las demas
@@ -7,7 +8,7 @@ class Red {
   Spring [] arrayDeResortes; // lista de los resortes
   Musica analiza;
 
-  // varaibles de la red
+  // variables de la red
   int cantidadDeParticulasEnX = 50;
   int cantidadDeParticulasEnY = 30;
   int cantidadTotalDeParticulas = cantidadDeParticulasEnX * cantidadDeParticulasEnY;
@@ -20,7 +21,6 @@ class Red {
   FFT fftLog; // objeto que hace el análisis de las frecuencias logarítmicas
   FFT fftLin; // objeto que hace el análisis de las frecuencias lineales
   AudioMetaData metaDatos; // objeto para obtener datos de la canción
-
 
   public Red() {
     // para ordenar la cuadricula
@@ -44,7 +44,6 @@ class Red {
     //inicializar analizador de frecuencias para color
     //minim = new Minim(this);
     //analiza = new Frecuencia(cancion);
-
 
     // inicialización de los arrays
     arrayDeParticulas = new Particle[cantidadTotalDeParticulas]; // particle array
@@ -97,23 +96,25 @@ class Red {
     tamagno = _size;
   }
 
-  void dibujarRed() {
+  void dibujarRed(PVector posControl) {
+    
+    
     mundoVirtual.tick(); // reloj del mundo virtual
 
     // se coloca la particula "puntero" en la posición del mouse
-    puntero.position().set(mouseX, mouseY, 0 ); // tracking mouse
+    puntero.position().set(posControl.x, posControl.y, 0 ); // tracking mouse
 
     translate (-width/2, -height/2); // porque estamos en 3D y tenemos que posicionar el dibujo en frente de la cámara
 
     // se dibujan los resortes preguntando dobre la posisión de sus extremos
-    for (int n =0; n < arrayDeResortes.length; n++) {
-      float x1 = arrayDeResortes[n].getOneEnd().position().x();
-      float y1 = arrayDeResortes[n].getOneEnd().position().y();
-      float x2 = arrayDeResortes[n].getTheOtherEnd().position().x();
-      float y2 = arrayDeResortes[n].getTheOtherEnd().position().y();
-      stroke(hue, 100, 70);
-      line (x1, y1, x2, y2);
-    }
+    //for (int n =0; n < arrayDeResortes.length; n++) {
+    //  float x1 = arrayDeResortes[n].getOneEnd().position().x();
+    //  float y1 = arrayDeResortes[n].getOneEnd().position().y();
+    //  float x2 = arrayDeResortes[n].getTheOtherEnd().position().x();
+    //  float y2 = arrayDeResortes[n].getTheOtherEnd().position().y();
+    //  stroke(hue, 100, 70);
+    //  line (x1, y1, x2, y2);
+    //}
 
     // se dibujan todas las partículas móviles
     float posx, posy;

@@ -20,10 +20,8 @@ Musica analiza;
 
 Minim minim; // declara la instancia de la biblioteca
 AudioPlayer cancion; // declara la variable que contendrá la canción
-
 FFT fftLog; // objeto que hace el análisis de las frecuencias logarítmicas
 FFT fftLin; // objeto que hace el análisis de las frecuencias lineales
-
 AudioMetaData metaDatos; // objeto para obtener datos de la canción
 
 TuioProcessing tuioClient;
@@ -45,20 +43,17 @@ void setup() {
 }
 
 void draw() {
-  background(#000000);
-
+  background(#000000); // gris 25%
   analiza.cancion.play();
   analiza.analizeColor();
   analiza.analizeSize();
-
   red.setSize(analiza.getSize());
   red.setColor(analiza.getColor());
 
-  red.dibujarRed(ctlMain.posDest);
-
-  //textSize(12);
-  //fill(0, 408, 612);
-  //print(analiza.getColor(), width/2, height/2);
+  red.dibujarRed();
+  textSize(12);
+  fill(0, 408, 612);
+  print(analiza.getColor(), width/2, height/2);
 
   ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
   for (int i=0; i<tuioObjectList.size(); i++) {

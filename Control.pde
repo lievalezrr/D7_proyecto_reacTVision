@@ -13,7 +13,7 @@ class Control {
       pos = new PVector (_x, _y);
       posDest = new PVector (_x, _y);
       posInicial = new PVector (_x, _y);
-      angulo = 180;
+      angulo = 360;
       vlrMin = _vMin;
       vlrMax = _vMax;
       tag = _t;
@@ -23,9 +23,9 @@ class Control {
   void dibujar() {
     noFill();
     textAlign(CENTER);
-    strokeWeight(5);
+    strokeWeight(1);
     stroke(103, 78, 86);
-    //fill(336,99,99);
+    fill(336,99,99);
     arc(pos.x, pos.y, 50, 50, 0, radians(angulo));
     text(tag, pos.x, pos.y); 
   }
