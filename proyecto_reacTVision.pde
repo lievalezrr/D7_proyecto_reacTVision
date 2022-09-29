@@ -11,6 +11,7 @@ import ddf.minim.analysis.*;
 import ddf.minim.*;
 import traer.physics.*;
 import peasy.*;
+import TUIO.*;
 
 PeasyCam laCamara;
 
@@ -23,17 +24,22 @@ FFT fftLog; // objeto que hace el análisis de las frecuencias logarítmicas
 FFT fftLin; // objeto que hace el análisis de las frecuencias lineales
 AudioMetaData metaDatos; // objeto para obtener datos de la canción
 
-
+TuioProcessing tuioClient;
+Control ctlMain;
 
 void setup() {
   size(1150, 650, P3D);
   colorMode(HSB);
   smooth();
+
   laCamara = new PeasyCam(this, 0, 0, 0, 600);
   minim = new Minim(this);
+  tuioClient = new TuioProcessing(this);
 
   red = new Red();
   analiza = new Musica(minim.loadFile("tensePiano.mp3", 1024));
+
+  ctlMain = new Control(width-80, (height/2)+80, 0, 360, "Main");
 }
 
 void draw() {
@@ -48,4 +54,59 @@ void draw() {
   textSize(12);
   fill(0, 408, 612);
   print(analiza.getColor(), width/2, height/2);
+
+  ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
+  for (int i=0; i<tuioObjectList.size(); i++) {
+    TuioObject tobj = tuioObjectList.get(i);
+
+    if (tobj.getSymbolID() == 8) {
+      ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
+    }
+  }
+
+  ctlMain.dibujar();
+  ctlMain.mover();
+}
+
+void addTuioObject(TuioObject tobj) {
+  if (tobj.getSymbolID() == 8) {
+    ctlMain.isPresent(true);
+  }
+}
+
+void updateTuioObject (TuioObject tobj) {
+}
+
+void removeTuioObject(TuioObject tobj) {
+  if (tobj.getSymbolID() == 8) {
+    ctlMain.isPresent(false);
+  }
+}
+
+// called when a cursor is added to the scene
+void addTuioCursor(TuioCursor tcur) {
+}
+
+// called when a cursor is moved
+void updateTuioCursor (TuioCursor tcur) {
+}
+
+// called when a cursor is removed from the scene
+void removeTuioCursor(TuioCursor tcur) {
+}
+
+// called when a blob is added to the scene
+void addTuioBlob(TuioBlob tblb) {
+}
+
+// called when a blob is moved
+void updateTuioBlob (TuioBlob tblb) {
+}
+
+// called when a blob is removed from the scene
+void removeTuioBlob(TuioBlob tblb) {
+}
+
+// called at the end of each TUIO frame
+void refresh(TuioTime frameTime) {
 }
