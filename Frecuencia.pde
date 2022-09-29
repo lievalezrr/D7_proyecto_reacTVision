@@ -15,7 +15,7 @@ class Musica {
   //int tamagnoDeBuffer = 1024; // se puede usar 1024 pero 512 es más fácil de analisar visualmente
 
   float maximo = 0;
- // color colorDeFondo = color (64);
+  // color colorDeFondo = color (64);
   float actualMax = 0;
   float colorHue = 0;
   float size;
@@ -43,33 +43,28 @@ class Musica {
     fftLin.linAverages( 30 );
   }
 
-  
-  
+
+
   void analizeColor() {
     fftLog.forward( cancion.mix );
 
-   for (int i = 0; i < fftLog.specSize(); i++) {
-    // define un espectro de colores
-    colorHue = map (fftLog.getBand(i), 0, 1, 0, 360); //analiza las frecuencias y da un valor
-    textSize(12);
-    print(colorHue,width/2, height/2);
-   }
-}
-
-void analizeSize() {
-    size = map(cancion.mix.level(),0,1,0,70); //analiza el volumen y tira un tamaño en relación
+    for (int i = 0; i < fftLog.specSize(); i++) {
+      // define un espectro de colores
+      colorHue = map (fftLog.getBand(i), 0, 1, 0, 360); //analiza las frecuencias y da un valor
+      textSize(12);
+      print(colorHue, width/2, height/2);
+    }
   }
 
-float getColor() {
-  return colorHue;
+  void analizeSize() {
+    size = map(cancion.mix.level(), 0, 1, 0, 70); //analiza el volumen y tira un tamaño en relación
+  }
+
+  float getColor() {
+    return colorHue;
+  }
+
+  float getSize() {
+    return size;
+  }
 }
-
-float getSize() {
-  return size; 
-}
-}
-
-
-
-
-    

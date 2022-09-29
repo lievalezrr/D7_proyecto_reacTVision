@@ -1,5 +1,3 @@
-
-
 /* Tecnológico de Costa Rica
  Escuela de Diseño Industrial
  D7 Visual - Tarea 3 Music Visualization
@@ -29,11 +27,11 @@ AudioMetaData metaDatos; // objeto para obtener datos de la canción
 
 void setup() {
   size(1150, 650, P3D);
-   colorMode(HSB);
+  colorMode(HSB);
   smooth();
   laCamara = new PeasyCam(this, 0, 0, 0, 600);
   minim = new Minim(this);
-  
+
   red = new Red();
   analiza = new Musica(minim.loadFile("tensePiano.mp3", 1024));
 }
@@ -45,10 +43,9 @@ void draw() {
   analiza.analizeSize();
   red.setSize(analiza.getSize());
   red.setColor(analiza.getColor());
-  
+
   red.dibujarRed();
   textSize(12);
   fill(0, 408, 612);
-  print(analiza.getColor(),width/2,height/2);
-  
+  print(analiza.getColor(), width/2, height/2);
 }
