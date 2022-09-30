@@ -39,7 +39,7 @@ void setup() {
   tuioClient = new TuioProcessing(this);
 
   red = new Red();
-  analiza = new Musica(minim.loadFile("tensePiano.mp3", 1024));
+  analiza = new Musica(minim.loadFile("escapethedead.mp3", 1024));
 
   ctlMain = new Control(width-80, (height/2)+80, 0, 360, "Main");
 }

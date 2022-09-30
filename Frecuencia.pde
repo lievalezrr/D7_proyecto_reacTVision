@@ -54,7 +54,7 @@ class Musica {
   }
 
   void analizeSize() {
-    size = map(cancion.mix.level(), 0, 1, 0, 70); //analiza el volumen y tira un tamaño en relación
+    size = map(cancion.mix.level(), 0, 1, 0, 50); //analiza el volumen y tira un tamaño en relación
   }
 
   float getColor() {
