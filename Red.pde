@@ -69,6 +69,11 @@ class Red {
           mundoVirtual.makeAttraction(arrayDeParticulas[a], arrayDeParticulas[90], 30000, 100);
         }
         
+        if (a > 2470) {
+        arrayDeParticulas[90].makeFixed();
+          mundoVirtual.makeAttraction(arrayDeParticulas[a], arrayDeParticulas[247], 30000, 100);
+        }
+        
         mundoVirtual.makeAttraction(arrayDeParticulas[a], puntero, 30000, 100);
         
         //mundoVirtual.makeAttraction(arrayDeParticulasMoviles[a], puntero, 8000, 100); // 50000, 100
