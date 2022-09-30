@@ -82,7 +82,7 @@ void draw() {
   ctlMain.mover();
 
   llave.dibujar();
-  if (llave.getPos().dist(ctlMain.getPos()) < width/20) {
+  if (llave.getPos().dist(ctlMain.getPos()) < width/15) {
     llave.meAtraparon(ctlMain.getPos());
   }
 }

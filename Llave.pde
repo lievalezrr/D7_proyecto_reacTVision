@@ -1,30 +1,34 @@
+//import ddf.minim.*;
+
+
 class Llave {
 
   //float angulo;
   PVector pos, posDest;
   float x, y;
-  //float x = width/2;
-  //float y = height/2;
-  //boolean atrapada;
   
+  //Minim minim;
+  //AudioSample sfxTomarLlave;
+
   public Llave(PImage _llavePic, float _x, float _y) {
  
       pos = new PVector (_x, _y);
-      x = _x;
-      y = _y;
+
       llavePic = _llavePic;
-      //llavePic.resize(width/8,width/8);
+      //minim = new Minim(this);
+      //sfxTomarLlave = minim.loadSample("tomarLlave.mp3");
+  
       
   }
   
   void dibujar() {
-    image (llavePic, x, y);
+    image (llavePic,pos.x, pos.y);
   }
   
  void meAtraparon (PVector posDest) {
   pos = posDest;
-  //x = _x;
-  //y = _y;
+  //sfxTomarLlave.trigger(); 
+
  } 
  
    PVector getPos() {
