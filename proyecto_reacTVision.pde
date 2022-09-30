@@ -33,17 +33,17 @@ Llave llave;
 PImage llavePic;
 
 void setup() {
-  size(1150, 650, P3D);
+  size(displayWidth, displayHeight);
   colorMode(HSB);
   smooth();
 
-  laCamara = new PeasyCam(this, 0, 0, 0, 600);
+  //laCamara = new PeasyCam(this, 0, 0, 0, 600);
   minim = new Minim(this);
   tuioClient = new TuioProcessing(this);
 
   llavePic = loadImage("llave.png");
-  llavePic.resize(width/8,width/8);
-  
+  llavePic.resize(width/8, width/8);
+
   llave = new Llave(llavePic, width/4, height/4);
 
   red = new Red();
@@ -76,15 +76,15 @@ void draw() {
       ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
     }
   }
-
+  fill(#FFFFFF);
+  stroke(#FFFFFF);
   ctlMain.dibujar();
   ctlMain.mover();
-  
-    llave.dibujar();
-  if (llave.getPos().dist(ctlMain.getPos()) < width/20){
+
+  llave.dibujar();
+  if (llave.getPos().dist(ctlMain.getPos()) < width/20) {
     llave.meAtraparon(ctlMain.getPos());
   }
-  
 }
 
 void addTuioObject(TuioObject tobj) {

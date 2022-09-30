@@ -2,7 +2,7 @@ import ddf.minim.analysis.*;
 import ddf.minim.*;
 
 class Red {
-  
+
   ParticleSystem mundoVirtual; // ambiente de la simulación
   Particle  puntero; // esta es la particula que se mueve con el mouse para atraer a las demas
   Particle[] arrayDeParticulas;  // lista de todas las partículas
@@ -25,8 +25,8 @@ class Red {
 
   public Red() {
     // para ordenar la cuadricula
-    borde = 20;
-    anchoDeRed = width -2*borde;
+    borde = width/32;
+    anchoDeRed = width-2*borde;
     altoDeRed = height-2*borde;
     pasoEnX = anchoDeRed / (cantidadDeParticulasEnX-1);
     pasoEnY = altoDeRed / (cantidadDeParticulasEnY-1);
@@ -35,7 +35,7 @@ class Red {
     hue = 360;
 
     // Creación del mundo
-    mundoVirtual = new ParticleSystem(0, 0.1, 0.5, 0.1);
+    mundoVirtual = new ParticleSystem(0, 0.1);
 
     // creación de la partícula que sigue al mouse
     puntero = mundoVirtual.makeParticle();
@@ -64,23 +64,22 @@ class Red {
 
         // se define la atracción o repulsión entre cada partícula y la partícula que se mueve con el mose llamada puntero
         //makeAttraction( Particle a, Particle b, float strength, float minimumDistance )
-        if (a > 90) {
-        arrayDeParticulas[90].makeFixed();
-          mundoVirtual.makeAttraction(arrayDeParticulas[a], arrayDeParticulas[90], 30000, 100);
-        }
-        
-        if (a > 2470) {
-        arrayDeParticulas[90].makeFixed();
-          mundoVirtual.makeAttraction(arrayDeParticulas[a], arrayDeParticulas[247], 30000, 100);
-        }
-        
+        //if (a > 90) {
+        //  arrayDeParticulas[90].makeFixed();
+        //  mundoVirtual.makeAttraction(arrayDeParticulas[a], arrayDeParticulas[90], 30000, 100);
+        //}
+
+        //if (a > 2470) {
+        //  arrayDeParticulas[90].makeFixed();
+        //  mundoVirtual.makeAttraction(arrayDeParticulas[a], arrayDeParticulas[247], 30000, 100);
+        //}
+
         mundoVirtual.makeAttraction(arrayDeParticulas[a], puntero, 30000, 100);
-        
+
         //mundoVirtual.makeAttraction(arrayDeParticulasMoviles[a], puntero, 8000, 100); // 50000, 100
-        
+
         a++;
-        
-    }
+      }
     } // end del doble ciclo for
 
 
@@ -113,14 +112,14 @@ class Red {
   }
 
   void dibujarRed(PVector posControl) {
-    
-    
+
+
     mundoVirtual.tick(); // reloj del mundo virtual
 
     // se coloca la particula "puntero" en la posición del mouse
     puntero.position().set(posControl.x, posControl.y, 0 ); // tracking mouse
 
-    translate (-width/2, -height/2); // porque estamos en 3D y tenemos que posicionar el dibujo en frente de la cámara
+    //translate (-width/2, -height/2); // porque estamos en 3D y tenemos que posicionar el dibujo en frente de la cámara
 
     // se dibujan los resortes preguntando dobre la posisión de sus extremos
     //for (int n =0; n < arrayDeResortes.length; n++) {
@@ -131,13 +130,13 @@ class Red {
     //  stroke(hue, 100, 70);
     //  line (x1, y1, x2, y2);
     //}
-    
-    
-     //for (int n=0; n<arrayDeParticulas.length; n++) {
-     //  arrayDeParticulas[90].makeFixed();
-     //  mundoVirtual.makeAttraction(arrayDeParticulas[90], arrayDeParticulas[n], tamagno*-5, 10);
-     //}
-     
+
+
+    //for (int n=0; n<arrayDeParticulas.length; n++) {
+    //  arrayDeParticulas[90].makeFixed();
+    //  mundoVirtual.makeAttraction(arrayDeParticulas[90], arrayDeParticulas[n], tamagno*-5, 10);
+    //}
+
     // se dibujan todas las partículas móviles
     float posx, posy;
     for (int n=0; n<arrayDeParticulas.length; n++) {
@@ -150,13 +149,13 @@ class Red {
       ellipse(posx, posy, 10, 10);
       noStroke();
       if (n%23==0) {
-      ellipse(posx, posy, tamagno, tamagno);
-      //arrayDeParticulas[90].makeFixed();
-      //for (int a=0; a<arrayDeParticulas.length; a++) {
-      //mundoVirtual.makeAttraction(arrayDeParticulas[90], arrayDeParticulas[n], tamagno*-10, 10);
-      ////posx = arrayDeParticulas[a].position().x();
-      ////posy = arrayDeParticulas[a].position().y();
-      //}
+        ellipse(posx, posy, tamagno, tamagno);
+        //arrayDeParticulas[90].makeFixed();
+        //for (int a=0; a<arrayDeParticulas.length; a++) {
+        //mundoVirtual.makeAttraction(arrayDeParticulas[90], arrayDeParticulas[n], tamagno*-10, 10);
+        ////posx = arrayDeParticulas[a].position().x();
+        ////posy = arrayDeParticulas[a].position().y();
+        //}
       }
     }
   }
