@@ -46,6 +46,10 @@ class Control {
     
     pos.lerp(posDest, 0.1);
   }
+   
+  PVector getPos() {
+    return posDest;
+  }
   
   void isPresent(boolean _p) {
     estaPresente = _p;

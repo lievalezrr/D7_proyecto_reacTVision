@@ -29,6 +29,9 @@ AudioMetaData metaDatos; // objeto para obtener datos de la canción
 TuioProcessing tuioClient;
 Control ctlMain;
 
+Llave llave;
+PImage llavePic;
+
 void setup() {
   size(1150, 650, P3D);
   colorMode(HSB);
@@ -37,6 +40,11 @@ void setup() {
   laCamara = new PeasyCam(this, 0, 0, 0, 600);
   minim = new Minim(this);
   tuioClient = new TuioProcessing(this);
+
+  llavePic = loadImage("llave.png");
+  llavePic.resize(width/8,width/8);
+  
+  llave = new Llave(llavePic, width/4, height/4);
 
   red = new Red();
   analiza = new Musica(minim.loadFile("escapethedead.mp3", 1024));
@@ -71,6 +79,12 @@ void draw() {
 
   ctlMain.dibujar();
   ctlMain.mover();
+  
+    llave.dibujar();
+  if (llave.getPos().dist(ctlMain.getPos()) < width/20){
+    llave.meAtraparon(ctlMain.getPos());
+  }
+  
 }
 
 void addTuioObject(TuioObject tobj) {
