@@ -6,10 +6,9 @@
  Elke Segura Badilla - 2018086696
  Leslie Valeria Serrano - 2019159088
  */
-
+import traer.physics.*;
 import ddf.minim.analysis.*;
 import ddf.minim.*;
-import traer.physics.*;
 import peasy.*;
 import TUIO.*;
 
@@ -17,6 +16,7 @@ PeasyCam laCamara;
 
 Red red;
 Musica analiza;
+ParticleSystem mundoVirtual;
 
 Minim minim; // declara la instancia de la biblioteca
 AudioPlayer cancion; // declara la variable que contendrá la canción
@@ -32,11 +32,14 @@ Control ctlMain;
 Llave llave;
 PImage llavePic;
 
+Salida salida;
+
 void setup() {
   size(displayWidth, displayHeight);
   colorMode(HSB);
   smooth();
-
+  
+  mundoVirtual = new ParticleSystem(0.02, 0.001);
   //laCamara = new PeasyCam(this, 0, 0, 0, 600);
   minim = new Minim(this);
   tuioClient = new TuioProcessing(this);
@@ -45,8 +48,9 @@ void setup() {
   llavePic.resize(width/8, width/8);
 
   llave = new Llave(llavePic, width/4, height/4);
-
   red = new Red();
+  
+  salida = new Salida(mundoVirtual, 120, 120);
   analiza = new Musica(minim.loadFile("escapethedead.mp3", 1024));
 
   ctlMain = new Control(width-80, (height/2)+80, 0, 360, "Main");
@@ -63,6 +67,7 @@ void draw() {
   red.setColor(analiza.getColor());
 
   red.dibujarRed(ctlMain.posDest);
+  salida.dibujar();
 
   //textSize(12);
   //fill(0, 408, 612);

@@ -159,4 +159,14 @@ class Red {
       }
     }
   }
+  
+   //se crea la repulsión entre bola y telas 
+  //void repulsion(ParticleSystem mundoVirtual, Salida salida) {
+    
+  //  for (int i = 0; i < cantidadDeParticulasEnY-1; i++) {
+  //    for (int j = 0; j < cantidadDeParticulasEnX-1; j++) {
+  //      mundoVirtual.makeAttraction(arrayDeParticulas[i][j], salida.particle, -200000, 30);    
+  //    }
+  //  }
+  //} 
 }

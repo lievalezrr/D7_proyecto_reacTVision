@@ -1,36 +1,26 @@
 class Salida {
+  
+  Particle salida;
 
   PVector pos;
-  ParticleSystem mundoVirtual; // ambiente de la simulación
-  Particle salida;
-  float tamagno = 10; // tamagno del círculo de salida
+  float pX, pY;
   
-
-
-  public Salida(float _x, float _y) {
+  public Salida(ParticleSystem mundoVirtual,float _x, float _y) {
  
     pos = new PVector (_x, _y);
+    pX = pos.x;
+    pY = pos.y;
+    salida = mundoVirtual.makeParticle(0.01, pX, pY, 0); 
 
-    // Creación del mundo
-    mundoVirtual = new ParticleSystem(0, 0.1);
-
-    // creación de la partícula que sigue al mouse
-    salida = mundoVirtual.makeParticle();
     salida.makeFixed(); // makeFixed la libera de actuar según las fuerzas del ambiente
       
   }
   
+
   void dibujar() {
-    
+    noStroke();
+    fill(#000033);
+    ellipse(pos.x, pos.y, width/15, width/15); 
   }
   
- void meAtraparon (PVector posDest) {
-  pos = posDest;
-
- } 
- 
-   PVector getPos() {
-    return pos;
-  }
- 
 }
