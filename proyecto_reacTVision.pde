@@ -6,6 +6,7 @@
  Elke Segura Badilla - 2018086696
  Leslie Valeria Serrano - 2019159088
  */
+ 
 import traer.physics.*;
 import ddf.minim.analysis.*;
 import ddf.minim.*;
@@ -18,13 +19,13 @@ Red red;
 Musica analiza;
 ParticleSystem mundoVirtual;
 
-Minim minim; // declara la instancia de la biblioteca
-AudioPlayer cancion; // declara la variable que contendrá la canción
+Minim minim; 
+AudioPlayer cancion; 
 
-FFT fftLog; // objeto que hace el análisis de las frecuencias logarítmicas
-FFT fftLin; // objeto que hace el análisis de las frecuencias lineales
+FFT fftLog; 
+FFT fftLin; 
 
-AudioMetaData metaDatos; // objeto para obtener datos de la canción
+AudioMetaData metaDatos; 
 
 TuioProcessing tuioClient;
 Control ctlMain;
@@ -39,7 +40,7 @@ void setup() {
   colorMode(HSB);
   smooth();
   
-  mundoVirtual = new ParticleSystem(0.02, 0.001);
+  mundoVirtual = new ParticleSystem(0, 0.1);
   //laCamara = new PeasyCam(this, 0, 0, 0, 600);
   minim = new Minim(this);
   tuioClient = new TuioProcessing(this);
@@ -48,9 +49,11 @@ void setup() {
   llavePic.resize(width/8, width/8);
 
   llave = new Llave(llavePic, width/4, height/4);
-  red = new Red();
+  red = new Red(mundoVirtual);
   
   salida = new Salida(mundoVirtual, 120, 120);
+  red.repulsion(mundoVirtual, salida);
+  
   analiza = new Musica(minim.loadFile("escapethedead.mp3", 1024));
 
   ctlMain = new Control(width-80, (height/2)+80, 0, 360, "Main");
@@ -58,6 +61,7 @@ void setup() {
 
 void draw() {
   background(#000000);
+  mundoVirtual.tick(); 
 
   analiza.cancion.play();
   analiza.analizeColor();
@@ -68,10 +72,6 @@ void draw() {
 
   red.dibujarRed(ctlMain.posDest);
   salida.dibujar();
-
-  //textSize(12);
-  //fill(0, 408, 612);
-  //print(analiza.getColor(), width/2, height/2);
 
   ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
   for (int i=0; i<tuioObjectList.size(); i++) {

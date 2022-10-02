@@ -3,8 +3,7 @@ import ddf.minim.*;
 
 class Red {
 
-  ParticleSystem mundoVirtual; // ambiente de la simulación
-  Particle  puntero; // esta es la particula que se mueve con el mouse para atraer a las demas
+  Particle puntero; // esta es la particula que se mueve con el mouse para atraer a las demas
   Particle[] arrayDeParticulas;  // lista de todas las partículas
   Spring [] arrayDeResortes; // lista de los resortes
   Musica analiza;
@@ -14,7 +13,7 @@ class Red {
   int cantidadDeParticulasEnY = 30;
   int cantidadTotalDeParticulas = cantidadDeParticulasEnX * cantidadDeParticulasEnY;
   float anchoDeRed, altoDeRed, pasoEnX, pasoEnY, borde;
-  float tamagno = 10; // tamagno de los puntos
+  float tamagno = 10;
   float distancia, hue;
 
   Minim minim; // declara la instancia de la biblioteca
@@ -23,7 +22,7 @@ class Red {
   FFT fftLin; // objeto que hace el análisis de las frecuencias lineales
   AudioMetaData metaDatos; // objeto para obtener datos de la canción
 
-  public Red() {
+  public Red(ParticleSystem mundoVirtual) {
     // para ordenar la cuadricula
     borde = width/32;
     anchoDeRed = width-2*borde;
@@ -34,12 +33,9 @@ class Red {
     colorMode(HSB);
     hue = 360;
 
-    // Creación del mundo
-    mundoVirtual = new ParticleSystem(0, 0.1);
-
     // creación de la partícula que sigue al mouse
     puntero = mundoVirtual.makeParticle();
-    puntero.makeFixed(); // makeFixed la libera de actuar según las fuerzas del ambiente
+    puntero.makeFixed();
     mouseX = width/2;
     mouseY = height/2;
 
@@ -74,33 +70,30 @@ class Red {
         //  mundoVirtual.makeAttraction(arrayDeParticulas[a], arrayDeParticulas[247], 30000, 100);
         //}
 
+        //repulsion con puntero
         mundoVirtual.makeAttraction(arrayDeParticulas[a], puntero, 30000, 100);
-
-        //mundoVirtual.makeAttraction(arrayDeParticulasMoviles[a], puntero, 8000, 100); // 50000, 100
-
         a++;
       }
-    } // end del doble ciclo for
-
+    }
 
     // crea resortes
-    // para lineas horizontales
     fill(hue, 50, 50);
     int count = 0;
+    //horizontales
     for (int i = 0; i < arrayDeParticulas.length; i++) {
       if ( i < arrayDeParticulas.length-1 && ((i+1) % cantidadDeParticulasEnX != 0)) { //mientras no se esté en los bordes
         arrayDeResortes[count] = mundoVirtual.makeSpring(arrayDeParticulas[i], arrayDeParticulas[i+1], 0.2, 0.01, pasoEnX/2 ); // 0.2,0.1
         count++;
       }
-    } // end for de lineas horizontales
+    }
 
-    // para lineas verticales
+    //verticales
     for (int i = 0; i < cantidadDeParticulasEnX; i++) {
       for (int j = i+((cantidadDeParticulasEnX * (cantidadDeParticulasEnY-1))); j > i; j=j-cantidadDeParticulasEnX) {
         arrayDeResortes[count] = mundoVirtual.makeSpring(arrayDeParticulas[j], arrayDeParticulas[j-cantidadDeParticulasEnX], 0.2, 0.01, pasoEnY/2 );
         count++;
       }
-    }  // end for de lineas verticales
+    }
   }
 
   void setColor(float _clr) {
@@ -113,31 +106,9 @@ class Red {
 
   void dibujarRed(PVector posControl) {
 
-
-    mundoVirtual.tick(); // reloj del mundo virtual
-
     // se coloca la particula "puntero" en la posición del mouse
-    puntero.position().set(posControl.x, posControl.y, 0 ); // tracking mouse
+    puntero.position().set(posControl.x, posControl.y, 0 );
 
-    //translate (-width/2, -height/2); // porque estamos en 3D y tenemos que posicionar el dibujo en frente de la cámara
-
-    // se dibujan los resortes preguntando dobre la posisión de sus extremos
-    //for (int n =0; n < arrayDeResortes.length; n++) {
-    //  float x1 = arrayDeResortes[n].getOneEnd().position().x();
-    //  float y1 = arrayDeResortes[n].getOneEnd().position().y();
-    //  float x2 = arrayDeResortes[n].getTheOtherEnd().position().x();
-    //  float y2 = arrayDeResortes[n].getTheOtherEnd().position().y();
-    //  stroke(hue, 100, 70);
-    //  line (x1, y1, x2, y2);
-    //}
-
-
-    //for (int n=0; n<arrayDeParticulas.length; n++) {
-    //  arrayDeParticulas[90].makeFixed();
-    //  mundoVirtual.makeAttraction(arrayDeParticulas[90], arrayDeParticulas[n], tamagno*-5, 10);
-    //}
-
-    // se dibujan todas las partículas móviles
     float posx, posy;
     for (int n=0; n<arrayDeParticulas.length; n++) {
       posx = arrayDeParticulas[n].position().x();
@@ -159,14 +130,11 @@ class Red {
       }
     }
   }
-  
-   //se crea la repulsión entre bola y telas 
-  //void repulsion(ParticleSystem mundoVirtual, Salida salida) {
-    
-  //  for (int i = 0; i < cantidadDeParticulasEnY-1; i++) {
-  //    for (int j = 0; j < cantidadDeParticulasEnX-1; j++) {
-  //      mundoVirtual.makeAttraction(arrayDeParticulas[i][j], salida.particle, -200000, 30);    
-  //    }
-  //  }
-  //} 
+
+  //se crea la repulsión entre salida y red
+  void repulsion(ParticleSystem mundoVirtual, Salida salida) {
+    for (int i=0; i<cantidadTotalDeParticulas; i++) {
+      mundoVirtual.makeAttraction(arrayDeParticulas[i], salida.particle, 30000, 100);
+    }
+  }
 }
