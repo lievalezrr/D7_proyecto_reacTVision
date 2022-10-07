@@ -7,8 +7,9 @@ class Control {
   int vlrMin, vlrMax;
   String tag;
   boolean estaPresente;
+  color clr;
   
-  public Control(float _x, float _y, int _vMin, int _vMax, String _t) {
+  public Control(float _x, float _y, int _vMin, int _vMax, String _t, color _clr) {
       
       pos = new PVector (_x, _y);
       posDest = new PVector (_x, _y);
@@ -17,6 +18,8 @@ class Control {
       vlrMin = _vMin;
       vlrMax = _vMax;
       tag = _t;
+      clr = _clr;
+      
       estaPresente = false; 
   }
   
@@ -25,7 +28,7 @@ class Control {
     strokeWeight(1);
     stroke(#FFFFFF, 95);
     //text(tag, pos.x, pos.y); 
-    fill(#FFFFFF, 95);
+    fill(clr);
     arc(pos.x, pos.y, 50, 50, 0, radians(angulo));
   }
   

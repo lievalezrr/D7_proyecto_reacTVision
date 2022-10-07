@@ -6,7 +6,7 @@
  Elke Segura Badilla - 2018086696
  Leslie Valeria Serrano - 2019159088
  */
- 
+
 import traer.physics.*;
 import ddf.minim.analysis.*;
 import ddf.minim.*;
@@ -19,19 +19,23 @@ Red red;
 Musica analiza;
 ParticleSystem mundoVirtual;
 
-Minim minim; 
-AudioPlayer cancion; 
+Minim minim;
+AudioPlayer cancion;
 
-FFT fftLog; 
-FFT fftLin; 
+FFT fftLog;
+FFT fftLin;
 
-AudioMetaData metaDatos; 
+AudioMetaData metaDatos;
 
 TuioProcessing tuioClient;
 Control ctlMain;
 
+Control ctlAlly1, ctlAlly2, ctlAlly3;
+
 Llave llave;
 PImage llavePic;
+
+int escenario;
 
 Salida salida;
 
@@ -39,7 +43,7 @@ void setup() {
   size(displayWidth, displayHeight);
   colorMode(HSB);
   smooth();
-  
+
   mundoVirtual = new ParticleSystem(0, 0.1);
   //laCamara = new PeasyCam(this, 0, 0, 0, 600);
   minim = new Minim(this);
@@ -50,45 +54,69 @@ void setup() {
 
   llave = new Llave(llavePic, width/4, height/4);
   red = new Red(mundoVirtual);
-  
+
   salida = new Salida(mundoVirtual, 120, 120);
   red.repulsion(mundoVirtual, salida);
-  
+
   analiza = new Musica(minim.loadFile("escapethedead.mp3", 1024));
 
-  ctlMain = new Control(width-80, (height/2)+80, 0, 360, "Main");
+  ctlMain = new Control(width-80, (height/2)+80, 0, 360, "Main", #FFFFFF);
+
+  ctlAlly1 = new Control(width*2/6, height/2, 0, 360, "Ally 1", #FF7403);
+  ctlAlly2 = new Control(width*3/6, height/2, 0, 360, "Ally 2", #AEFF03);
+  ctlAlly3 = new Control(width*4/6, height/2, 0, 360, "Ally 3", #FF0B03);
+
+  escenario = 1;
 }
 
 void draw() {
+
   background(#000000);
-  mundoVirtual.tick(); 
+  mundoVirtual.tick();
 
-  analiza.cancion.play();
-  analiza.analizeColor();
-  analiza.analizeSize();
+  if (escenario == 1) {
 
-  red.setSize(analiza.getSize());
-  red.setColor(analiza.getColor());
+    analiza.cancion.play();
+    analiza.analizeColor();
+    analiza.analizeSize();
 
-  red.dibujarRed(ctlMain.posDest);
-  salida.dibujar();
+    red.setSize(analiza.getSize());
+    red.setColor(analiza.getColor());
 
-  ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
-  for (int i=0; i<tuioObjectList.size(); i++) {
-    TuioObject tobj = tuioObjectList.get(i);
+    red.dibujarRed(ctlMain.posDest);
+    salida.dibujar();
 
-    if (tobj.getSymbolID() == 8) {
-      ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
+    ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
+    for (int i=0; i<tuioObjectList.size(); i++) {
+      TuioObject tobj = tuioObjectList.get(i);
+
+      if (tobj.getSymbolID() == 8) {
+        ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
+      }
+    }
+
+    ctlMain.dibujar();
+    ctlMain.mover();
+
+    llave.dibujar();
+
+    if (llave.getPos().dist(ctlMain.getPos()) < width/15) {
+      llave.meAtraparon(ctlMain.getPos());
+    }
+    
+    if (ctlMain.getPos().dist(salida.getPos()) < width/15) {
+      escenario = 2;
     }
   }
-  fill(#FFFFFF);
-  stroke(#FFFFFF);
-  ctlMain.dibujar();
-  ctlMain.mover();
 
-  llave.dibujar();
-  if (llave.getPos().dist(ctlMain.getPos()) < width/15) {
-    llave.meAtraparon(ctlMain.getPos());
+  if (escenario == 2) {
+
+    ctlMain.dibujar();
+    ctlMain.mover();
+
+    ctlAlly1.dibujar();
+    ctlAlly2.dibujar();
+    ctlAlly3.dibujar();
   }
 }
 
