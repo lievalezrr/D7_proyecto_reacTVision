@@ -8,8 +8,9 @@ class Control {
   String tag;
   boolean estaPresente;
   color clr;
+  Particle particle;
   
-  public Control(float _x, float _y, int _vMin, int _vMax, String _t, color _clr) {
+  public Control(float _x, float _y, int _vMin, int _vMax, color _clr, ParticleSystem mundoVirtual) {
       
       pos = new PVector (_x, _y);
       posDest = new PVector (_x, _y);
@@ -17,8 +18,8 @@ class Control {
       angulo = 360;
       vlrMin = _vMin;
       vlrMax = _vMax;
-      tag = _t;
       clr = _clr;
+      particle = mundoVirtual.makeParticle(1, _x, _y, 0);
       
       estaPresente = false; 
   }
@@ -42,11 +43,16 @@ class Control {
   
   void mover() {
     if (!estaPresente) {
-      posDest.x = posInicial.x;
-      posDest.y = posInicial.y;
+      //posDest.x = posInicial.x;
+      //posDest.y = posInicial.y;
+      
+      //Para mover con el mouse
+      posDest.x = mouseX;
+      posDest.y = mouseY;
     }
     
     pos.lerp(posDest, 0.1);
+    particle.position().set(pos.x, pos.y, 0);
   }
    
   PVector getPos() {

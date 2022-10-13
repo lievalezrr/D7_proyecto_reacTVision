@@ -30,9 +30,9 @@ AudioMetaData metaDatos;
 TuioProcessing tuioClient;
 Control ctlMain;
 
-Control ctlAlly1, ctlAlly2, ctlAlly3;
+Atrapable ally1, ally2, ally3;
 
-Llave llave;
+Atrapable llave;
 PImage llavePic;
 
 int escenario;
@@ -52,7 +52,7 @@ void setup() {
   llavePic = loadImage("llave.png");
   llavePic.resize(width/8, width/8);
 
-  llave = new Llave(llavePic, width/4, height/4);
+  llave = new Atrapable(llavePic, width/4, height/4, mundoVirtual);
   red = new Red(mundoVirtual);
 
   salida = new Salida(mundoVirtual, 120, 120);
@@ -60,11 +60,11 @@ void setup() {
 
   analiza = new Musica(minim.loadFile("escapethedead.mp3", 1024));
 
-  ctlMain = new Control(width-80, (height/2)+80, 0, 360, "Main", #FFFFFF);
+  ctlMain = new Control(width-80, (height/2)+80, 0, 360, #FFFFFF, mundoVirtual);
 
-  ctlAlly1 = new Control(width*2/6, height/2, 0, 360, "Ally 1", #FF7403);
-  ctlAlly2 = new Control(width*3/6, height/2, 0, 360, "Ally 2", #AEFF03);
-  ctlAlly3 = new Control(width*4/6, height/2, 0, 360, "Ally 3", #FF0B03);
+  ally1 = new Atrapable(llavePic, width*2/6, height/2, mundoVirtual);
+  ally2 = new Atrapable(llavePic, width*3/6, height/2, mundoVirtual);
+  ally3 = new Atrapable(llavePic, width*4/6, height/2, mundoVirtual);
 
   escenario = 1;
 }
@@ -100,12 +100,15 @@ void draw() {
 
     llave.dibujar();
 
-    if (llave.getPos().dist(ctlMain.getPos()) < width/15) {
-      llave.meAtraparon(ctlMain.getPos());
+    // Atrapar la llave
+    if (llave.meAtraparon == false && llave.getPos().dist(ctlMain.getPos()) < width/30) {
+      llave.atrapar(ctlMain.particle);
     }
-    
-    if (ctlMain.getPos().dist(salida.getPos()) < width/15) {
+
+    // Llegar a la salida
+    if (llave.meAtraparon == true && ctlMain.getPos().dist(salida.getPos()) < width/30) {
       escenario = 2;
+      llave.soltar();
     }
   }
 
@@ -114,9 +117,23 @@ void draw() {
     ctlMain.dibujar();
     ctlMain.mover();
 
-    ctlAlly1.dibujar();
-    ctlAlly2.dibujar();
-    ctlAlly3.dibujar();
+    ally1.dibujar();
+    ally2.dibujar();
+    ally3.dibujar();
+    
+    // Atrapar ally1
+    if (ally1.meAtraparon == false && ally1.getPos().dist(ctlMain.getPos()) < width/30){
+        ally1.atrapar(ctlMain.particle);
+    }
+    //Atrapar ally2
+    if (ally2.meAtraparon == false && ally1.meAtraparon == true && ally2.getPos().dist(ctlMain.getPos()) < width/30){
+        ally2.atrapar(ally1.particle);
+    }
+    //Atrapar ally3
+    if (ally3.meAtraparon == false && ally1.meAtraparon == true && ally2.meAtraparon == true && ally3.getPos().dist(ctlMain.getPos()) < width/30){
+        ally3.atrapar(ally2.particle);
+    }
+    
   }
 }
 
