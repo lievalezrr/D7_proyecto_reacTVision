@@ -32,12 +32,15 @@ Control ctlMain;
 
 Atrapable ally1, ally2, ally3;
 
+Tela tela1, tela1p2, tela2, tela3, tela4, tela2p2, tela3p2, tela4p2;
+MusicaTelas analizaM;
+
 Atrapable llave;
 PImage llavePic;
 
 int escenario;
 
-Salida salida;
+Salida salida,  salidaT, bolaT;
 
 void setup() {
   size(displayWidth, displayHeight);
@@ -65,6 +68,23 @@ void setup() {
   ally1 = new Atrapable(llavePic, width*2/6, height/2, mundoVirtual);
   ally2 = new Atrapable(llavePic, width*3/6, height/2, mundoVirtual);
   ally3 = new Atrapable(llavePic, width*4/6, height/2, mundoVirtual);
+  
+  analizaM = new MusicaTelas(minim.loadFile("escapethedead.mp3", 1024));
+  
+  salidaT = new Salida(mundoVirtual, width/2, height/2);
+  bolaT = new Salida(mundoVirtual, width/5, height/3);
+  
+  tela1 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*2, 1);
+  tela1p2 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*2, 1.2);
+  
+  tela2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*2, 2);
+  tela2p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*2, 2.2);
+  
+  tela3 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*14, 3);
+  tela3p2 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*14, 3.2);
+  
+  tela4 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4);
+  tela4p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4.2);
 
   escenario = 1;
 }
@@ -132,7 +152,34 @@ void draw() {
     //Atrapar ally3
     if (ally3.meAtraparon == false && ally1.meAtraparon == true && ally2.meAtraparon == true && ally3.getPos().dist(ctlMain.getPos()) < width/30){
         ally3.atrapar(ally2.particle);
+        escenario = 3;
     }
+  }
+    
+    if (escenario ==3) {
+     background(4,2,66);
+     analizaM.cancion.play();
+     analizaM.analizeColor();
+     analizaM.analizeSize();
+     text(analizaM.getSize(),width/3,height/3);
+    //tela1.setColor(analiza.getSize());
+    //salida.randomize();
+     salidaT.dibujar();
+    //bola.dibujar();
+    
+     tela1.dibujar(analizaM.getSize(),analizaM.getColor() );
+     tela1p2.dibujar(analizaM.getSize(),analizaM.getColor() );
+     //tela1.repulsion(mundoVirtual);
+    
+     tela2.dibujar(analizaM.getSize(),analizaM.getColor() );
+     tela2p2.dibujar(analizaM.getSize(),analizaM.getColor() );
+    
+     tela3.dibujar(analizaM.getSize(),analizaM.getColor() );
+     tela3p2.dibujar(analizaM.getSize(),analizaM.getColor() );
+    
+    
+     tela4.dibujar(analizaM.getSize(),analizaM.getColor() );
+     tela4p2.dibujar(analizaM.getSize(),analizaM.getColor() );
     
   }
 }
