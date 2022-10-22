@@ -157,14 +157,14 @@ void draw() {
   }
     
     if (escenario ==3) {
-     background(4,2,66);
+     background(#000000);
      analizaM.cancion.play();
      analizaM.analizeColor();
      analizaM.analizeSize();
      text(analizaM.getSize(),width/3,height/3);
     //tela1.setColor(analiza.getSize());
     //salida.randomize();
-     salidaT.dibujar();
+     //salidaT.dibujar();
     //bola.dibujar();
     
      tela1.dibujar(analizaM.getSize(),analizaM.getColor() );
@@ -194,7 +194,7 @@ void updateTuioObject (TuioObject tobj) {
 }
 
 void removeTuioObject(TuioObject tobj) {
-  if (tobj.getSymbolID() == 8) {
+  if (tobj.getSymbolID() == 5) {
     ctlMain.isPresent(false);
   }
 }
