@@ -52,6 +52,10 @@ class MusicaTelas {
       //print(colorHue, width/2, height/2);
     }
   }
+  
+  void analizeFreq() {
+    
+  }
 
   void analizeSize() {
     size = map(cancion.mix.level(), 0, 1, 1, 100); //analiza el volumen y tira un tamaño en relación

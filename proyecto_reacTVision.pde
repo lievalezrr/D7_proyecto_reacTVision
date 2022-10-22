@@ -186,6 +186,7 @@ void draw() {
 
   if (escenario ==3) {
     background(#000000);
+    analiza.cancion.pause();
     analizaM.cancion.play();
     analizaM.analizeColor();
     analizaM.analizeSize();
