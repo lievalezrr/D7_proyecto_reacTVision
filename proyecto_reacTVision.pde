@@ -15,7 +15,6 @@ import TUIO.*;
 
 PeasyCam laCamara;
 
-Red red;
 Musica analiza;
 ParticleSystem mundoVirtual;
 
@@ -40,10 +39,17 @@ PImage llavePic;
 
 int escenario;
 
-Salida salida,  salidaT, bolaT;
+// Flow Field
+boolean dibujarField = false;
+FlowField flowfield;
+ArrayList<Vehicle> vehicles;
+int vehicleAmount = 1000;
+float radius = width*3.5;
+
+Salida salida, salidaT, bolaT;
 
 void setup() {
-  size(displayWidth, displayHeight);
+  fullScreen();
   colorMode(HSB);
   smooth();
 
@@ -56,10 +62,8 @@ void setup() {
   llavePic.resize(width/8, width/8);
 
   llave = new Atrapable(llavePic, width/4, height/4, mundoVirtual);
-  red = new Red(mundoVirtual);
 
   salida = new Salida(mundoVirtual, 120, 120);
-  red.repulsion(mundoVirtual, salida);
 
   analiza = new Musica(minim.loadFile("escapethedead.mp3", 1024));
 
@@ -68,23 +72,35 @@ void setup() {
   ally1 = new Atrapable(llavePic, width*2/6, height/2, mundoVirtual);
   ally2 = new Atrapable(llavePic, width*3/6, height/2, mundoVirtual);
   ally3 = new Atrapable(llavePic, width*4/6, height/2, mundoVirtual);
-  
+
   analizaM = new MusicaTelas(minim.loadFile("escapethedead.mp3", 1024));
-  
+
   salidaT = new Salida(mundoVirtual, width/2, height/2);
   bolaT = new Salida(mundoVirtual, width/5, height/3);
-  
+
   tela1 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*2, 1);
   tela1p2 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*2, 1.2);
-  
+
   tela2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*2, 2);
   tela2p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*2, 2.2);
-  
+
   tela3 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*14, 3);
   tela3p2 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*14, 3.2);
-  
+
   tela4 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4);
   tela4p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4.2);
+
+  flowfield = new FlowField(20);
+  vehicles = new ArrayList<Vehicle>();
+
+  // Crear los vehiculos dentro del radio del circulo
+  for (int i = 0; i < vehicleAmount; i++) {
+    float r = radius * sqrt(random(1));
+    float theta = random(1) * 2 * PI;
+    float x = (width/2) + r * cos(theta);
+    float y = (height/2) + r * sin(theta);
+    vehicles.add(new Vehicle(new PVector(x, y), random(2, 5), random(0.1, 0.5), radius));
+  }
 
   escenario = 1;
 }
@@ -93,6 +109,31 @@ void draw() {
 
   background(#000000);
   mundoVirtual.tick();
+  println(frameRate);
+
+  // Mover el Feid
+  ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
+  for (int i=0; i<tuioObjectList.size(); i++) {
+    TuioObject tobj = tuioObjectList.get(i);
+
+    if (tobj.getSymbolID() == 8) {
+      ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
+    }
+  }
+
+  // Flow Field
+  if (escenario == 1 || escenario == 2) {
+    // Dibujar la barrera circular
+    fill(255);
+    circle(width/2, height/2, radius*2);
+    // Mover el flow field y dibujarlo si fuera el caso
+    flowfield.run(dibujarField);
+    // Mover a los vehiculos siguiendo el flow field
+    for (Vehicle v : vehicles) {
+      v.follow(flowfield);
+      v.run();
+    }
+  }
 
   if (escenario == 1) {
 
@@ -100,20 +141,7 @@ void draw() {
     analiza.analizeColor();
     analiza.analizeSize();
 
-    red.setSize(analiza.getSize());
-    red.setColor(analiza.getColor());
-
-    red.dibujarRed(ctlMain.posDest);
     salida.dibujar();
-
-    ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
-    for (int i=0; i<tuioObjectList.size(); i++) {
-      TuioObject tobj = tuioObjectList.get(i);
-
-      if (tobj.getSymbolID() == 8) {
-        ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
-      }
-    }
 
     ctlMain.dibujar();
     ctlMain.mover();
@@ -140,48 +168,58 @@ void draw() {
     ally1.dibujar();
     ally2.dibujar();
     ally3.dibujar();
-    
+
     // Atrapar ally1
-    if (ally1.meAtraparon == false && ally1.getPos().dist(ctlMain.getPos()) < width/30){
-        ally1.atrapar(ctlMain.particle);
+    if (ally1.meAtraparon == false && ally1.getPos().dist(ctlMain.getPos()) < width/30) {
+      ally1.atrapar(ctlMain.particle);
     }
     //Atrapar ally2
-    if (ally2.meAtraparon == false && ally1.meAtraparon == true && ally2.getPos().dist(ctlMain.getPos()) < width/30){
-        ally2.atrapar(ally1.particle);
+    if (ally2.meAtraparon == false && ally1.meAtraparon == true && ally2.getPos().dist(ctlMain.getPos()) < width/30) {
+      ally2.atrapar(ally1.particle);
     }
     //Atrapar ally3
-    if (ally3.meAtraparon == false && ally1.meAtraparon == true && ally2.meAtraparon == true && ally3.getPos().dist(ctlMain.getPos()) < width/30){
-        ally3.atrapar(ally2.particle);
-        escenario = 3;
+    if (ally3.meAtraparon == false && ally1.meAtraparon == true && ally2.meAtraparon == true && ally3.getPos().dist(ctlMain.getPos()) < width/30) {
+      ally3.atrapar(ally2.particle);
+      escenario = 3;
     }
   }
-    
-    if (escenario ==3) {
-     background(#000000);
-     analizaM.cancion.play();
-     analizaM.analizeColor();
-     analizaM.analizeSize();
-     text(analizaM.getSize(),width/3,height/3);
+
+  if (escenario ==3) {
+    background(#000000);
+    analizaM.cancion.play();
+    analizaM.analizeColor();
+    analizaM.analizeSize();
+    text(analizaM.getSize(), width/3, height/3);
     //tela1.setColor(analiza.getSize());
     //salida.randomize();
-     //salidaT.dibujar();
+    //salidaT.dibujar();
     //bola.dibujar();
-    
-     tela1.dibujar(analizaM.getSize(),analizaM.getColor() );
-     tela1p2.dibujar(analizaM.getSize(),analizaM.getColor() );
-     //tela1.repulsion(mundoVirtual);
-    
-     tela2.dibujar(analizaM.getSize(),analizaM.getColor() );
-     tela2p2.dibujar(analizaM.getSize(),analizaM.getColor() );
-    
-     tela3.dibujar(analizaM.getSize(),analizaM.getColor() );
-     tela3p2.dibujar(analizaM.getSize(),analizaM.getColor() );
-    
-    
-     tela4.dibujar(analizaM.getSize(),analizaM.getColor() );
-     tela4p2.dibujar(analizaM.getSize(),analizaM.getColor() );
-    
+
+    tela1.dibujar(analizaM.getSize(), analizaM.getColor() );
+    tela1p2.dibujar(analizaM.getSize(), analizaM.getColor() );
+    //tela1.repulsion(mundoVirtual);
+
+    tela2.dibujar(analizaM.getSize(), analizaM.getColor() );
+    tela2p2.dibujar(analizaM.getSize(), analizaM.getColor() );
+
+    tela3.dibujar(analizaM.getSize(), analizaM.getColor() );
+    tela3p2.dibujar(analizaM.getSize(), analizaM.getColor() );
+
+
+    tela4.dibujar(analizaM.getSize(), analizaM.getColor() );
+    tela4p2.dibujar(analizaM.getSize(), analizaM.getColor() );
   }
+}
+
+void keyPressed() {
+  if (key == ' ') {
+    dibujarField = !dibujarField;
+  }
+}
+
+// Make a new flowfield
+void mousePressed() {
+  flowfield.resetNoise();
 }
 
 void addTuioObject(TuioObject tobj) {
@@ -194,7 +232,7 @@ void updateTuioObject (TuioObject tobj) {
 }
 
 void removeTuioObject(TuioObject tobj) {
-  if (tobj.getSymbolID() == 5) {
+  if (tobj.getSymbolID() == 8) {
     ctlMain.isPresent(false);
   }
 }

@@ -43,12 +43,13 @@ class Control {
   
   void mover() {
     if (!estaPresente) {
-      posDest.x = posInicial.x;
-      posDest.y = posInicial.y;
+      //Para mover con feid
+      //posDest.x = posInicial.x;
+      //posDest.y = posInicial.y;
       
       //Para mover con el mouse
-      //posDest.x = mouseX;
-      //posDest.y = mouseY;
+      posDest.x = mouseX;
+      posDest.y = mouseY;
     }
     
     pos.lerp(posDest, 0.1);
