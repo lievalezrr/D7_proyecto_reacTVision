@@ -73,7 +73,7 @@ void setup() {
   ally2 = new Atrapable(llavePic, width*3/6, height/2, mundoVirtual);
   ally3 = new Atrapable(llavePic, width*4/6, height/2, mundoVirtual);
 
-  analizaM = new MusicaTelas(minim.loadFile("eye.mp3", 1024));
+  analizaM = new MusicaTelas(minim.loadFile("broken.mp3", 1024));
 
   salidaT = new Salida(mundoVirtual, width/2, height/2);
   bolaT = new Salida(mundoVirtual, width/5, height/3);

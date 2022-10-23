@@ -59,11 +59,9 @@ class MusicaTelas {
  //       int bandaActual = 5;
  //       if (i>bandaActual-5 && i <bandaActual+5) {
  //         //if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
- //         transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
+ //         freq = map (fftLog.getBand(i), 0, 3, 1, 0.5);
 
- //         colorDeFondo = color (18, 100, 53, transparencia); // color base 219,42,67 o #637CAD
- //         fill(colorDeFondo);
- //         rect(width*1/4, height*1/4, ancho, alto);
+ //   
  //         //imprimaValoresMaximos (i, bandaActual);
  //       }
  //       // maracas---------------------
