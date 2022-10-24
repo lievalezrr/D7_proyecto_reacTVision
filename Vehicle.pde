@@ -64,8 +64,8 @@ class Vehicle {
     
     //Draw a triangle rotated in the direction of velocity
     float theta = velocity.heading2D() + radians(90);
-    fill(175);
-    stroke(0);
+    fill(#FAF9F7);
+    noStroke();
     pushMatrix();
     translate(location.x, location.y);
     rotate(theta);

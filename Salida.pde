@@ -14,8 +14,8 @@ class Salida {
 
   void dibujar() {
     noStroke();
-    fill(#000033);
-    ellipse(pos.x, pos.y, width/15, width/15);
+    fill(#000000);
+    ellipse(pos.x, pos.y, width/18, width/18);
   }
 
   PVector getPos() {

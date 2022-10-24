@@ -44,7 +44,8 @@ boolean dibujarField = false;
 FlowField flowfield;
 ArrayList<Vehicle> vehicles;
 int vehicleAmount = 1000;
-float radius = width*3.5;
+// no estoy segura por qué este radius hay que multiplicarlo por width, pero así venía 
+float radius = 6*width;
 
 Salida salida, salidaT, bolaT;
 
@@ -59,11 +60,11 @@ void setup() {
   tuioClient = new TuioProcessing(this);
 
   llavePic = loadImage("llave.png");
-  llavePic.resize(width/8, width/8);
+  llavePic.resize(width/10, width/10);
 
-  llave = new Atrapable(llavePic, width/4, height/4, mundoVirtual);
+  llave = new Atrapable(llavePic, width/2, height/4, mundoVirtual);
 
-  salida = new Salida(mundoVirtual, 120, 120);
+  salida = new Salida(mundoVirtual, width/2, 5*height/6);
 
   analiza = new Musica(minim.loadFile("escapethedead.mp3", 1024));
 
@@ -124,7 +125,8 @@ void draw() {
   // Flow Field
   if (escenario == 1 || escenario == 2) {
     // Dibujar la barrera circular
-    fill(255);
+    noStroke();
+    fill(#272625);
     circle(width/2, height/2, radius*2);
     // Mover el flow field y dibujarlo si fuera el caso
     flowfield.run(dibujarField);
@@ -193,25 +195,25 @@ void draw() {
     analizaM.analizeFreq();
     text(analizaM.getSize(), width/3, height/3);
     fill(#FFFFFF);
-    text(analizaM.getFreq(), width/2,height/7*6);
+    text(analizaM.getFreq(), width/2, height/7*6);
     //tela1.setColor(analiza.getSize());
     //salida.randomize();
     //salidaT.dibujar();
     //bola.dibujar();
 
     tela1.dibujar(analizaM.getSize(), analizaM.getColor(), analizaM.getFreq() );
-    tela1p2.dibujar(analizaM.getSize(), analizaM.getColor(),analizaM.getFreq() );
+    tela1p2.dibujar(analizaM.getSize(), analizaM.getColor(), analizaM.getFreq() );
     //tela1.repulsion(mundoVirtual);
 
-    tela2.dibujar(analizaM.getSize(), analizaM.getColor(),analizaM.getFreq() );
-    tela2p2.dibujar(analizaM.getSize(), analizaM.getColor(),analizaM.getFreq() );
+    tela2.dibujar(analizaM.getSize(), analizaM.getColor(), analizaM.getFreq() );
+    tela2p2.dibujar(analizaM.getSize(), analizaM.getColor(), analizaM.getFreq() );
 
-    tela3.dibujar(analizaM.getSize(), analizaM.getColor(),analizaM.getFreq() );
-    tela3p2.dibujar(analizaM.getSize(), analizaM.getColor(),analizaM.getFreq() );
+    tela3.dibujar(analizaM.getSize(), analizaM.getColor(), analizaM.getFreq() );
+    tela3p2.dibujar(analizaM.getSize(), analizaM.getColor(), analizaM.getFreq() );
 
 
-    tela4.dibujar(analizaM.getSize(), analizaM.getColor() ,analizaM.getFreq());
-    tela4p2.dibujar(analizaM.getSize(), analizaM.getColor() ,analizaM.getFreq());
+    tela4.dibujar(analizaM.getSize(), analizaM.getColor(), analizaM.getFreq());
+    tela4p2.dibujar(analizaM.getSize(), analizaM.getColor(), analizaM.getFreq());
   }
 }
 
