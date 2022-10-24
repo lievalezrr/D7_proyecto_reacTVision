@@ -190,25 +190,28 @@ void draw() {
     analizaM.cancion.play();
     analizaM.analizeColor();
     analizaM.analizeSize();
+    analizaM.analizeFreq();
     text(analizaM.getSize(), width/3, height/3);
+    fill(#FFFFFF);
+    text(analizaM.getFreq(), width/2,height/7*6);
     //tela1.setColor(analiza.getSize());
     //salida.randomize();
     //salidaT.dibujar();
     //bola.dibujar();
 
-    tela1.dibujar(analizaM.getSize(), analizaM.getColor() );
-    tela1p2.dibujar(analizaM.getSize(), analizaM.getColor() );
+    tela1.dibujar(analizaM.getSize(), analizaM.getColor(), analizaM.getFreq() );
+    tela1p2.dibujar(analizaM.getSize(), analizaM.getColor(),analizaM.getFreq() );
     //tela1.repulsion(mundoVirtual);
 
-    tela2.dibujar(analizaM.getSize(), analizaM.getColor() );
-    tela2p2.dibujar(analizaM.getSize(), analizaM.getColor() );
+    tela2.dibujar(analizaM.getSize(), analizaM.getColor(),analizaM.getFreq() );
+    tela2p2.dibujar(analizaM.getSize(), analizaM.getColor(),analizaM.getFreq() );
 
-    tela3.dibujar(analizaM.getSize(), analizaM.getColor() );
-    tela3p2.dibujar(analizaM.getSize(), analizaM.getColor() );
+    tela3.dibujar(analizaM.getSize(), analizaM.getColor(),analizaM.getFreq() );
+    tela3p2.dibujar(analizaM.getSize(), analizaM.getColor(),analizaM.getFreq() );
 
 
-    tela4.dibujar(analizaM.getSize(), analizaM.getColor() );
-    tela4p2.dibujar(analizaM.getSize(), analizaM.getColor() );
+    tela4.dibujar(analizaM.getSize(), analizaM.getColor() ,analizaM.getFreq());
+    tela4p2.dibujar(analizaM.getSize(), analizaM.getColor() ,analizaM.getFreq());
   }
 }
 

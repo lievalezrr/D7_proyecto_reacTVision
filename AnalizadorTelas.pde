@@ -53,45 +53,39 @@ class MusicaTelas {
     }
   }
   
- // void analizeFreq() {
- //   for (int i = 0; i < fftLog.specSize(); i++) {
- //       //cello
- //       int bandaActual = 5;
- //       if (i>bandaActual-5 && i <bandaActual+5) {
- //         //if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
- //         freq = map (fftLog.getBand(i), 0, 3, 1, 0.5);
+  void analizeFreq() {
+    for (int i = 0; i < fftLog.specSize(); i++) {
+        
+        //cello
+        int bandaActual = 5;
+        if (i>bandaActual-5 && i <bandaActual+5) {
+          if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
+             
+         freq = fftLog.getBand(i) * 16;
+        }
+        
+      // maracas---------------------
 
- //   
- //         //imprimaValoresMaximos (i, bandaActual);
- //       }
- //       // maracas---------------------
+       bandaActual = 30;
 
- //       bandaActual = 30;
+       if (i>bandaActual-5 && i <bandaActual+5) {
+          if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
+             
+         freq = fftLog.getBand(i) * 16;
+        }
+       
 
- //       if (i>bandaActual-7 && i <bandaActual+7) {
- //         //if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
- //         float ancho = fftLog.getBand(i) * 80;
- //         float alto = fftLog.getBand(i) * 80;
- //         float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
- //         colorDeFondo = color (57, 100, 51, transparencia); // color base 219,42,67 o #637CAD
- //         fill(colorDeFondo);
- //         rect(width*3/4, height*1/4, ancho, alto);
- //         //imprimaValoresMaximos (i, bandaActual);
- //       }
- //       // sax---------------------
- //       if (cancion.position() > 6500) {
- //         bandaActual = 130;
- //         if (i>bandaActual-10 && i <bandaActual+10) {
- //           float ancho = fftLog.getBand(i) * 100;
- //           float alto = fftLog.getBand(i) * 100;
- //           float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
- //           colorDeFondo = color (269, 100, 67, transparencia); // color base 219,42,67 o #637CAD
- //           fill(colorDeFondo);
- //           rect( width*2/4, height*1/4, ancho, alto);
- //         } // fin del ciclo FOR de visualización del gráfico por logaritmo
- //       }
- //     }
- //}
+        bandaActual = 130;
+        if (i>bandaActual-5 && i <bandaActual+5) {
+          if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
+             
+         freq = fftLog.getBand(i) * 16;
+
+       } // fin del ciclo FOR de visualización del gráfico por logaritmo
+
+     }
+  }
+ 
 
   void analizeSize() {
     size = map(cancion.mix.level(), 0, 1, 1, 100); //analiza el volumen y tira un tamaño en relación
