@@ -53,8 +53,8 @@ class AnalizadorVehiculo {
     }
   }
 
-  void analizeSize() {
-    size = map(cancion.mix.level(), 0, 1, 0, 50); //analiza el volumen y tira un tamaño en relación
+  float analizeSize() {
+    return map(cancion.mix.level(), 0, 1, 0, 20); //analiza el volumen y tira un tamaño en relación
   }
 
   float getColor() {

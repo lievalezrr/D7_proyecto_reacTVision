@@ -2,15 +2,15 @@
 // Daniel Shiffman <http://www.shiffman.net>
 // The Nature of Code, Spring 2011
 
-class Vehicle {
+class Vehiculo {
 
   // The usual stuff
   PVector location;
   PVector velocity;
   PVector acceleration;
-  float sideLen, maxForce, maxSpeed, maxrepel, repelRadius, borderRadius;
+  float sideLen, maxForce, maxSpeed, maxRepel, repelRadius, borderRadius, maxSideLen;
 
-  Vehicle(PVector l, float sl, float ms, float mf, float br, float rr, float mr) {
+  Vehiculo(PVector l, float sl, float ms, float mf, float br, float rr, float mr, float msl) {
     location = l.get();
     sideLen = sl;
     maxSpeed = ms;
@@ -19,7 +19,8 @@ class Vehicle {
     velocity = new PVector(0, 0);
     borderRadius = br;
     repelRadius = rr;
-    maxrepel = mr;
+    maxRepel = mr;
+    maxSideLen = msl;
   }
 
   public void run() {
@@ -45,7 +46,7 @@ class Vehicle {
     float distance = repelLocation.dist(location);
     if (distance - sideLen < repelRadius) {
       // Apply repulsion
-      float repulsion = map(distance, 0, repelRadius, maxrepel, 0);
+      float repulsion = map(distance, 0, repelRadius, maxRepel, 0);
       steer.add(new PVector(repulsion * cos(angle), repulsion * sin(angle)));
     }
     //Apply force
@@ -65,8 +66,10 @@ class Vehicle {
 
   void display() {
     // Dont draw if outside the radius
-    
     if (dist(width/2, height/2, location.x, location.y) + sideLen >= radius) return;
+    
+    // Delimitar sideLen
+    if (sideLen > maxSideLen) sideLen = maxSideLen;
 
     //Draw a triangle rotated in the direction of velocity
     float theta = velocity.heading2D() + radians(90);
