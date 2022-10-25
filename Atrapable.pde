@@ -36,7 +36,7 @@ class Atrapable {
     particle.makeFree();
     spring = mundoVirtual.makeSpring(particleToAttach, particle, 0.2, 0.1, springLength);
   }
-  
+
   // Borrar el spring que se creo para la particula del atrapable
   void soltar() {
     mundoVirtual.removeSpring(spring);

@@ -61,7 +61,7 @@ class Vehicle {
   void display() {
     // Dont draw if outside the radius
     if (dist(width/2, height/2, location.x, location.y) + r >= radius) return;
-    
+
     //Draw a triangle rotated in the direction of velocity
     float theta = velocity.heading2D() + radians(90);
     fill(#FAF9F7);

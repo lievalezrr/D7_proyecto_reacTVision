@@ -25,15 +25,15 @@ class FlowField {
   }
 
   // Draw every vector
-  void run(boolean display) {    
+  void run(boolean display) {
     float xoff = 0;
     for (int i = 0; i < cols; i++) {
       float yoff = 0;
       for (int j = 0; j < rows; j++) {
-        float theta = map(noise(xoff,yoff,zoff),0,1,0,TWO_PI);
+        float theta = map(noise(xoff, yoff, zoff), 0, 1, 0, TWO_PI);
         // Polar to cartesian coordinate transformation to get x and y components of the vector
-        field[i][j] = new PVector(cos(theta),sin(theta));
-        if (display) drawVector(field[i][j],i*resolution,j*resolution,resolution-2);
+        field[i][j] = new PVector(cos(theta), sin(theta));
+        if (display) drawVector(field[i][j], i*resolution, j*resolution, resolution-2);
         yoff += 0.1;
       }
       xoff += 0.1;
@@ -45,22 +45,20 @@ class FlowField {
   void drawVector(PVector v, float x, float y, float scayl) {
     pushMatrix();
     // Translate to location to render vector
-    translate(x,y);
-    stroke(0,100);
+    translate(x, y);
+    stroke(0, 100);
     // Call vector heading function to get direction (note that pointing up is a heading of 0) and rotate
     rotate(v.heading2D());
     // Calculate length of vector & scale it to be bigger or smaller if necessary
     float len = v.mag()*scayl;
     // Draw three lines to make an arrow (draw pointing up since we've rotate to the proper direction)
-    line(0,0,len,0);
+    line(0, 0, len, 0);
     popMatrix();
   }
 
   PVector lookup(PVector lookup) {
-    int column = int(constrain(lookup.x/resolution,0,cols-1));
-    int row = int(constrain(lookup.y/resolution,0,rows-1));
+    int column = int(constrain(lookup.x/resolution, 0, cols-1));
+    int row = int(constrain(lookup.y/resolution, 0, rows-1));
     return field[column][row].get();
   }
-
-
 }

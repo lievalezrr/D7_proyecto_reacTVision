@@ -44,7 +44,7 @@ boolean dibujarField = false;
 FlowField flowfield;
 ArrayList<Vehicle> vehicles;
 int vehicleAmount = 1000;
-// no estoy segura por qué este radius hay que multiplicarlo por width, pero así venía 
+// no estoy segura por qué este radius hay que multiplicarlo por width, pero así venía
 float radius = 6*width;
 
 Salida salida, salidaT, bolaT;
@@ -60,7 +60,7 @@ void setup() {
   tuioClient = new TuioProcessing(this);
 
   llavePic = loadImage("llave.png");
-  llavePic.resize(width/10, width/10);
+  llavePic.resize(width/16, width/16);
 
   llave = new Atrapable(llavePic, width/2, height/4, mundoVirtual);
 
@@ -71,7 +71,7 @@ void setup() {
   ctlMain = new Control(width-80, (height/2)+80, 0, 360, #FFFFFF, mundoVirtual);
 
   ally1 = new Atrapable(llavePic, width*2/6, height/2, mundoVirtual);
-  ally2 = new Atrapable(llavePic, width*3/6, height/2, mundoVirtual);
+  ally2 = new Atrapable(llavePic, width*3/6, height/5, mundoVirtual);
   ally3 = new Atrapable(llavePic, width*4/6, height/2, mundoVirtual);
 
   analizaM = new MusicaTelas(minim.loadFile("broken.mp3", 1024));
@@ -126,7 +126,7 @@ void draw() {
   if (escenario == 1 || escenario == 2) {
     // Dibujar la barrera circular
     noStroke();
-    fill(#272625);
+    fill(#1A1A1A);
     circle(width/2, height/2, radius*2);
     // Mover el flow field y dibujarlo si fuera el caso
     flowfield.run(dibujarField);
@@ -143,8 +143,6 @@ void draw() {
     analiza.analizeColor();
     analiza.analizeSize();
 
-    salida.dibujar();
-
     ctlMain.dibujar();
     ctlMain.mover();
 
@@ -153,6 +151,11 @@ void draw() {
     // Atrapar la llave
     if (llave.meAtraparon == false && llave.getPos().dist(ctlMain.getPos()) < width/30) {
       llave.atrapar(ctlMain.particle);
+    }
+
+    // Dibujar salida
+    if (llave.meAtraparon == true) {
+      salida.dibujar();
     }
 
     // Llegar a la salida
@@ -175,14 +178,24 @@ void draw() {
     if (ally1.meAtraparon == false && ally1.getPos().dist(ctlMain.getPos()) < width/30) {
       ally1.atrapar(ctlMain.particle);
     }
-    //Atrapar ally2
+    // Atrapar ally2
     if (ally2.meAtraparon == false && ally1.meAtraparon == true && ally2.getPos().dist(ctlMain.getPos()) < width/30) {
       ally2.atrapar(ally1.particle);
     }
-    //Atrapar ally3
+    // Atrapar ally3
     if (ally3.meAtraparon == false && ally1.meAtraparon == true && ally2.meAtraparon == true && ally3.getPos().dist(ctlMain.getPos()) < width/30) {
       ally3.atrapar(ally2.particle);
+    }
+
+    // Dibujar salida
+    if (ally3.meAtraparon == true) {
+      salida.dibujar();
+    }
+
+    // Llegar a la salida
+    if (ally3.meAtraparon == true && ctlMain.getPos().dist(salida.getPos()) < width/30) {
       escenario = 3;
+      llave.soltar();
     }
   }
 

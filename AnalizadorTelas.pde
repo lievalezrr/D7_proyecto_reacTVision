@@ -52,40 +52,38 @@ class MusicaTelas {
       //print(colorHue, width/2, height/2);
     }
   }
-  
+
   void analizeFreq() {
     for (int i = 0; i < fftLog.specSize(); i++) {
-        
-        //cello
-        int bandaActual = 5;
-        if (i>bandaActual-5 && i <bandaActual+5) {
-          if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
-             
-         freq = fftLog.getBand(i) * 16;
-        }
-        
+
+      //cello
+      int bandaActual = 5;
+      if (i>bandaActual-5 && i <bandaActual+5) {
+        if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
+
+        freq = fftLog.getBand(i) * 16;
+      }
+
       // maracas---------------------
 
-       bandaActual = 30;
+      bandaActual = 30;
 
-       if (i>bandaActual-5 && i <bandaActual+5) {
-          if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
-             
-         freq = fftLog.getBand(i) * 16;
-        }
-       
+      if (i>bandaActual-5 && i <bandaActual+5) {
+        if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
 
-        bandaActual = 130;
-        if (i>bandaActual-5 && i <bandaActual+5) {
-          if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
-             
-         freq = fftLog.getBand(i) * 16;
+        freq = fftLog.getBand(i) * 16;
+      }
 
-       } // fin del ciclo FOR de visualización del gráfico por logaritmo
 
-     }
+      bandaActual = 130;
+      if (i>bandaActual-5 && i <bandaActual+5) {
+        if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
+
+        freq = fftLog.getBand(i) * 16;
+      } // fin del ciclo FOR de visualización del gráfico por logaritmo
+    }
   }
- 
+
 
   void analizeSize() {
     size = map(cancion.mix.level(), 0, 1, 1, 100); //analiza el volumen y tira un tamaño en relación
@@ -98,7 +96,7 @@ class MusicaTelas {
   float getSize() {
     return size;
   }
-  
+
   float getFreq() {
     return freq;
   }

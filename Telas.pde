@@ -52,7 +52,7 @@ class Tela {
     clr = _clr;
     freq = _freq;
     //text(vol, width/4,height/3);
-    text(clr, width/4,height/4);
+    text(clr, width/4, height/4);
     noStroke();
 
     // se definen los colores los colores y opacidades de los segmentos de tela
@@ -128,15 +128,15 @@ class Tela {
       }
     }
 
-    
-      arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13, 100);
-      arrayDeParticulas[10][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13, 0);
-      arrayDeParticulas[20][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13*8, 0);
-      arrayDeParticulas[20][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13*8, 0);
-      //arrayDeParticulas[30][30].makeFixed();
-    
-    
-    
+
+    arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13, 100);
+    arrayDeParticulas[10][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13, 0);
+    arrayDeParticulas[20][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13*8, 0);
+    arrayDeParticulas[20][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13*8, 0);
+    //arrayDeParticulas[30][30].makeFixed();
+
+
+
     //if (vol > 25) {
     //  arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 1920), 0.01), height/13, 100);
     //  arrayDeParticulas[10][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 1920), 0.01), height/13, 0);
