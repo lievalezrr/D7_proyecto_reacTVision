@@ -1,7 +1,7 @@
 import ddf.minim.analysis.*;
 import ddf.minim.*;
 
-class MusicaTelas {
+class AnalizadorTela {
 
   int posicion=0;
   int duracion=0;
@@ -20,7 +20,7 @@ class MusicaTelas {
   float colorHue = 0;
   float size, freq;
 
-  public MusicaTelas(AudioPlayer _cancion) {
+  public AnalizadorTela(AudioPlayer _cancion) {
 
     minim = new Minim(this);
 
@@ -73,7 +73,6 @@ class MusicaTelas {
 
         freq = fftLog.getBand(i) * 16;
       }
-
 
       bandaActual = 130;
       if (i>bandaActual-5 && i <bandaActual+5) {

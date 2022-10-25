@@ -15,7 +15,7 @@ import TUIO.*;
 
 PeasyCam laCamara;
 
-Musica analiza;
+AnalizadorVehiculo analiza;
 ParticleSystem mundoVirtual;
 
 Minim minim;
@@ -32,7 +32,7 @@ Control ctlMain;
 Atrapable ally1, ally2, ally3;
 
 Tela tela1, tela1p2, tela2, tela3, tela4, tela2p2, tela3p2, tela4p2;
-MusicaTelas analizaM;
+AnalizadorTela analizaM;
 
 Atrapable llave;
 PImage llavePic;
@@ -46,6 +46,8 @@ ArrayList<Vehicle> vehicles;
 int vehicleAmount = 1000;
 // no estoy segura por qué este radius hay que multiplicarlo por width, pero así venía
 float radius = 6*width;
+
+float sideLen;
 
 Salida salida, salidaT, bolaT;
 
@@ -66,7 +68,7 @@ void setup() {
 
   salida = new Salida(mundoVirtual, width/2, 5*height/6);
 
-  analiza = new Musica(minim.loadFile("escapethedead.mp3", 1024));
+  analiza = new AnalizadorVehiculo(minim.loadFile("escapethedead.mp3", 1024));
 
   ctlMain = new Control(width-80, (height/2)+80, 0, 360, #FFFFFF, mundoVirtual);
 
@@ -74,7 +76,7 @@ void setup() {
   ally2 = new Atrapable(llavePic, width*3/6, height/5, mundoVirtual);
   ally3 = new Atrapable(llavePic, width*4/6, height/2, mundoVirtual);
 
-  analizaM = new MusicaTelas(minim.loadFile("broken.mp3", 1024));
+  analizaM = new AnalizadorTela(minim.loadFile("broken.mp3", 1024));
 
   salidaT = new Salida(mundoVirtual, width/2, height/2);
   bolaT = new Salida(mundoVirtual, width/5, height/3);
@@ -100,7 +102,7 @@ void setup() {
     float theta = random(1) * 2 * PI;
     float x = (width/2) + r * cos(theta);
     float y = (height/2) + r * sin(theta);
-    vehicles.add(new Vehicle(new PVector(x, y), random(2, 5), random(0.1, 0.5), radius));
+    vehicles.add(new Vehicle(new PVector(x, y), sideLen, random(2, 5), random(0.1, 0.5), radius, 100.0, 4.0));
   }
 
   escenario = 1;
@@ -112,6 +114,9 @@ void draw() {
   mundoVirtual.tick();
   println(frameRate);
 
+  sideLen = map(cancion.mix.level(), 0, 1, 50, width*4);
+    
+    
   // Mover el Feid
   ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
   for (int i=0; i<tuioObjectList.size(); i++) {
@@ -132,7 +137,7 @@ void draw() {
     flowfield.run(dibujarField);
     // Mover a los vehiculos siguiendo el flow field
     for (Vehicle v : vehicles) {
-      v.follow(flowfield);
+      v.follow(flowfield, ctlMain.pos);
       v.run();
     }
   }

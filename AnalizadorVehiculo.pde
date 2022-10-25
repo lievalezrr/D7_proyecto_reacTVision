@@ -1,7 +1,7 @@
 import ddf.minim.analysis.*;
 import ddf.minim.*;
 
-class Musica {
+class AnalizadorVehiculo {
 
   int posicion=0;
   int duracion=0;
@@ -20,7 +20,7 @@ class Musica {
   float colorHue = 0;
   float size;
 
-  public Musica(AudioPlayer _cancion) {
+  public AnalizadorVehiculo(AudioPlayer _cancion) {
 
     minim = new Minim(this);
 
