@@ -224,7 +224,7 @@ void draw() {
     //salidaT.dibujar();
     //bola.dibujar();
 
-    tela1.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq(),1);
+    tela1.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq(),2);
     tela1p2.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq(),1 );
     //tela1.repulsion(mundoVirtual);
 
