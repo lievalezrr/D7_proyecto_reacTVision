@@ -69,7 +69,7 @@ class Vehiculo {
   }
 
   void display() {
-    
+    hue = analizaVehiculo.getColor();
     // Dont draw if outside the radius
     if (dist(width/2, height/2, location.x, location.y) + sideLen >= radius) return;
     
