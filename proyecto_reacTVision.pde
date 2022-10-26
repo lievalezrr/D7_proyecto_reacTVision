@@ -138,11 +138,14 @@ void draw() {
 
     // Mover a los vehiculos siguiendo el flow field
     for (Vehiculo v : vehicles) {
+       v.hue = analizaVehiculo.getColor();
       v.follow(flowfield, ctlMain.pos);
+     
       v.run();
 
       // volumen tamano
       v.sideLen = analizaVehiculo.analizeSize();
+     
     }
   }
 

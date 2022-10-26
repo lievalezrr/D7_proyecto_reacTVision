@@ -47,7 +47,7 @@ class AnalizadorVehiculo {
 
     for (int i = 0; i < fftLog.specSize(); i++) {
       // define un espectro de colores
-      colorHue = map (fftLog.getBand(i), 0, 1, 0, 200); //analiza las frecuencias y da un valor
+      colorHue = map (fftLog.getBand(i), 0, 1, 0, 250); //analiza las frecuencias y da un valor
       textSize(12);
       //print(colorHue, width/2, height/2);
     }

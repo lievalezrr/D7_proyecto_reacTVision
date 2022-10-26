@@ -8,7 +8,7 @@ class Vehiculo {
   PVector location;
   PVector velocity;
   PVector acceleration;
-  float sideLen, maxForce, maxSpeed, maxRepel, repelRadius, borderRadius, maxSideLen;
+  float sideLen, maxForce, maxSpeed, maxRepel, repelRadius, borderRadius, maxSideLen, hue;
 
   Vehiculo(PVector l, float sl, float ms, float mf, float br, float rr, float mr, float msl) {
     location = l.get();
@@ -21,12 +21,16 @@ class Vehiculo {
     repelRadius = rr;
     maxRepel = mr;
     maxSideLen = msl;
+    hue = 230;
+    colorMode(HSB);
   }
 
   public void run() {
     update();
     borders();
+    //setHue(analizaVehiculo.getColor());
     display();
+    
   }
 
 
@@ -65,6 +69,7 @@ class Vehiculo {
   }
 
   void display() {
+    
     // Dont draw if outside the radius
     if (dist(width/2, height/2, location.x, location.y) + sideLen >= radius) return;
     
@@ -73,7 +78,7 @@ class Vehiculo {
 
     //Draw a triangle rotated in the direction of velocity
     float theta = velocity.heading2D() + radians(90);
-    fill(#FAF9F7);
+    fill(hue,200,100,250);
     noStroke();
     pushMatrix();
     translate(location.x, location.y);
@@ -95,4 +100,9 @@ class Vehiculo {
     if (location.x > width+sideLen - outerBorderX) location.x = -sideLen + outerBorderX;
     if (location.y > height+sideLen - outerBorderY) location.y = -sideLen + outerBorderY;
   }
+
+
+void setHue(float _hue) {
+  hue = _hue;
+}
 }
