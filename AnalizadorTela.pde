@@ -1,7 +1,7 @@
 import ddf.minim.analysis.*;
 import ddf.minim.*;
 
-class AnalizadorTela {
+class AnalizadorMusica {
 
   int posicion=0;
   int duracion=0;
@@ -20,7 +20,7 @@ class AnalizadorTela {
   float colorHue = 0;
   float size, freq;
 
-  public AnalizadorTela(AudioPlayer _cancion) {
+  public AnalizadorMusica(AudioPlayer _cancion) {
 
     minim = new Minim(this);
 
@@ -86,6 +86,15 @@ class AnalizadorTela {
 
   void analizeSize() {
     size = map(cancion.mix.level(), 0, 1, 1, 100); //analiza el volumen y tira un tamaño en relación
+  }
+
+
+  float analizeFondo() {
+    return map(cancion.mix.level(), 0, 1, 0, 20); //analiza el volumen y tira un tamaño en relación
+  }
+
+  float analizeVehiculo() {
+    return map(cancion.mix.level(), 0, 1, 0, 10); //analiza el volumen y tira un tamaño en relación
   }
 
   float getColor() {

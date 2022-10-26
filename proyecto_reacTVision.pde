@@ -15,7 +15,6 @@ import TUIO.*;
 
 PeasyCam laCamara;
 
-AnalizadorVehiculo analizaVehiculo;
 ParticleSystem mundoVirtual;
 
 Minim minim;
@@ -32,7 +31,7 @@ Control ctlMain;
 Atrapable ally1, ally2, ally3;
 
 Tela tela1, tela1p2, tela2, tela3, tela4, tela2p2, tela3p2, tela4p2;
-AnalizadorTela analizaTela;
+AnalizadorMusica analizaEscenario1, analizaEscenario2, analizaEscenario3;
 
 Atrapable llave;
 PImage llavePic;
@@ -51,9 +50,11 @@ float sideLen;
 
 Salida salida, salidaT, bolaT;
 
+Fondo fondo;
+
 void setup() {
   fullScreen();
-  colorMode(HSB);
+  colorMode(HSB, 360, 100, 100);
   smooth();
 
   mundoVirtual = new ParticleSystem(0, 0.1);
@@ -68,15 +69,15 @@ void setup() {
 
   salida = new Salida(mundoVirtual, width/2, 5*height/6);
 
-  analizaVehiculo = new AnalizadorVehiculo(minim.loadFile("escapethedead.mp3", 1024));
+  analizaEscenario1 = new AnalizadorMusica(minim.loadFile("eye.mp3", 1024));
+  analizaEscenario2 = new AnalizadorMusica(minim.loadFile("Dark tecno.mp3", 1024));
+  analizaEscenario3 = new AnalizadorMusica(minim.loadFile("Alien.mp3", 1024));
 
   ctlMain = new Control(width-80, (height/2)+80, 0, 360, #FFFFFF, mundoVirtual);
 
   ally1 = new Atrapable(llavePic, width*2/6, height/2, mundoVirtual);
   ally2 = new Atrapable(llavePic, width*3/6, height/5, mundoVirtual);
   ally3 = new Atrapable(llavePic, width*4/6, height/2, mundoVirtual);
-
-  analizaTela = new AnalizadorTela(minim.loadFile("broken.mp3", 1024));
 
   salidaT = new Salida(mundoVirtual, width/2, height/2);
   bolaT = new Salida(mundoVirtual, width/5, height/3);
@@ -93,6 +94,8 @@ void setup() {
   tela4 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4);
   tela4p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4.2);
 
+  fondo = new Fondo (radius, 50);
+
   flowfield = new FlowField(20);
   vehicles = new ArrayList<Vehiculo>();
 
@@ -102,8 +105,9 @@ void setup() {
     float theta = random(1) * 2 * PI;
     float x = (width/2) + r * cos(theta);
     float y = (height/2) + r * sin(theta);
-    vehicles.add(new Vehiculo(new PVector(x, y), 3.0, random(2, 5), random(0.1, 0.5), radius, 100.0, 4.0,20));
+    vehicles.add(new Vehiculo(new PVector(x, y), 3.0, random(2, 5), random(0.1, 0.5), radius, 100.0, 4.0, 20));
   }
+
 
   escenario = 1;
 }
@@ -113,6 +117,7 @@ void draw() {
   background(#000000);
   mundoVirtual.tick();
   println(frameRate);
+
 
 
   // Mover el Feid
@@ -127,11 +132,8 @@ void draw() {
 
   // Flow Field
   if (escenario == 1 || escenario == 2) {
-
-    // Dibujar la barrera circular
-    noStroke();
-    fill(#1A1A1A);
-    circle(width/2, height/2, radius*2);
+    fondo.drawFondo();
+    fondo.h = analizaEscenario1.analizeFondo();
 
     // Mover el flow field y dibujarlo si fuera el caso
     flowfield.run(dibujarField);
@@ -142,13 +144,13 @@ void draw() {
       v.run();
 
       // volumen tamano
-      v.sideLen = analizaVehiculo.analizeSize();
+      v.sideLen = analizaEscenario1.analizeVehiculo();
     }
   }
 
   if (escenario == 1) {
 
-    analizaVehiculo.cancion.play();
+    analizaEscenario1.cancion.play();
 
     ctlMain.dibujar();
     ctlMain.mover();
@@ -208,32 +210,32 @@ void draw() {
 
   if (escenario ==3) {
     background(#000000);
-    analizaVehiculo.cancion.pause();
-    analizaTela.cancion.play();
-    analizaTela.analizeColor();
-    analizaTela.analizeSize();
-    analizaTela.analizeFreq();
-    text(analizaTela.getSize(), width/3, height/3);
+    analizaEscenario1.cancion.pause();
+    analizaEscenario3.cancion.play();
+    analizaEscenario3.analizeColor();
+    analizaEscenario3.analizeSize();
+    analizaEscenario3.analizeFreq();
+    text(analizaEscenario3.getSize(), width/3, height/3);
     fill(#FFFFFF);
-    text(analizaTela.getFreq(), width/2, height/7*6);
+    text(analizaEscenario3.getFreq(), width/2, height/7*6);
     //tela1.setColor(analiza.getSize());
     //salida.randomize();
     //salidaT.dibujar();
     //bola.dibujar();
 
-    tela1.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq() );
-    tela1p2.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq() );
+    tela1.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq() );
+    tela1p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq() );
     //tela1.repulsion(mundoVirtual);
 
-    tela2.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq() );
-    tela2p2.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq() );
+    tela2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq() );
+    tela2p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq() );
 
-    tela3.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq() );
-    tela3p2.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq() );
+    tela3.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq() );
+    tela3p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq() );
 
 
-    tela4.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq());
-    tela4p2.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq());
+    tela4.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq());
+    tela4p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq());
   }
 }
 
