@@ -224,19 +224,19 @@ void draw() {
     //salidaT.dibujar();
     //bola.dibujar();
 
-    tela1.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq() );
-    tela1p2.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq() );
+    tela1.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq(),1);
+    tela1p2.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq(),1 );
     //tela1.repulsion(mundoVirtual);
 
-    tela2.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq() );
-    tela2p2.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq() );
+    tela2.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq(),1 );
+    tela2p2.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq() ,1);
 
-    tela3.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq() );
-    tela3p2.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq() );
+    tela3.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq(),1 );
+    tela3p2.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq(),1 );
 
 
-    tela4.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq());
-    tela4p2.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq());
+    tela4.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq(),1);
+    tela4p2.dibujar(analizaTela.getSize(), analizaTela.getColor(), analizaTela.getFreq(),1);
   }
 }
 
