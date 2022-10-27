@@ -27,6 +27,8 @@ AudioMetaData metaDatos;
 
 TuioProcessing tuioClient;
 Control ctlMain;
+Control ctlAlly1, ctlAlly2, ctlAlly3;
+Control[] controles = new Control[4];
 
 Atrapable ally1, ally2, ally3;
 
@@ -57,9 +59,9 @@ void setup() {
   fullScreen();
   colorMode(HSB, 360, 100, 100);
   smooth();
-  
+
   radius = width/4;
-  
+
   mundoVirtual = new ParticleSystem(0, 0.1);
   //laCamara = new PeasyCam(this, 0, 0, 0, 600);
   minim = new Minim(this);
@@ -77,6 +79,15 @@ void setup() {
   analizaEscenario3 = new AnalizadorMusica(minim.loadFile("Alien.mp3", 1024));
 
   ctlMain = new Control(width-80, (height/2)+80, 0, 360, #FFFFFF, mundoVirtual);
+
+  ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, #F56045, mundoVirtual);
+  ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, #CBF545, mundoVirtual);
+  ctlAlly3 = new Control(width-80, (height/2)+320, 0, 360, #45F5E7, mundoVirtual);
+  
+  controles[0] = ctlMain;
+  controles[1] = ctlAlly1;
+  controles[2] = ctlAlly2;
+  controles[3] = ctlAlly3;
 
   ally1 = new Atrapable(llavePic, width*2/6, height/2, mundoVirtual);
   ally2 = new Atrapable(llavePic, width*3/6, height/5, mundoVirtual);
@@ -111,7 +122,7 @@ void setup() {
     vehicles.add(new Vehiculo(new PVector(x, y), 3.0, random(2, 5), random(0.1, 0.5), radius, 100.0, 4.0, 20));
   }
 
-  escenario = 1;
+  escenario = 3;
   analizaEscenario1.cancion.play();
 }
 
@@ -121,14 +132,24 @@ void draw() {
   mundoVirtual.tick();
   println(frameRate);
 
-
-
   // Mover el Fiducial
   ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
   for (int i=0; i<tuioObjectList.size(); i++) {
     TuioObject tobj = tuioObjectList.get(i);
 
     if (tobj.getSymbolID() == 8) {
+      ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
+    }
+
+    if (tobj.getSymbolID() == 1) {
+      ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
+    }
+
+    if (tobj.getSymbolID() == 2) {
+      ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
+    }
+
+    if (tobj.getSymbolID() == 3) {
       ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
     }
   }
@@ -225,11 +246,11 @@ void draw() {
     }
   }
 
-  if (escenario ==3) {
-    
+  if (escenario == 3) {
+
     fill(#FFFFFF);
     circle(width/2, height/2, radius*2);
-    
+
     analizaEscenario2.cancion.pause();
     analizaEscenario3.cancion.play();
     analizaEscenario3.analizeColor();
@@ -256,6 +277,18 @@ void draw() {
 
     tela4.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1, analizaEscenario3.getGolpe());
     tela4p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1, analizaEscenario3.getGolpe());
+
+    ctlMain.dibujar();
+    ctlMain.mover();
+    
+    ctlAlly1.dibujar();
+    ctlAlly1.mover();
+    
+    ctlAlly2.dibujar();
+    ctlAlly2.mover();
+    
+    ctlAlly3.dibujar();
+    ctlAlly3.mover();
   }
 }
 
@@ -267,12 +300,33 @@ void keyPressed() {
 
 // Make a new flowfield
 void mousePressed() {
-  flowfield.resetNoise();
+  //flowfield.resetNoise();
+  
+  for (int i=0; i<controles.length; i++) {
+    if (controles[i].clickDentro()) {
+      controles[i].seleccionadoConMouse = true;
+    }
+    else {
+      controles[i].seleccionadoConMouse = false;
+    }
+  }
 }
 
 void addTuioObject(TuioObject tobj) {
   if (tobj.getSymbolID() == 8) {
     ctlMain.isPresent(true);
+  }
+
+  if (tobj.getSymbolID() == 1) {
+    ctlAlly1.isPresent(true);
+  }
+
+  if (tobj.getSymbolID() == 2) {
+    ctlAlly2.isPresent(true);
+  }
+
+  if (tobj.getSymbolID() == 3) {
+    ctlAlly3.isPresent(true);
   }
 }
 
@@ -282,6 +336,18 @@ void updateTuioObject (TuioObject tobj) {
 void removeTuioObject(TuioObject tobj) {
   if (tobj.getSymbolID() == 8) {
     ctlMain.isPresent(false);
+  }
+
+  if (tobj.getSymbolID() == 1) {
+    ctlAlly1.isPresent(false);
+  }
+
+  if (tobj.getSymbolID() == 2) {
+    ctlAlly2.isPresent(false);
+  }
+
+  if (tobj.getSymbolID() == 3) {
+    ctlAlly3.isPresent(false);
   }
 }
 

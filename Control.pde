@@ -1,12 +1,12 @@
 class Control {
 
-  float angulo;
+  float angulo, r;
   PVector pos, posDest;
   int vlr;
   PVector posInicial;
   int vlrMin, vlrMax;
   String tag;
-  boolean estaPresente;
+  boolean estaPresente, seleccionadoConMouse;
   color clr;
   Particle particle;
 
@@ -19,8 +19,9 @@ class Control {
     vlrMin = _vMin;
     vlrMax = _vMax;
     clr = _clr;
+    r = 50;
     particle = mundoVirtual.makeParticle(1, _x, _y, 0);
-
+    seleccionadoConMouse = false;
     estaPresente = false;
   }
 
@@ -30,7 +31,7 @@ class Control {
     stroke(#FFFFFF, 95);
     //text(tag, pos.x, pos.y);
     fill(clr);
-    arc(pos.x, pos.y, 50, 50, 0, radians(angulo));
+    arc(pos.x, pos.y, r, r, 0, radians(angulo));
   }
 
   void actualizar(float _x, float _y, float _a) {
@@ -48,8 +49,10 @@ class Control {
       //posDest.y = posInicial.y;
 
       //Para mover con el mouse
-      posDest.x = mouseX;
-      posDest.y = mouseY;
+      if (seleccionadoConMouse == true) {
+        posDest.x = mouseX;
+        posDest.y = mouseY;
+      }
     }
 
     pos.lerp(posDest, 0.1);
@@ -67,5 +70,9 @@ class Control {
   int getValor() {
     vlr = int(map(angulo, 0, 359, vlrMin, vlrMax));
     return vlr;
+  }
+
+  boolean clickDentro() {
+    return dist(pos.x, pos.y, mouseX, mouseY) < r;
   }
 }
