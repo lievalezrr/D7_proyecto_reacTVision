@@ -1,10 +1,11 @@
 class Fondo {
 
   float radius;
-  float h;
+  float b, h;
 
-  Fondo(float _r, float _h) {
+  Fondo(float _r, float _b, float _h) {
     radius = _r;
+    b = _b;
     h = _h;
   }
 
@@ -13,9 +14,9 @@ class Fondo {
     ellipseMode(RADIUS);
     // el r es lo que determina el grosor de los circulos
     for (float r = radius; r > 0; r -= 12) {
-      fill(86, 40, h);
+      fill(h, 40, b);
       ellipse(width/2, height/2, r, r);
-      h = (h + 1);
+      b = (b + 1);
     }
     ellipseMode(CENTER);
   }

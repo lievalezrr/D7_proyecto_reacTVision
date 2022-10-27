@@ -47,6 +47,7 @@ int vehicleAmount = 1000;
 float radius = 6*width;
 
 float sideLen;
+float hFondo;
 
 Salida salida, salidaT, bolaT;
 
@@ -94,7 +95,7 @@ void setup() {
   tela4 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4);
   tela4p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4.2);
 
-  fondo = new Fondo (radius, 50);
+  fondo = new Fondo (radius, 50, 86);
 
   flowfield = new FlowField(20);
   vehicles = new ArrayList<Vehiculo>();
@@ -108,8 +109,8 @@ void setup() {
     vehicles.add(new Vehiculo(new PVector(x, y), 3.0, random(2, 5), random(0.1, 0.5), radius, 100.0, 4.0, 20));
   }
 
-
   escenario = 1;
+  analizaEscenario1.cancion.play();
 }
 
 void draw() {
@@ -120,7 +121,7 @@ void draw() {
 
 
 
-  // Mover el Feid
+  // Mover el Fiducial
   ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
   for (int i=0; i<tuioObjectList.size(); i++) {
     TuioObject tobj = tuioObjectList.get(i);
@@ -130,10 +131,11 @@ void draw() {
     }
   }
 
-  // Flow Field
-  if (escenario == 1 || escenario == 2) {
+  if (escenario == 1) {
+
+    //Flowfield
     fondo.drawFondo();
-    fondo.h = analizaEscenario1.analizeFondo();
+    fondo.b = analizaEscenario1.analizeFondo();
 
     // Mover el flow field y dibujarlo si fuera el caso
     flowfield.run(dibujarField);
@@ -143,15 +145,8 @@ void draw() {
       v.hue = analizaEscenario1.getColor();
       v.follow(flowfield, ctlMain.pos);
       v.run();
-
-      // volumen tamano
       v.sideLen = analizaEscenario1.analizeVehiculo();
     }
-  }
-
-  if (escenario == 1) {
-
-    analizaEscenario1.cancion.play();
 
     ctlMain.dibujar();
     ctlMain.mover();
@@ -172,10 +167,29 @@ void draw() {
     if (llave.meAtraparon == true && ctlMain.getPos().dist(salida.getPos()) < width/30) {
       escenario = 2;
       llave.soltar();
+      analizaEscenario1.cancion.pause();
+      analizaEscenario2.cancion.play();
+      fondo.h = 0;
     }
   }
 
   if (escenario == 2) {
+
+    //Flowfield
+    fondo.drawFondo();
+    fondo.b = analizaEscenario2.analizeFondo();
+
+    // Mover el flow field y dibujarlo si fuera el caso
+    flowfield.run(dibujarField);
+
+    // Mover a los vehiculos siguiendo el flow field
+    for (Vehiculo v : vehicles) {
+      v.hue = analizaEscenario1.getColor();
+      v.follow(flowfield, ctlMain.pos);
+      v.run();
+      v.sideLen = analizaEscenario2.analizeVehiculo();
+    }
+
 
     ctlMain.dibujar();
     ctlMain.mover();
@@ -211,7 +225,7 @@ void draw() {
 
   if (escenario ==3) {
     background(#000000);
-    analizaEscenario1.cancion.pause();
+    analizaEscenario2.cancion.pause();
     analizaEscenario3.cancion.play();
     analizaEscenario3.analizeColor();
     analizaEscenario3.analizeSize();
@@ -224,19 +238,19 @@ void draw() {
     //salidaT.dibujar();
     //bola.dibujar();
 
-    tela1.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 2,analizaEscenario3.getGolpe());
-    tela1p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1,analizaEscenario3.getGolpe() );
+    tela1.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 2, analizaEscenario3.getGolpe());
+    tela1p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1, analizaEscenario3.getGolpe() );
     //tela1.repulsion(mundoVirtual);
 
-    tela2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 2,analizaEscenario3.getGolpe() );
-    tela2p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1,analizaEscenario3.getGolpe() );
+    tela2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 2, analizaEscenario3.getGolpe() );
+    tela2p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1, analizaEscenario3.getGolpe() );
 
-    tela3.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1,analizaEscenario3.getGolpe() );
-    tela3p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1,analizaEscenario3.getGolpe());
+    tela3.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1, analizaEscenario3.getGolpe() );
+    tela3p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1, analizaEscenario3.getGolpe());
 
 
-    tela4.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1,analizaEscenario3.getGolpe());
-    tela4p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1,analizaEscenario3.getGolpe());
+    tela4.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1, analizaEscenario3.getGolpe());
+    tela4p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1, analizaEscenario3.getGolpe());
   }
 }
 
