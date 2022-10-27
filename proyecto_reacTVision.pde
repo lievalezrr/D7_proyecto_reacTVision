@@ -44,7 +44,7 @@ FlowField flowfield;
 ArrayList<Vehiculo> vehicles;
 int vehicleAmount = 1000;
 // no estoy segura por qué este radius hay que multiplicarlo por width, pero así venía
-float radius = 6*width;
+float radius;
 
 float sideLen;
 float hFondo;
@@ -57,7 +57,9 @@ void setup() {
   fullScreen();
   colorMode(HSB, 360, 100, 100);
   smooth();
-
+  
+  radius = width/4;
+  
   mundoVirtual = new ParticleSystem(0, 0.1);
   //laCamara = new PeasyCam(this, 0, 0, 0, 600);
   minim = new Minim(this);
@@ -224,7 +226,10 @@ void draw() {
   }
 
   if (escenario ==3) {
-    background(#000000);
+    
+    fill(#FFFFFF);
+    circle(width/2, height/2, radius*2);
+    
     analizaEscenario2.cancion.pause();
     analizaEscenario3.cancion.play();
     analizaEscenario3.analizeColor();
