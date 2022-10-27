@@ -140,9 +140,8 @@ void draw() {
 
     // Mover a los vehiculos siguiendo el flow field
     for (Vehiculo v : vehicles) {
-       v.hue = analizaVehiculo.getColor();
+      v.hue = analizaEscenario1.getColor();
       v.follow(flowfield, ctlMain.pos);
-     
       v.run();
 
       // volumen tamano
@@ -225,19 +224,19 @@ void draw() {
     //salidaT.dibujar();
     //bola.dibujar();
 
-    tela1.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq() );
-    tela1p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq() );
+    tela1.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1);
+    tela1p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1 );
     //tela1.repulsion(mundoVirtual);
 
-    tela2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq() );
-    tela2p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq() );
+    tela2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1 );
+    tela2p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1 );
 
-    tela3.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq() );
-    tela3p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq() );
+    tela3.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1 );
+    tela3p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1 );
 
 
-    tela4.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq());
-    tela4p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq());
+    tela4.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1);
+    tela4p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1);
   }
 }
 

@@ -137,28 +137,28 @@ class Tela {
 
 
     if (esc == 1) {
-    if (vol > 25) {
-      arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 1920), 0.01), height/13, 100);
-      arrayDeParticulas[10][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 1920), 0.01), height/13, 0);
-      arrayDeParticulas[20][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 1920), 0.01), height/13*8, 0);
-      arrayDeParticulas[20][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 1920), 0.01), height/13*8, 0);
-      //arrayDeParticulas[30][30].makeFixed();
+      if (vol > 25) {
+        arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 1920), 0.01), height/13, 100);
+        arrayDeParticulas[10][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 1920), 0.01), height/13, 0);
+        arrayDeParticulas[20][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 1920), 0.01), height/13*8, 0);
+        arrayDeParticulas[20][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 1920), 0.01), height/13*8, 0);
+        //arrayDeParticulas[30][30].makeFixed();
+      }
     }
-    }
-    
+
     if (esc == 2) {
-    if (tag == 1 || tag == 1.2) {
-      if (freq > 1) { 
-      arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13, 100);
-      arrayDeParticulas[10][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13, 0);
-      arrayDeParticulas[20][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13*8, 0);
-      arrayDeParticulas[20][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13*8, 0);
-      //arrayDeParticulas[30][30].makeFixed();
-      }  
-  }
+      if (tag == 1 || tag == 1.2) {
+        if (freq > 1) {
+          arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13, 100);
+          arrayDeParticulas[10][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13, 0);
+          arrayDeParticulas[20][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13*8, 0);
+          arrayDeParticulas[20][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13*8, 0);
+          //arrayDeParticulas[30][30].makeFixed();
+        }
+      }
     }
-  
-    
+
+
 
 
 
