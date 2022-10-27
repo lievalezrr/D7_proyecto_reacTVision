@@ -21,7 +21,7 @@ class Vehiculo {
     repelRadius = rr;
     maxRepel = mr;
     maxSideLen = msl;
-    hue = 230;
+    //hue = 277;
     colorMode(HSB);
   }
 
@@ -78,7 +78,8 @@ class Vehiculo {
 
     //Draw a triangle rotated in the direction of velocity
     float theta = velocity.heading2D() + radians(90);
-    fill(hue,200,100,250);
+    //fill(hue,200,100,250);
+    fill(#FFFFFF);
     noStroke();
     pushMatrix();
     translate(location.x, location.y);

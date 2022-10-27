@@ -42,7 +42,7 @@ int escenario;
 boolean dibujarField = false;
 FlowField flowfield;
 ArrayList<Vehiculo> vehicles;
-int vehicleAmount = 2000;
+int vehicleAmount = 1000;
 // no estoy segura por qué este radius hay que multiplicarlo por width, pero así venía
 float radius = 6*width;
 
