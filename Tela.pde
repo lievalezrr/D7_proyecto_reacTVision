@@ -20,8 +20,8 @@ class Tela {
 
 
     arrayDeParticulas = new Particle[cantidadDeParticulasPorLado][cantidadDeParticulasPorLado];
-    float pasoEnX = (width/4) / cantidadDeParticulasPorLado;
-    float pasoEnY = (width/4) / cantidadDeParticulasPorLado;
+    float pasoEnX = (width/5) / cantidadDeParticulasPorLado;
+    float pasoEnY = (width/5) / cantidadDeParticulasPorLado;
 
     // se define la posición de las partículas y la separación entre sus resortes horizontales
     for (int i = 0; i < cantidadDeParticulasPorLado; i++) {
@@ -94,14 +94,14 @@ class Tela {
         arrayDeParticulas[j][29].position().set(width/2, height/2, 0);
         //arrayDeParticulas[j][39].makeFixed();
 
-        arrayDeParticulas[j][0].position().set(width/16*3, height/16*3, 0);
+        arrayDeParticulas[j][0].position().set(width/18*6, height/18*6, 0);
         arrayDeParticulas[j][0].makeFixed();
       }
     }
 
     if (tag == 2 | tag == 2.2 ) {
       for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
-        arrayDeParticulas[j][29].position().set(width/16*13, height/16*3, 0);
+        arrayDeParticulas[j][29].position().set(width/18*12, height/18*6, 0);
         arrayDeParticulas[j][29].makeFixed();
 
         arrayDeParticulas[j][0].position().set(width/2, height/2, 0);
@@ -114,14 +114,14 @@ class Tela {
         arrayDeParticulas[j][29].position().set(width/2, height/2, 0);
         //arrayDeParticulas[j][39].makeFixed();
 
-        arrayDeParticulas[j][0].position().set(width/16*3, height/16*13, 0);
+        arrayDeParticulas[j][0].position().set(width/18*6, height/18*12, 0);
         arrayDeParticulas[j][0].makeFixed();
       }
     }
 
     if (tag == 4 | tag == 4.2 ) {
       for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
-        arrayDeParticulas[j][29].position().set(width/16*13, height/16*13, 0);
+        arrayDeParticulas[j][29].position().set(width/18*12, height/18*12, 0);
         arrayDeParticulas[j][29].makeFixed();
 
         arrayDeParticulas[j][0].position().set(width/2, height/2, 0);
