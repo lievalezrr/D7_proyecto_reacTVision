@@ -55,6 +55,49 @@ class Tela {
     //text(vol, width/4,height/3);
     text(clr, width/4, height/4);
     noStroke();
+    
+    //se dibujan las posiciones al centro
+    if (tag == 1 | tag == 1.2 ) {
+      for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
+        arrayDeParticulas[j][0].position().set(width/18*6, height/18*6, 0);
+        arrayDeParticulas[j][0].makeFixed();
+        
+        arrayDeParticulas[j][29].position().set(width/2, height/2, 0);
+        //arrayDeParticulas[j][39].makeFixed();
+
+        
+      }
+    }
+
+    if (tag == 2 | tag == 2.2 ) {
+      for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
+        arrayDeParticulas[j][29].position().set(width/18*12, height/18*6, 0);
+        arrayDeParticulas[j][29].makeFixed();
+
+        arrayDeParticulas[j][0].position().set(width/2, height/2, 0);
+        //arrayDeParticulas[j][0].makeFixed();
+      }
+    }
+
+    if (tag == 3 | tag == 3.2 ) {
+      for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
+        arrayDeParticulas[j][29].position().set(width/2, height/2, 0);
+        //arrayDeParticulas[j][39].makeFixed();
+
+        arrayDeParticulas[j][0].position().set(width/18*6, height/18*12, 0);
+        arrayDeParticulas[j][0].makeFixed();
+      }
+    }
+
+    if (tag == 4 | tag == 4.2 ) {
+      for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
+        arrayDeParticulas[j][29].position().set(width/18*12, height/18*12, 0);
+        arrayDeParticulas[j][29].makeFixed();
+
+        arrayDeParticulas[j][0].position().set(width/2, height/2, 0);
+        // arrayDeParticulas[j][0].makeFixed();
+      }
+    }
 
     // se definen los colores los colores y opacidades de los segmentos de tela
 
@@ -88,46 +131,7 @@ class Tela {
     }
 
 
-    //se dibujan las posiciones al centro
-    if (tag == 1 | tag == 1.2 ) {
-      for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
-        arrayDeParticulas[j][29].position().set(width/2, height/2, 0);
-        //arrayDeParticulas[j][39].makeFixed();
-
-        arrayDeParticulas[j][0].position().set(width/18*6, height/18*6, 0);
-        arrayDeParticulas[j][0].makeFixed();
-      }
-    }
-
-    if (tag == 2 | tag == 2.2 ) {
-      for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
-        arrayDeParticulas[j][29].position().set(width/18*12, height/18*6, 0);
-        arrayDeParticulas[j][29].makeFixed();
-
-        arrayDeParticulas[j][0].position().set(width/2, height/2, 0);
-        //arrayDeParticulas[j][0].makeFixed();
-      }
-    }
-
-    if (tag == 3 | tag == 3.2 ) {
-      for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
-        arrayDeParticulas[j][29].position().set(width/2, height/2, 0);
-        //arrayDeParticulas[j][39].makeFixed();
-
-        arrayDeParticulas[j][0].position().set(width/18*6, height/18*12, 0);
-        arrayDeParticulas[j][0].makeFixed();
-      }
-    }
-
-    if (tag == 4 | tag == 4.2 ) {
-      for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
-        arrayDeParticulas[j][29].position().set(width/18*12, height/18*12, 0);
-        arrayDeParticulas[j][29].makeFixed();
-
-        arrayDeParticulas[j][0].position().set(width/2, height/2, 0);
-        // arrayDeParticulas[j][0].makeFixed();
-      }
-    }
+    
 
 
     //arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), vol, 0.01), height/13, 100);
