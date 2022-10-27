@@ -4,7 +4,7 @@ class Tela {
   int cantidadDeParticulasPorLado;
   float durezaDeResortes;
   float elasticidadDeResortes;
-  float clr, vol, tag, freq, esc;
+  float clr, vol, tag, freq, esc, golpe;
 
   public Tela(ParticleSystem mundoVirtual, int cantidad, float _naceX, float _naceY, float _tag) {
 
@@ -47,10 +47,11 @@ class Tela {
     clr = _clr;
   }
 
-  void dibujar(float _size, float _clr, float _freq, float esc) {
+  void dibujar(float _size, float _clr, float _freq, float esc, float _golpe) {
     vol = _size;
     clr = _clr;
     freq = _freq;
+    golpe = _golpe;
     //text(vol, width/4,height/3);
     text(clr, width/4, height/4);
     noStroke();
@@ -135,7 +136,7 @@ class Tela {
     //arrayDeParticulas[20][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), vol, 0.01), height/13*8, 0);
     //arrayDeParticulas[30][30].makeFixed();
 
-
+    text(analizaEscenario3.getFreq(),width/2, width/8);
     if (esc == 1) {
       if (vol > 25) {
         arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 1920), 0.01), height/13, 100);
@@ -148,11 +149,11 @@ class Tela {
 
     if (esc == 2) {
       if (tag == 1 || tag == 1.2) {
-        if (freq > 1) {
-          arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13, 100);
-          arrayDeParticulas[10][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13, 0);
-          arrayDeParticulas[20][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13*8, 0);
-          arrayDeParticulas[20][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), freq, 0.01), height/13*8, 0);
+        if (freq > 100) {
+          arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13, 100);
+          arrayDeParticulas[10][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13, 0);
+          arrayDeParticulas[20][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13*8, 0);
+          arrayDeParticulas[20][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13*8, 0);
           //arrayDeParticulas[30][30].makeFixed();
         }
       }

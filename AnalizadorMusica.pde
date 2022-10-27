@@ -56,7 +56,7 @@ class AnalizadorMusica {
    void analizeFreq() {
     fftLog.forward( cancion.mix );
     for (int i = 0; i < fftLog.specSize(); i++) {
-        freq = fftLog.getBand(i) * 100;
+        freq = fftLog.getBand(i) * 1000;
         golpe = fftLog.getBand(i) * 16;
       } // fin del ciclo FOR de visualización del gráfico por logaritmo
    }
