@@ -18,7 +18,7 @@ class AnalizadorTela {
   // color colorDeFondo = color (64);
   float actualMax = 0;
   float colorHue = 0;
-  float size, freq;
+  float size, freq, golpe;
 
   public AnalizadorTela(AudioPlayer _cancion) {
 
@@ -54,35 +54,27 @@ class AnalizadorTela {
   }
 
   void analizeFreq() {
+    fftLog.forward( cancion.mix );
     for (int i = 0; i < fftLog.specSize(); i++) {
-
-      //cello
-      int bandaActual = 5;
-      if (i>bandaActual-5 && i <bandaActual+5) {
-        if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
-
-        freq = fftLog.getBand(i) * 16;
-      }
-
-      // maracas---------------------
-
-      bandaActual = 30;
-
-      if (i>bandaActual-5 && i <bandaActual+5) {
-        if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
-
-        freq = fftLog.getBand(i) * 16;
-      }
-
-      bandaActual = 130;
-      if (i>bandaActual-5 && i <bandaActual+5) {
-        if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
-
-        freq = fftLog.getBand(i) * 16;
+        freq = fftLog.getBand(i) * 100;
+        golpe = fftLog.getBand(i) * 16;
       } // fin del ciclo FOR de visualización del gráfico por logaritmo
+      
+      
+    // fin del ciclo FOR de visualización del gráfico por logaritmo
+
+  // la elipse verde, que se basa en el aumento del promedio total de frecuencias
+  for (int i = 0; i < fftLin.avgSize (); i++) {
+    if (actualMax < fftLin.getAvg(i))actualMax = fftLin.getAvg(i);
+    if (actualMax>41) {
+      stroke(100, 255, 255, 0.5);
+      fill(100, 255, 255, 0.5);
+      strokeWeight(1);
+      ellipse(width/2, height/2, -fftLin.getAvg(i)*16, 30 );
     }
   }
-
+  
+  }
 
   void analizeSize() {
     size = map(cancion.mix.level(), 0, 1, 1, 100); //analiza el volumen y tira un tamaño en relación
@@ -98,5 +90,9 @@ class AnalizadorTela {
 
   float getFreq() {
     return freq;
+  }
+  
+  float getGolpe() {
+    return golpe;
   }
 }
