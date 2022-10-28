@@ -372,7 +372,7 @@ void draw() {
     fondo.s = 0;
     fondo.b = analizaEscenario5.analizeFondo();
     fondo.drawFondo();
-    texto.say("I've forgotten how it felt to be free \n thank you");
+    texto.say("I'd forgotten how it felt to be free \n thank you");
   }
 }
 

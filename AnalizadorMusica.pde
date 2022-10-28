@@ -55,20 +55,20 @@ class AnalizadorMusica {
     }
   }
 
-   void analizeFreq() {
+  void analizeFreq() {
     fftLog.forward( cancion.mix );
     for (int i = 0; i < fftLog.specSize(); i++) {
-        freq = fftLog.getBand(i) * 1000;
-        golpe = fftLog.getBand(i) * 16;
-      } // fin del ciclo FOR de visualización del gráfico por logaritmo
-   }
-   
-   void dibujarAuras(PVector _aura1, PVector _aura2, PVector _aura3) {
-     posAura1 = _aura1;
-     posAura2 = _aura2;
-     posAura3 = _aura3;
-     fftLog.forward( cancion.mix );
-      for (int i = 0; i < fftLog.specSize(); i++) {
+      freq = fftLog.getBand(i) * 1000;
+      golpe = fftLog.getBand(i) * 16;
+    } // fin del ciclo FOR de visualización del gráfico por logaritmo
+  }
+
+  void dibujarAuras(PVector _aura1, PVector _aura2, PVector _aura3) {
+    posAura1 = _aura1;
+    posAura2 = _aura2;
+    posAura3 = _aura3;
+    fftLog.forward( cancion.mix );
+    for (int i = 0; i < fftLog.specSize(); i++) {
 
       //textSize(24);
       //fill(#FFFFFF);
@@ -83,7 +83,7 @@ class AnalizadorMusica {
           float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
           colorDeFondo = color (18, 100, 53, transparencia); // color base 219,42,67 o #637CAD
           fill(colorDeFondo);
-         circle(posAura1.x,posAura1.y,radio);
+          circle(posAura1.x, posAura1.y, radio);
           //imprimaValoresMaximos (i, bandaActual);
         }
         // maracas---------------------
@@ -96,23 +96,23 @@ class AnalizadorMusica {
           float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
           colorDeFondo = color (18, 100, 53, transparencia); // color base 219,42,67 o #637CAD
           fill(colorDeFondo);
-          circle(posAura2.x,posAura2.y,radio);
+          circle(posAura2.x, posAura2.y, radio);
           //imprimaValoresMaximos (i, bandaActual);
         }
         // sax---------------------
-        
-          bandaActual = 130;
-          if (i>bandaActual-10 && i <bandaActual+10) {
-           float radio = fftLog.getBand(i) * 2;
+
+        bandaActual = 130;
+        if (i>bandaActual-10 && i <bandaActual+10) {
+          float radio = fftLog.getBand(i) * 2;
           float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
           colorDeFondo = color (18, 100, 53, transparencia); // color base 219,42,67 o #637CAD
           fill(colorDeFondo);
-          circle(posAura3.x,posAura3.y,radio);
-          } // fin del ciclo FOR de visualización del gráfico por logaritmo
-        }
-     }
-   }
-   
+          circle(posAura3.x, posAura3.y, radio);
+        } // fin del ciclo FOR de visualización del gráfico por logaritmo
+      }
+    }
+  }
+
 
   void analizeSize() {
     size = map(cancion.mix.level(), 0, 1, 1, 100); //analiza el volumen y tira un tamaño en relación
@@ -137,8 +137,8 @@ class AnalizadorMusica {
   float getFreq() {
     return freq;
   }
-  
-   float getGolpe() {
+
+  float getGolpe() {
     return golpe;
   }
 }
