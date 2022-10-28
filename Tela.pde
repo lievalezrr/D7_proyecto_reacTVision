@@ -53,6 +53,39 @@ class Tela {
     text(clr, width/4, height/4);
     noStroke();
     
+    
+
+    // se definen los colores los colores y opacidades de los segmentos de tela
+
+    //fill(#666666, 150);
+    for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
+      for (int i = 0; i < cantidadDeParticulasPorLado-1; i++) {
+
+
+        if (tag == 1 | tag == 2 | tag == 3 | tag == 4 ) {
+          beginShape();
+          vertex(arrayDeParticulas[i][j].position().x(), arrayDeParticulas[i][j].position().y());
+          vertex(arrayDeParticulas[i+1][j].position().x(), arrayDeParticulas[i+1][j].position().y());
+          vertex(arrayDeParticulas[i+1][j+1].position().x(), arrayDeParticulas[i+1][j+1].position().y());
+          vertex(arrayDeParticulas[i][j+1].position().x(), arrayDeParticulas[i][j+1].position().y());
+          vertex(arrayDeParticulas[i][j].position().x(), arrayDeParticulas[i][j].position().y());
+          endShape();
+          fill((j+105)/1.3, 90, i+80*1.1, 120);
+        }
+
+        if (tag == 1.2 | tag == 2.2 | tag == 3.2 | tag == 4.2 ) {
+          beginShape();
+          vertex(arrayDeParticulas[i][j].position().x(), arrayDeParticulas[i][j].position().y());
+          vertex(arrayDeParticulas[i+1][j].position().x(), arrayDeParticulas[i+1][j].position().y());
+          vertex(arrayDeParticulas[i+1][j+1].position().x(), arrayDeParticulas[i+1][j+1].position().y());
+          vertex(arrayDeParticulas[i][j+1].position().x(), arrayDeParticulas[i][j+1].position().y());
+          vertex(arrayDeParticulas[i][j].position().x(), arrayDeParticulas[i][j].position().y());
+          endShape();
+          fill((j+30)/1.3*clr, 50, i+170*1.1, 30);
+        }
+      }
+    }
+    
     //se dibujan las posiciones al centro
     if (tag == 1 | tag == 1.2 ) {
       for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
@@ -61,8 +94,6 @@ class Tela {
         
         arrayDeParticulas[j][29].position().set(width/2, height/2, 0);
         //arrayDeParticulas[j][39].makeFixed();
-
-        
       }
     }
 
@@ -96,37 +127,6 @@ class Tela {
       }
     }
 
-    // se definen los colores los colores y opacidades de los segmentos de tela
-
-    //fill(#666666, 150);
-    for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
-      for (int i = 0; i < cantidadDeParticulasPorLado-1; i++) {
-
-
-        if (tag == 1 | tag == 2 | tag == 3 | tag == 4 ) {
-          beginShape();
-          vertex(arrayDeParticulas[i][j].position().x(), arrayDeParticulas[i][j].position().y());
-          vertex(arrayDeParticulas[i+1][j].position().x(), arrayDeParticulas[i+1][j].position().y());
-          vertex(arrayDeParticulas[i+1][j+1].position().x(), arrayDeParticulas[i+1][j+1].position().y());
-          vertex(arrayDeParticulas[i][j+1].position().x(), arrayDeParticulas[i][j+1].position().y());
-          vertex(arrayDeParticulas[i][j].position().x(), arrayDeParticulas[i][j].position().y());
-          endShape();
-          fill((j+105)/1.3, 90, i+80*1.1, 120);
-        }
-
-        if (tag == 1.2 | tag == 2.2 | tag == 3.2 | tag == 4.2 ) {
-          beginShape();
-          vertex(arrayDeParticulas[i][j].position().x(), arrayDeParticulas[i][j].position().y());
-          vertex(arrayDeParticulas[i+1][j].position().x(), arrayDeParticulas[i+1][j].position().y());
-          vertex(arrayDeParticulas[i+1][j+1].position().x(), arrayDeParticulas[i+1][j+1].position().y());
-          vertex(arrayDeParticulas[i][j+1].position().x(), arrayDeParticulas[i][j+1].position().y());
-          vertex(arrayDeParticulas[i][j].position().x(), arrayDeParticulas[i][j].position().y());
-          endShape();
-          fill((j+30)/1.3*clr, 50, i+170*1.1, 30);
-        }
-      }
-    }
-
     text(analizaEscenario3.getFreq(),width/2, width/8);
     
 
@@ -142,6 +142,8 @@ class Tela {
         //arrayDeParticulas[30][30].makeFixed();
       }
     }
+    
+    
     // golpes en la tela por rango de frecuencias correspondiente a cada una
     if (comp == 2) {
       if (tag == 1 || tag == 1.2) {
