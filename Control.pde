@@ -29,7 +29,6 @@ class Control {
     textAlign(CENTER);
     strokeWeight(1);
     stroke(#FFFFFF, 95);
-    //text(tag, pos.x, pos.y);
     fill(clr);
     arc(pos.x, pos.y, r, r, 0, radians(angulo));
   }

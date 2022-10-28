@@ -37,6 +37,8 @@ AnalizadorMusica analizaEscenario0, analizaEscenario1, analizaEscenario2, analiz
 Atrapable llave;
 PImage llavePic;
 
+PFont font;
+
 int escenario;
 
 boolean dibujarField = false;
@@ -59,6 +61,9 @@ void setup() {
   colorMode(HSB, 360, 100, 100);
   smooth();
 
+  font = createFont("PPNeueMachina-InktrapLight.otf", width/50);
+  textFont(font);
+
   radius = width/4;
 
   mundoVirtual = new ParticleSystem(0, 0.1);
@@ -78,7 +83,7 @@ void setup() {
   analizaEscenario5 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
   analizaEscenario4 = new AnalizadorMusica(minim.loadFile("Song_Esc4-Dark.mp3", 1024));
 
-  ctlMain = new Control(width-80, (height/2)+80, 0, 360, #FFFFFF, mundoVirtual);
+  ctlMain = new Control(width/2, 3*height/4, 0, 360, #FFFFFF, mundoVirtual);
 
   ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, #F56045, mundoVirtual);
   ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, #CBF545, mundoVirtual);
@@ -113,13 +118,12 @@ void setup() {
   tela4 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4);
   tela4p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4.2);
 
-  fondo = new Fondo (radius, 50, 86);
+  fondo = new Fondo (radius, 50, 86, 40);
   texto = new Texto();
 
   flowfield = new FlowField(20);
   vehicles = new ArrayList<Vehiculo>();
 
-  // Crear los vehiculos dentro del radio del circulo
   for (int i = 0; i < vehicleAmount; i++) {
     float r = radius * sqrt(random(1));
     float theta = random(1) * 2 * PI;
@@ -277,7 +281,7 @@ void draw() {
 
     ctlMain.dibujar();
     ctlMain.mover();
-    analizaEscenario2.dibujarAuras(ally1.getPos(),ally2.getPos(),ally3.getPos());
+    analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos());
     ally1.dibujar();
     ally2.dibujar();
     ally3.dibujar();
@@ -341,7 +345,7 @@ void draw() {
     }
 
     if (alliesFaltantes > 0) {
-      texto.say("we need to set him free, \n still missing " + alliesFaltantes);
+      texto.say("we need to set it free, \n still missing " + alliesFaltantes);
     } else {
       texto.say("yes, it's working!");
     }
@@ -359,11 +363,16 @@ void draw() {
     ctlAlly3.mover();
 
     if (!analizaEscenario4.cancion.isPlaying()) {
-      analizaEscenario5.cancion.play();
-      fondo.h = 62;
-      fondo.b = analizaEscenario5.analizeFondo();
-      fondo.drawFondo();
+      escenario = 5;
     }
+  }
+  if (escenario == 5) {
+    analizaEscenario5.cancion.play();
+    fondo.h = 0;
+    fondo.s = 0;
+    fondo.b = analizaEscenario5.analizeFondo();
+    fondo.drawFondo();
+    texto.say("I've forgotten how it felt to be free \n thank you");
   }
 }
 

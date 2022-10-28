@@ -9,9 +9,6 @@ class Atrapable {
   Spring spring;
   PImage imagen;
 
-  //Minim minim;
-  //AudioSample sfxTomarLlave;
-
   public Atrapable(PImage _imagen, float _x, float _y, ParticleSystem _mundoVirtual) {
 
     mundoVirtual = _mundoVirtual;
@@ -20,8 +17,6 @@ class Atrapable {
     meAtraparon = false;
     imagen = _imagen;
     springLength = 150;
-    //minim = new Minim(this);
-    //sfxTomarLlave = minim.loadSample("tomarLlave.mp3");
   }
 
   void dibujar() {
