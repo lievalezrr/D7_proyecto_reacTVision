@@ -321,42 +321,46 @@ void draw() {
     int alliesFaltantes = 4;
 
     if (hAlly1.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y)) {
-      tela1.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 2, analizaEscenario4.getGolpe());
-      tela1p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 2, analizaEscenario4.getGolpe() );
+      tela1.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe());
+      tela1p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe() );
       alliesFaltantes--;
     }
 
     if (hAlly2.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y)) {
-      tela2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 2, analizaEscenario4.getGolpe() );
-      tela2p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 2, analizaEscenario4.getGolpe() );
+      tela2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe() );
+      tela2p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe() );
       alliesFaltantes--;
     }
 
     if (hAlly3.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y)) {
-      tela3.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 2, analizaEscenario4.getGolpe() );
-      tela3p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 2, analizaEscenario4.getGolpe());
+      tela3.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe() );
+      tela3p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe());
       alliesFaltantes--;
     }
 
     if (hMain.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
-      tela4.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 2, analizaEscenario4.getGolpe());
-      tela4p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 2, analizaEscenario4.getGolpe());
+      tela4.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe());
+      tela4p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe());
       alliesFaltantes--;
     }
 
     if (alliesFaltantes > 0) {
+      
+     //tela1.setComportamiento(1);
+     // tela1p2.setComportamiento(1);
+     // tela2.setComportamiento(1);
+     // tela2p2.setComportamiento(1);
+     // tela3.setComportamiento(1);
+     // tela3p2.setComportamiento(1);
+     // tela4.setComportamiento(1);
+     // tela4p2.setComportamiento(1);
+     
+      alliesFaltantes--;
       texto.say("we need to set it free, \n still missing " + alliesFaltantes);
       
     } else {
       texto.say("yes, it's working!");
-      tela1.setComportamiento(1);
-      tela1p2.setComportamiento(1);
-      tela2.setComportamiento(1);
-      tela2p2.setComportamiento(1);
-      tela3.setComportamiento(1);
-      tela3p2.setComportamiento(1);
-      tela4.setComportamiento(1);
-      tela4p2.setComportamiento(1);
+      
     }
 
     ctlMain.dibujar();
