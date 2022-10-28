@@ -32,7 +32,7 @@ Hotspot hMain, hAlly1, hAlly2, hAlly3;
 Atrapable ally1, ally2, ally3;
 
 Tela tela1, tela1p2, tela2, tela3, tela4, tela2p2, tela3p2, tela4p2;
-AnalizadorMusica analizaEscenario0, analizaEscenario1, analizaEscenario2, analizaEscenario3, analizaEscenario4;
+AnalizadorMusica analizaEscenario0, analizaEscenario1, analizaEscenario2, analizaEscenario5, analizaEscenario4;
 
 Atrapable llave;
 PImage llavePic;
@@ -75,7 +75,7 @@ void setup() {
   analizaEscenario0 = new AnalizadorMusica(minim.loadFile("Esc_0_Eye.mp3", 1024));
   analizaEscenario1 = new AnalizadorMusica(minim.loadFile("Song_Esc1-Alien_1.mp3", 1024));
   analizaEscenario2 = new AnalizadorMusica(minim.loadFile("Song_Esc2-In the fire.mp3", 1024));
-  analizaEscenario3 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
+  analizaEscenario5 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
   analizaEscenario4 = new AnalizadorMusica(minim.loadFile("Song_Esc4-Dark.mp3", 1024));
 
   ctlMain = new Control(width-80, (height/2)+80, 0, 360, #FFFFFF, mundoVirtual);
@@ -357,6 +357,13 @@ void draw() {
 
     ctlAlly3.dibujar();
     ctlAlly3.mover();
+
+    if (!analizaEscenario4.cancion.isPlaying()) {
+      analizaEscenario5.cancion.play();
+      fondo.h = 62;
+      fondo.b = analizaEscenario5.analizeFondo();
+      fondo.drawFondo();
+    }
   }
 }
 
