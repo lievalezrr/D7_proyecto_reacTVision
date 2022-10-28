@@ -30,22 +30,23 @@ Control ctlMain;
 Control ctlAlly1, ctlAlly2, ctlAlly3;
 Control[] controles = new Control[4];
 
+Hotspot hMain, hAlly1, hAlly2, hAlly3;
+
 Atrapable ally1, ally2, ally3;
 
 Tela tela1, tela1p2, tela2, tela3, tela4, tela2p2, tela3p2, tela4p2;
-AnalizadorMusica analizaEscenario1, analizaEscenario2, analizaEscenario3;
+AnalizadorMusica analizaEscenario0, analizaEscenario1, analizaEscenario2, analizaEscenario3, analizaEscenario4;
 
 Atrapable llave;
 PImage llavePic;
 
 int escenario;
 
-// Flow Field
 boolean dibujarField = false;
 FlowField flowfield;
 ArrayList<Vehiculo> vehicles;
 int vehicleAmount = 1000;
-// no estoy segura por qué este radius hay que multiplicarlo por width, pero así venía
+
 float radius;
 
 float sideLen;
@@ -63,7 +64,6 @@ void setup() {
   radius = width/4;
 
   mundoVirtual = new ParticleSystem(0, 0.1);
-  //laCamara = new PeasyCam(this, 0, 0, 0, 600);
   minim = new Minim(this);
   tuioClient = new TuioProcessing(this);
 
@@ -74,20 +74,27 @@ void setup() {
 
   salida = new Salida(mundoVirtual, width/2, 5*height/6);
 
-  analizaEscenario1 = new AnalizadorMusica(minim.loadFile("eye.mp3", 1024));
-  analizaEscenario2 = new AnalizadorMusica(minim.loadFile("Dark tecno.mp3", 1024));
-  analizaEscenario3 = new AnalizadorMusica(minim.loadFile("Alien.mp3", 1024));
+  analizaEscenario0 = new AnalizadorMusica(minim.loadFile("Esc_0_Eye.mp3", 1024));
+  analizaEscenario1 = new AnalizadorMusica(minim.loadFile("Song_Esc1-Alien_1.mp3", 1024));
+  analizaEscenario2 = new AnalizadorMusica(minim.loadFile("Song_Esc2-In the fire.mp3", 1024));
+  analizaEscenario3 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
+  analizaEscenario4 = new AnalizadorMusica(minim.loadFile("Song_Esc4-Dark.mp3", 1024));
 
   ctlMain = new Control(width-80, (height/2)+80, 0, 360, #FFFFFF, mundoVirtual);
 
   ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, #F56045, mundoVirtual);
   ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, #CBF545, mundoVirtual);
   ctlAlly3 = new Control(width-80, (height/2)+320, 0, 360, #45F5E7, mundoVirtual);
-  
+
   controles[0] = ctlMain;
   controles[1] = ctlAlly1;
   controles[2] = ctlAlly2;
   controles[3] = ctlAlly3;
+
+  hMain = new Hotspot(width/18*12, height/18*12, #FFFFFF, width/32);
+  hAlly1 = new Hotspot(width/18*6, height/18*6, #F56045, width/32);
+  hAlly2 = new Hotspot(width/18*12, height/18*6, #CBF545, width/32);
+  hAlly3 = new Hotspot(width/18*6, height/18*12, #45F5E7, width/32);
 
   ally1 = new Atrapable(llavePic, width*2/6, height/2, mundoVirtual);
   ally2 = new Atrapable(llavePic, width*3/6, height/5, mundoVirtual);
@@ -122,8 +129,8 @@ void setup() {
     vehicles.add(new Vehiculo(new PVector(x, y), 3.0, random(2, 5), random(0.1, 0.5), radius, 100.0, 4.0, 20));
   }
 
-  escenario = 3;
-  analizaEscenario1.cancion.play();
+  escenario = 4;
+  analizaEscenario4.cancion.play();
 }
 
 void draw() {
@@ -154,6 +161,23 @@ void draw() {
     }
   }
 
+  if (escenario == 0) {
+    fondo.drawFondo();
+    fondo.b = 0;
+
+    textSize(width/64);
+    textAlign(CENTER);
+    fill(#FFFFFF, 80);
+    text("come, we need your help", width/2, height/2);
+
+    //si se pone fiducial se activa escenario 1
+    if (ctlMain.estaPresente == true) {
+      escenario = 1;
+      analizaEscenario0.cancion.pause();
+      analizaEscenario1.cancion.play();
+    }
+  }
+
   if (escenario == 1) {
 
     //Flowfield
@@ -174,16 +198,41 @@ void draw() {
     ctlMain.dibujar();
     ctlMain.mover();
 
-    llave.dibujar();
+    if (analizaEscenario1.cancion.position() > 4700 && analizaEscenario1.cancion.position() < 10000) {
+      textSize(width/64);
+      textAlign(CENTER);
+      fill(#FFFFFF, 80);
+      text("there's something wrong here", width/2, height/2);
+    }
 
-    // Atrapar la llave
-    if (llave.meAtraparon == false && llave.getPos().dist(ctlMain.getPos()) < width/30) {
-      llave.atrapar(ctlMain.particle);
+    if (analizaEscenario1.cancion.position() > 15000 && analizaEscenario1.cancion.position() < 20000) {
+      textSize(width/64);
+      textAlign(CENTER);
+      fill(#FFFFFF, 80);
+      text("this energy, it is pulling us", width/2, height/2);
+    }
+
+    if (analizaEscenario1.cancion.position() > 25000 && llave.meAtraparon == false) {
+      llave.dibujar();
+      textSize(width/64);
+      textAlign(CENTER);
+      fill(#FFFFFF, 80);
+      text("look, a key", width/2, height/2);
+
+      // Atrapar la llave
+      if (llave.getPos().dist(ctlMain.getPos()) < width/30) {
+        llave.atrapar(ctlMain.particle);
+      }
     }
 
     // Dibujar salida
     if (llave.meAtraparon == true) {
+      llave.dibujar();
       salida.dibujar();
+      textSize(width/64);
+      textAlign(CENTER);
+      fill(#FFFFFF, 80);
+      text("let's find out what's going on", width/2, height/2);
     }
 
     // Llegar a la salida
@@ -212,7 +261,6 @@ void draw() {
       v.run();
       v.sideLen = analizaEscenario2.analizeVehiculo();
     }
-
 
     ctlMain.dibujar();
     ctlMain.mover();
@@ -243,50 +291,80 @@ void draw() {
     if (ally3.meAtraparon == true && ctlMain.getPos().dist(salida.getPos()) < width/30) {
       escenario = 3;
       llave.soltar();
+      analizaEscenario2.cancion.pause();
+      analizaEscenario3.cancion.play();
     }
   }
 
   if (escenario == 3) {
+    fondo.h = 62;
+    fondo.b = 0;
+    fondo.drawFondo();
 
-    fill(#FFFFFF);
-    circle(width/2, height/2, radius*2);
+    textSize(width/64);
+    textAlign(CENTER);
+    fill(#FFFFFF, 80);
+    text("come, we need your help", width/2, height/2);
 
-    analizaEscenario2.cancion.pause();
-    analizaEscenario3.cancion.play();
-    analizaEscenario3.analizeColor();
-    analizaEscenario3.analizeSize();
-    analizaEscenario3.analizeFreq();
-    text(analizaEscenario3.getSize(), width/3, height/3);
-    fill(#FFFFFF);
-    text(analizaEscenario3.getFreq(), width/2, height/7*6);
+    //condicion de poner fiducials
+    if (ctlMain.estaPresente == true && ctlAlly1.estaPresente == true && ctlAlly2.estaPresente == true && ctlAlly3.estaPresente == true) {
+      escenario = 4;
+      analizaEscenario3.cancion.pause();
+      analizaEscenario4.cancion.play();
+    }
+  }
+
+  if (escenario == 4) {
+
+    fondo.h = 62;
+    fondo.b = 0;
+    fondo.drawFondo();
+
+    hMain.dibujar();
+    hAlly1.dibujar();
+    hAlly2.dibujar();
+    hAlly3.dibujar();
+
+    analizaEscenario4.analizeColor();
+    analizaEscenario4.analizeSize();
+    analizaEscenario4.analizeFreq();
+    //text(analizaEscenario3.getSize(), width/3, height/3);
+    //fill(#FFFFFF);
+    //text(analizaEscenario3.getFreq(), width/2, height/7*6);
     //tela1.setColor(analiza.getSize());
     //salida.randomize();
     //salidaT.dibujar();
     //bola.dibujar();
 
-    tela1.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 2, analizaEscenario3.getGolpe());
-    tela1p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1, analizaEscenario3.getGolpe() );
-    //tela1.repulsion(mundoVirtual);
+    if (hAlly1.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y)) {
+      tela1.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 2, analizaEscenario4.getGolpe());
+      tela1p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe() );
+    }
 
-    tela2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 2, analizaEscenario3.getGolpe() );
-    tela2p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1, analizaEscenario3.getGolpe() );
+    if (hAlly2.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y)) {
+      tela2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 2, analizaEscenario4.getGolpe() );
+      tela2p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe() );
+    }
 
-    tela3.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1, analizaEscenario3.getGolpe() );
-    tela3p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1, analizaEscenario3.getGolpe());
+    if (hAlly3.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y)) {
+      tela3.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe() );
+      tela3p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe());
+    }
 
-
-    tela4.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1, analizaEscenario3.getGolpe());
-    tela4p2.dibujar(analizaEscenario3.getSize(), analizaEscenario3.getColor(), analizaEscenario3.getFreq(), 1, analizaEscenario3.getGolpe());
+    if (hMain.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
+      tela4.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe());
+      tela4p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe());
+    }
 
     ctlMain.dibujar();
     ctlMain.mover();
-    
+
     ctlAlly1.dibujar();
     ctlAlly1.mover();
-    
+
     ctlAlly2.dibujar();
     ctlAlly2.mover();
-    
+
     ctlAlly3.dibujar();
     ctlAlly3.mover();
   }
@@ -301,12 +379,11 @@ void keyPressed() {
 // Make a new flowfield
 void mousePressed() {
   //flowfield.resetNoise();
-  
+
   for (int i=0; i<controles.length; i++) {
     if (controles[i].clickDentro()) {
-      controles[i].seleccionadoConMouse = true;
-    }
-    else {
+      controles[i].seleccionadoConMouse = !controles[i].seleccionadoConMouse;
+    } else {
       controles[i].seleccionadoConMouse = false;
     }
   }
