@@ -36,6 +36,12 @@ AnalizadorMusica analizaEscenario0, analizaEscenario1, analizaEscenario2, analiz
 
 Atrapable llave;
 PImage llavePic;
+PImage aliadoPic1;
+PImage aliadoPic2;
+PImage aliadoPic3;
+PImage huecoPic;
+PImage mainPic;
+PImage spotPic;
 
 PFont font;
 
@@ -71,7 +77,19 @@ void setup() {
   tuioClient = new TuioProcessing(this);
 
   llavePic = loadImage("llave.png");
-  llavePic.resize(width/16, width/16);
+  //llavePic.resize(width/16, width/16);
+  
+  aliadoPic1 = loadImage("aliado1.png");
+  //llavePic.resize(width/16, width/16);
+  
+  aliadoPic2 = loadImage("aliado2.png");
+  //llavePic.resize(width/16, width/16);
+  
+  aliadoPic3 = loadImage("aliado3.png");
+  //llavePic.resize(width/16, width/16);
+  
+  huecoPic = loadImage("hueco.png");
+  //llavePic.resize(width/16, width/16);
 
   llave = new Atrapable(llavePic, width/2, height/4, mundoVirtual);
 
@@ -99,9 +117,9 @@ void setup() {
   hAlly2 = new Hotspot(width/18*12, height/18*6, #CBF545, width/32);
   hAlly3 = new Hotspot(width/18*6, height/18*12, #45F5E7, width/32);
 
-  ally1 = new Atrapable(llavePic, width*2/6, height/2, mundoVirtual);
-  ally2 = new Atrapable(llavePic, width*3/6, height/5, mundoVirtual);
-  ally3 = new Atrapable(llavePic, width*4/6, height/2, mundoVirtual);
+  ally1 = new Atrapable(aliadoPic1, width*2/6, height/2, mundoVirtual);
+  ally2 = new Atrapable(aliadoPic2, width*3/6, height/5, mundoVirtual);
+  ally3 = new Atrapable(aliadoPic3, width*4/6, height/2, mundoVirtual);
 
   salidaT = new Salida(mundoVirtual, width/2, height/2);
   bolaT = new Salida(mundoVirtual, width/5, height/3);
@@ -132,7 +150,7 @@ void setup() {
     vehicles.add(new Vehiculo(new PVector(x, y), 3.0, random(2, 5), random(0.1, 0.5), radius, 100.0, 4.0, 20));
   }
 
-  escenario = 3;
+  escenario = 0;
   analizaEscenario0.cancion.play();
 }
 
