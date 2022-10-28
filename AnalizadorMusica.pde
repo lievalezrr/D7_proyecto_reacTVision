@@ -62,7 +62,7 @@ class AnalizadorMusica {
       } // fin del ciclo FOR de visualización del gráfico por logaritmo
    }
    
-   void dibujarAuras() {
+   void dibujarAuras(float _p1x, float _p1y, float _p2x, float _p2y, float _p3x, float _p3y) {
       for (int i = 0; i < fftLog.specSize(); i++) {
 
       //textSize(24);
