@@ -10,10 +10,7 @@
 import traer.physics.*;
 import ddf.minim.analysis.*;
 import ddf.minim.*;
-import peasy.*;
 import TUIO.*;
-
-PeasyCam laCamara;
 
 ParticleSystem mundoVirtual;
 
@@ -55,6 +52,7 @@ float hFondo;
 Salida salida, salidaT, bolaT;
 
 Fondo fondo;
+Texto texto;
 
 void setup() {
   fullScreen();
@@ -116,6 +114,7 @@ void setup() {
   tela4p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4.2);
 
   fondo = new Fondo (radius, 50, 86);
+  texto = new Texto();
 
   flowfield = new FlowField(20);
   vehicles = new ArrayList<Vehiculo>();
@@ -129,8 +128,8 @@ void setup() {
     vehicles.add(new Vehiculo(new PVector(x, y), 3.0, random(2, 5), random(0.1, 0.5), radius, 100.0, 4.0, 20));
   }
 
-  escenario = 2;
-  analizaEscenario2.cancion.play();
+  escenario = 0;
+  analizaEscenario0.cancion.play();
 }
 
 void draw() {
@@ -164,11 +163,7 @@ void draw() {
   if (escenario == 0) {
     fondo.drawFondo();
     fondo.b = 0;
-
-    textSize(width/64);
-    textAlign(CENTER);
-    fill(#FFFFFF, 80);
-    text("come, we need your help", width/2, height/2);
+    texto.say("come, we need your help");
 
     //si se pone fiducial se activa escenario 1
     if (ctlMain.estaPresente == true) {
@@ -199,25 +194,16 @@ void draw() {
     ctlMain.mover();
 
     if (analizaEscenario1.cancion.position() > 4700 && analizaEscenario1.cancion.position() < 10000) {
-      textSize(width/64);
-      textAlign(CENTER);
-      fill(#FFFFFF, 80);
-      text("there's something wrong here", width/2, height/2);
+      texto.say("there's something wrong here");
     }
 
     if (analizaEscenario1.cancion.position() > 15000 && analizaEscenario1.cancion.position() < 20000) {
-      textSize(width/64);
-      textAlign(CENTER);
-      fill(#FFFFFF, 80);
-      text("this energy, it is pulling us", width/2, height/2);
+      texto.say("this energy, it is pulling us");
     }
 
     if (analizaEscenario1.cancion.position() > 25000 && llave.meAtraparon == false) {
       llave.dibujar();
-      textSize(width/64);
-      textAlign(CENTER);
-      fill(#FFFFFF, 80);
-      text("look, a key", width/2, height/2);
+      texto.say("look, a key");
 
       // Atrapar la llave
       if (llave.getPos().dist(ctlMain.getPos()) < width/30) {
@@ -229,10 +215,7 @@ void draw() {
     if (llave.meAtraparon == true) {
       llave.dibujar();
       salida.dibujar();
-      textSize(width/64);
-      textAlign(CENTER);
-      fill(#FFFFFF, 80);
-      text("let's find out what's going on", width/2, height/2);
+      texto.say("let's find out what's going on");
     }
 
     // Llegar a la salida
@@ -261,41 +244,28 @@ void draw() {
     }
 
     if (analizaEscenario2.cancion.position() > 4700 && ally1.meAtraparon == false && ally2.meAtraparon == false && ally3.meAtraparon == false) {
-      textSize(width/64);
-      textAlign(CENTER);
-      fill(#FFFFFF, 80);
-      text("find your allies \n 3 to go", width/2, height/2);
-
+      texto.say("find your allies \n 3 to go");
       if (ally1.getPos().dist(ctlMain.getPos()) < width/30) {
         ally1.atrapar(ctlMain.particle);
       }
     }
 
     if (analizaEscenario2.cancion.position() > 5000 && ally1.meAtraparon == true && ally2.meAtraparon == false && ally3.meAtraparon == false) {
-      textSize(width/64);
-      textAlign(CENTER);
-      fill(#FFFFFF, 80);
-      text("find your allies \n 2 to go", width/2, height/2);
+      texto.say("find your allies \n 2 to go");
       if (ally2.getPos().dist(ctlMain.getPos()) < width/30) {
         ally2.atrapar(ally1.particle);
       }
     }
 
     if (analizaEscenario2.cancion.position() > 5000 && ally1.meAtraparon == true && ally2.meAtraparon == true && ally3.meAtraparon == false) {
-      textSize(width/64);
-      textAlign(CENTER);
-      fill(#FFFFFF, 80);
-      text("find your allies \n 1 to go", width/2, height/2);
+      texto.say("find your allies \n 1 to go");
       if (ally3.getPos().dist(ctlMain.getPos()) < width/30) {
         ally3.atrapar(ally2.particle);
       }
     }
 
     if (analizaEscenario2.cancion.position() > 5000 && ally1.meAtraparon == true && ally2.meAtraparon == true && ally3.meAtraparon == true) {
-      textSize(width/64);
-      textAlign(CENTER);
-      fill(#FFFFFF, 80);
-      text("we're in this together \n are you ready for what's on the other side?", width/2, height/2);
+      texto.say("we're in this together \n are you ready for what's on the other side?");
       salida.dibujar();
     }
 
@@ -317,11 +287,7 @@ void draw() {
     fondo.h = 241;
     fondo.b = 0;
     fondo.drawFondo();
-
-    textSize(width/64);
-    textAlign(CENTER);
-    fill(#FFFFFF, 80);
-    text("place your allies", width/2, height/2);
+    texto.say("place your allies");
 
     //condicion de poner fiducials
     if (ctlMain.estaPresente == true && ctlAlly1.estaPresente == true && ctlAlly2.estaPresente == true && ctlAlly3.estaPresente == true) {
@@ -341,14 +307,6 @@ void draw() {
     hAlly2.dibujar();
     hAlly3.dibujar();
 
-    if (analizaEscenario4.cancion.position() > 0 && analizaEscenario4.cancion.position() < 5000) {
-      textSize(width/64);
-      textAlign(CENTER);
-      fill(#FFFFFF, 80);
-      text("we need to set him free", width/2, height/2);
-    }
-    
-
     analizaEscenario4.analizeColor();
     analizaEscenario4.analizeSize();
     analizaEscenario4.analizeFreq();
@@ -356,24 +314,36 @@ void draw() {
     //fill(#FFFFFF);
     //text(analizaEscenario3.getFreq(), width/2, height/7*6);
 
+    int alliesFaltantes = 4;
+
     if (hAlly1.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y)) {
       tela1.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 2, analizaEscenario4.getGolpe());
       tela1p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe() );
+      alliesFaltantes--;
     }
 
     if (hAlly2.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y)) {
       tela2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 2, analizaEscenario4.getGolpe() );
       tela2p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe() );
+      alliesFaltantes--;
     }
 
     if (hAlly3.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y)) {
       tela3.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe() );
       tela3p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe());
+      alliesFaltantes--;
     }
 
     if (hMain.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
       tela4.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe());
       tela4p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe());
+      alliesFaltantes--;
+    }
+
+    if (alliesFaltantes > 0) {
+      texto.say("we need to set him free, \n missing " + alliesFaltantes);
+    } else {
+      texto.say("yes, it's working!");
     }
 
     ctlMain.dibujar();
@@ -393,6 +363,22 @@ void draw() {
 void keyPressed() {
   if (key == ' ') {
     dibujarField = !dibujarField;
+  }
+  // Activar los controladores con el teclado
+  if (key == '8') {
+    ctlMain.isPresent(true);
+  }
+
+  if (key == '1') {
+    ctlAlly1.isPresent(true);
+  }
+
+  if (key == '2') {
+    ctlAlly2.isPresent(true);
+  }
+
+  if (key == '3') {
+    ctlAlly3.isPresent(true);
   }
 }
 
