@@ -111,7 +111,7 @@ class Tela {
           vertex(arrayDeParticulas[i][j+1].position().x(), arrayDeParticulas[i][j+1].position().y());
           vertex(arrayDeParticulas[i][j].position().x(), arrayDeParticulas[i][j].position().y());
           endShape();
-          fill((j+30)/1.3, 200, i+100*1.1, 200);
+          fill((j+105)/1.3, 90, i+80*1.1, 120);
         }
 
         if (tag == 1.2 | tag == 2.2 | tag == 3.2 | tag == 4.2 ) {
