@@ -79,11 +79,11 @@ class AnalizadorMusica {
         int bandaActual = 5;
         if (i>bandaActual-5 && i <bandaActual+5) {
           //if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
-          float radio = fftLog.getBand(i) * 100;
+          float radio = fftLog.getBand(i) * 4;
           float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
           colorDeFondo = color (18, 100, 53, transparencia); // color base 219,42,67 o #637CAD
           fill(colorDeFondo);
-         // circle(posAura1.position().x(),posAura1.position().y(),radio);
+         circle(posAura1.x,posAura1.y,radio);
           //imprimaValoresMaximos (i, bandaActual);
         }
         // maracas---------------------
@@ -92,22 +92,22 @@ class AnalizadorMusica {
 
         if (i>bandaActual-7 && i <bandaActual+7) {
           //if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
-          float radio = fftLog.getBand(i) * 100;
+          float radio = fftLog.getBand(i) * 2;
           float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
           colorDeFondo = color (18, 100, 53, transparencia); // color base 219,42,67 o #637CAD
           fill(colorDeFondo);
-          //circle(posAura2.position().x(),posAura1.position().y(),radio);
+          circle(posAura2.x,posAura2.y,radio);
           //imprimaValoresMaximos (i, bandaActual);
         }
         // sax---------------------
         
           bandaActual = 130;
           if (i>bandaActual-10 && i <bandaActual+10) {
-           float radio = fftLog.getBand(i) * 100;
+           float radio = fftLog.getBand(i) * 2;
           float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
           colorDeFondo = color (18, 100, 53, transparencia); // color base 219,42,67 o #637CAD
           fill(colorDeFondo);
-          //circle(posAura3.position().x(),posAura1.position().y(),radio);
+          circle(posAura3.x,posAura3.y,radio);
           } // fin del ciclo FOR de visualización del gráfico por logaritmo
         }
      }
