@@ -277,7 +277,7 @@ void draw() {
 
     ctlMain.dibujar();
     ctlMain.mover();
-
+    analizaEscenario2.dibujarAuras(ally1.getPos(),ally2.getPos(),ally3.getPos());
     ally1.dibujar();
     ally2.dibujar();
     ally3.dibujar();
