@@ -129,8 +129,8 @@ void setup() {
     vehicles.add(new Vehiculo(new PVector(x, y), 3.0, random(2, 5), random(0.1, 0.5), radius, 100.0, 4.0, 20));
   }
 
-  escenario = 4;
-  analizaEscenario4.cancion.play();
+  escenario = 2;
+  analizaEscenario2.cancion.play();
 }
 
 void draw() {
@@ -247,19 +247,62 @@ void draw() {
 
   if (escenario == 2) {
 
-    //Flowfield
-    fondo.drawFondo();
+    fondo.h = 0;
     fondo.b = analizaEscenario2.analizeFondo();
+    fondo.drawFondo();
 
-    // Mover el flow field y dibujarlo si fuera el caso
     flowfield.run(dibujarField);
 
-    // Mover a los vehiculos siguiendo el flow field
     for (Vehiculo v : vehicles) {
       v.hue = analizaEscenario1.getColor();
       v.follow(flowfield, ctlMain.pos);
       v.run();
       v.sideLen = analizaEscenario2.analizeVehiculo();
+    }
+
+    if (analizaEscenario2.cancion.position() > 4700 && ally1.meAtraparon == false && ally2.meAtraparon == false && ally3.meAtraparon == false) {
+      textSize(width/64);
+      textAlign(CENTER);
+      fill(#FFFFFF, 80);
+      text("find your allies \n 3 to go", width/2, height/2);
+
+      if (ally1.getPos().dist(ctlMain.getPos()) < width/30) {
+        ally1.atrapar(ctlMain.particle);
+      }
+    }
+
+    if (analizaEscenario2.cancion.position() > 5000 && ally1.meAtraparon == true && ally2.meAtraparon == false && ally3.meAtraparon == false) {
+      textSize(width/64);
+      textAlign(CENTER);
+      fill(#FFFFFF, 80);
+      text("find your allies \n 2 to go", width/2, height/2);
+      if (ally2.getPos().dist(ctlMain.getPos()) < width/30) {
+        ally2.atrapar(ally1.particle);
+      }
+    }
+
+    if (analizaEscenario2.cancion.position() > 5000 && ally1.meAtraparon == true && ally2.meAtraparon == true && ally3.meAtraparon == false) {
+      textSize(width/64);
+      textAlign(CENTER);
+      fill(#FFFFFF, 80);
+      text("find your allies \n 1 to go", width/2, height/2);
+      if (ally3.getPos().dist(ctlMain.getPos()) < width/30) {
+        ally3.atrapar(ally2.particle);
+      }
+    }
+
+    if (analizaEscenario2.cancion.position() > 5000 && ally1.meAtraparon == true && ally2.meAtraparon == true && ally3.meAtraparon == true) {
+      textSize(width/64);
+      textAlign(CENTER);
+      fill(#FFFFFF, 80);
+      text("we're in this together \n are you ready for what's on the other side?", width/2, height/2);
+      salida.dibujar();
+    }
+
+    // Llegar a la salida
+    if (ally3.meAtraparon == true && ctlMain.getPos().dist(salida.getPos()) < width/30) {
+      escenario = 3;
+      llave.soltar();
     }
 
     ctlMain.dibujar();
@@ -268,54 +311,27 @@ void draw() {
     ally1.dibujar();
     ally2.dibujar();
     ally3.dibujar();
-
-    // Atrapar ally1
-    if (ally1.meAtraparon == false && ally1.getPos().dist(ctlMain.getPos()) < width/30) {
-      ally1.atrapar(ctlMain.particle);
-    }
-    // Atrapar ally2
-    if (ally2.meAtraparon == false && ally1.meAtraparon == true && ally2.getPos().dist(ctlMain.getPos()) < width/30) {
-      ally2.atrapar(ally1.particle);
-    }
-    // Atrapar ally3
-    if (ally3.meAtraparon == false && ally1.meAtraparon == true && ally2.meAtraparon == true && ally3.getPos().dist(ctlMain.getPos()) < width/30) {
-      ally3.atrapar(ally2.particle);
-    }
-
-    // Dibujar salida
-    if (ally3.meAtraparon == true) {
-      salida.dibujar();
-    }
-
-    // Llegar a la salida
-    if (ally3.meAtraparon == true && ctlMain.getPos().dist(salida.getPos()) < width/30) {
-      escenario = 3;
-      llave.soltar();
-      analizaEscenario2.cancion.pause();
-      analizaEscenario3.cancion.play();
-    }
   }
 
   if (escenario == 3) {
-    fondo.h = 62;
+    fondo.h = 241;
     fondo.b = 0;
     fondo.drawFondo();
 
     textSize(width/64);
     textAlign(CENTER);
     fill(#FFFFFF, 80);
-    text("come, we need your help", width/2, height/2);
+    text("place your allies", width/2, height/2);
 
     //condicion de poner fiducials
     if (ctlMain.estaPresente == true && ctlAlly1.estaPresente == true && ctlAlly2.estaPresente == true && ctlAlly3.estaPresente == true) {
       escenario = 4;
-      analizaEscenario3.cancion.pause();
+      analizaEscenario2.cancion.pause();
       analizaEscenario4.cancion.play();
     }
   }
 
   if (escenario == 4) {
-
     fondo.h = 62;
     fondo.b = 0;
     fondo.drawFondo();
@@ -325,16 +341,20 @@ void draw() {
     hAlly2.dibujar();
     hAlly3.dibujar();
 
+    if (analizaEscenario4.cancion.position() > 0 && analizaEscenario4.cancion.position() < 5000) {
+      textSize(width/64);
+      textAlign(CENTER);
+      fill(#FFFFFF, 80);
+      text("we need to set him free", width/2, height/2);
+    }
+    
+
     analizaEscenario4.analizeColor();
     analizaEscenario4.analizeSize();
     analizaEscenario4.analizeFreq();
     //text(analizaEscenario3.getSize(), width/3, height/3);
     //fill(#FFFFFF);
     //text(analizaEscenario3.getFreq(), width/2, height/7*6);
-    //tela1.setColor(analiza.getSize());
-    //salida.randomize();
-    //salidaT.dibujar();
-    //bola.dibujar();
 
     if (hAlly1.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y)) {
       tela1.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 2, analizaEscenario4.getGolpe());

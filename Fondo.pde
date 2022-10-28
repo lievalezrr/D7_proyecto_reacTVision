@@ -13,7 +13,7 @@ class Fondo {
     noStroke();
     ellipseMode(RADIUS);
     // el r es lo que determina el grosor de los circulos
-    for (float r = radius; r > 0; r -= 12) {
+    for (float r = radius; r > 0; r -= 24) {
       fill(h, 40, b);
       ellipse(width/2, height/2, r, r);
       b = (b + 1);
