@@ -38,21 +38,21 @@ class Control {
     if (estaPresente) {
       posDest.x = _x;
       posDest.y = _y;
-      angulo = degrees(_a);
+      // Considerar el angulo del fiduscial
+      //angulo = degrees(_a);
     }
   }
 
   void mover() {
     if (!estaPresente) {
-      //Para mover con feid
-      //posDest.x = posInicial.x;
-      //posDest.y = posInicial.y;
-
-      //Para mover con el mouse
-      if (seleccionadoConMouse == true) {
-        posDest.x = mouseX;
-        posDest.y = mouseY;
-      }
+      posDest.x = posInicial.x;
+      posDest.y = posInicial.y;
+    }
+    
+    //Para mover con el mouse
+    if (seleccionadoConMouse == true) {
+      posDest.x = mouseX;
+      posDest.y = mouseY;
     }
 
     pos.lerp(posDest, 0.1);

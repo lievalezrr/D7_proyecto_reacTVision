@@ -341,7 +341,7 @@ void draw() {
     }
 
     if (alliesFaltantes > 0) {
-      texto.say("we need to set him free, \n missing " + alliesFaltantes);
+      texto.say("we need to set him free, \n still missing " + alliesFaltantes);
     } else {
       texto.say("yes, it's working!");
     }
