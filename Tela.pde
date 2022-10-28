@@ -127,7 +127,7 @@ class Tela {
       }
     }
 
-    text(analizaEscenario3.getFreq(),width/2, width/8);
+    text(analizaEscenario5.getFreq(),width/2, width/8);
     
 
  
