@@ -50,7 +50,7 @@ class Tela {
     comp = _comp; // 1, responde a volumen. 2, responde a frecuencias
     golpe = _golpe;
     //text(vol, width/4,height/3);
-    text(clr, width/4, height/4);
+    //text(clr, width/4, height/4);
     noStroke();
     
     
@@ -147,7 +147,7 @@ class Tela {
     // golpes en la tela por rango de frecuencias correspondiente a cada una
     if (comp == 2) {
       if (tag == 1 || tag == 1.2) {
-        if (freq > 100) {
+        if (freq > 1) {
           arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13, 100);
           arrayDeParticulas[10][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13, 0);
           arrayDeParticulas[20][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13*8, 0);
@@ -205,8 +205,8 @@ class Tela {
     clr = _clr;
   }
   // set para cambiar el comprtamiento de la tela
-  void setComportamiento(float _clr) {
-    clr = _clr;
+  void setComportamiento(float _comp) {
+    comp = _comp;
   }
   
 }
