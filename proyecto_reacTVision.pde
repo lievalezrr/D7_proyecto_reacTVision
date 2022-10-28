@@ -136,7 +136,7 @@ void setup() {
   tela4 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4);
   tela4p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4.2);
 
-  fondo = new Fondo (radius, 50, 86, 40);
+  fondo = new Fondo (radius, 50, 86, 40); //Fondo(float _r, float _b, float _h, float _s)
   texto = new Texto();
 
   flowfield = new FlowField(20);
@@ -150,8 +150,8 @@ void setup() {
     vehicles.add(new Vehiculo(new PVector(x, y), 3.0, random(2, 5), random(0.1, 0.5), radius, 100.0, 4.0, 20));
   }
 
-  escenario = 0;
-  analizaEscenario0.cancion.play();
+  escenario = 4;
+  analizaEscenario4.cancion.play();
 }
 
 void draw() {
@@ -184,7 +184,7 @@ void draw() {
 
   if (escenario == 0) {
     fondo.drawFondo();
-    fondo.b = 0;
+    fondo.b = analizaEscenario0.analizeFondo();
     texto.say("come, we need your help");
 
     //si se pone fiducial se activa escenario 1
@@ -307,7 +307,7 @@ void draw() {
 
   if (escenario == 3) {
     fondo.h = 241;
-    fondo.b = 0;
+    fondo.b = analizaEscenario2.analizeFondo();
     fondo.drawFondo();
     texto.say("place your allies");
 
@@ -393,7 +393,8 @@ void draw() {
     ctlAlly3.dibujar();
     ctlAlly3.mover();
 
-    if (!analizaEscenario4.cancion.isPlaying()) {
+    if (!analizaEscenario4.cancion.isPlaying() && hAlly1.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y) && hAlly2.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y) &&
+    hAlly3.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y) && hMain.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
       escenario = 5;
     }
   }
