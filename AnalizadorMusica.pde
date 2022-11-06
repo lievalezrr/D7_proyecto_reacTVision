@@ -121,8 +121,8 @@ class AnalizadorMusica {
     size = map(cancion.mix.level(), 0, 1, 1, 100); //analiza el volumen y tira un tamaño en relación
   }
 
-  float analizeFondo() {
-    return map(cancion.mix.level(), 0, 1, 0, 80); //analiza el volumen y tira un tamaño en relación
+  float analizeFondo(int min, int max) {
+    return map(cancion.mix.level(), 0, 1, min, max); //analiza el volumen y tira un tamaño en relación
   }
 
   float analizeVehiculo() {

@@ -7,10 +7,10 @@ class Control {
   int vlrMin, vlrMax;
   String tag;
   boolean estaPresente, seleccionadoConMouse;
-  color clr;
+  color clrDark, clrLight;
   Particle particle;
 
-  public Control(float _x, float _y, int _vMin, int _vMax, color _clr, ParticleSystem mundoVirtual) {
+  public Control(float _x, float _y, int _vMin, int _vMax, color _clrDark, color _clrLight, ParticleSystem mundoVirtual) {
 
     pos = new PVector (_x, _y);
     posDest = new PVector (_x, _y);
@@ -18,7 +18,8 @@ class Control {
     angulo = 360;
     vlrMin = _vMin;
     vlrMax = _vMax;
-    clr = _clr;
+    clrDark = _clrDark;
+    clrLight = _clrLight;
     r = 50;
     particle = mundoVirtual.makeParticle(1, _x, _y, 0);
     seleccionadoConMouse = false;
@@ -27,9 +28,8 @@ class Control {
 
   void dibujar() {
     textAlign(CENTER);
-    strokeWeight(1);
-    stroke(#FFFFFF, 95);
-    fill(clr);
+    if (lightMode) fill(clrLight);
+    else fill(clrDark);
     arc(pos.x, pos.y, r, r, 0, radians(angulo));
   }
 

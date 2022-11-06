@@ -1,19 +1,21 @@
 class Hotspot {
 
-  color clr;
+  color clrDark, clrLight;
   PVector pos;
   float r;
 
-  public Hotspot (float _x, float _y, color _clr, float _r) {
+  public Hotspot (float _x, float _y, color _clrDark, color _clrLight, float _r) {
 
     pos = new PVector (_x, _y);
-    clr = _clr;
+    clrDark = _clrDark;
+    clrLight = _clrLight;
     r = _r;
   }
 
   void dibujar() {
     noStroke();
-    fill(clr);
+    if (lightMode) fill(clrLight);
+    else fill(clrDark);
     circle(pos.x, pos.y, r);
   }
 
