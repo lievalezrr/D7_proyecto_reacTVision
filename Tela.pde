@@ -4,7 +4,7 @@ class Tela {
   int cantidadDeParticulasPorLado;
   float durezaDeResortes;
   float elasticidadDeResortes;
-  float clr, vol, tag, freq, comp, golpe;
+  float clr, vol, tag, freq, comp, golpe, cambioColor;
 
   public Tela(ParticleSystem mundoVirtual, int cantidad, float _naceX, float _naceY, float _tag) {
 
@@ -43,12 +43,13 @@ class Tela {
 
 
 
-  void dibujar(float _size, float _clr, float _freq, float _comp, float _golpe) {
+  void dibujar(float _size, float _clr, float _freq, float _comp, float _golpe, float _cambio) {
     vol = _size;
     clr = _clr;
     freq = _freq;
     comp = _comp; // 1, responde a volumen. 2, responde a frecuencias
     golpe = _golpe;
+    cambioColor = _cambio;
     //text(vol, width/4,height/3);
     //text(clr, width/4, height/4);
     noStroke();
@@ -70,7 +71,7 @@ class Tela {
           vertex(arrayDeParticulas[i][j+1].position().x(), arrayDeParticulas[i][j+1].position().y());
           vertex(arrayDeParticulas[i][j].position().x(), arrayDeParticulas[i][j].position().y());
           endShape();
-          fill((j+105)/1.3, 90, i+80*1.1, 120);
+          fill((j+105)/1.3*cambioColor, 90, i+80*1.1, 120);
         }
 
         if (tag == 1.2 | tag == 2.2 | tag == 3.2 | tag == 4.2 ) {
