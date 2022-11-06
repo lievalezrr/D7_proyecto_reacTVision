@@ -157,8 +157,8 @@ void setup() {
     vehicles.add(new Vehiculo(new PVector(x, y), 3.0, random(2, 5), random(0.1, 0.5), radius, 100.0, 4.0, 20));
   }
 
-  escenario = 5;
-  analizaEscenario5.cancion.play();
+  escenario = 0;
+  analizaEscenario0.cancion.play();
 }
 
 void draw() {
