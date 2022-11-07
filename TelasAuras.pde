@@ -67,7 +67,7 @@ class TelaAuras {
           vertex(arrayDeParticulas[i][j+1].position().x(), arrayDeParticulas[i][j+1].position().y());
           vertex(arrayDeParticulas[i][j].position().x(), arrayDeParticulas[i][j].position().y());
           endShape();
-          fill((j+105)/1.3*cambioColor, 90, i+80*1.1, 120);
+          fill((j+105)/1.3*clr, 90, i+80*1.1, 120);
         }
     }
     //se dibujan las posiciones al centro
