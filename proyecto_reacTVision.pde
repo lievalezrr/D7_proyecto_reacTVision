@@ -110,8 +110,8 @@ void setup() {
   analizaEscenario3 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
   analizaEscenario4 = new AnalizadorMusica(minim.loadFile("Song_Esc4-Dark.mp3", 1024));
   analizaEscenario5 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
-  
-  ctlMain = new Control(width/2, 3*height/4, 0, 360, colorBlanco, colorNegro, mundoVirtual);
+
+  ctlMain = new Control(width/2, height/2, 0, 360, colorBlanco, colorNegro, mundoVirtual);
 
   ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, colorRojo, colorRojo, mundoVirtual);
   ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, colorVerde, colorVerde, mundoVirtual);
@@ -131,9 +131,6 @@ void setup() {
   ally2 = new Atrapable(aliadoPic2, width*3/6, height/5, mundoVirtual);
   ally3 = new Atrapable(aliadoPic3, width*4/6, height/2, mundoVirtual);
 
-  salidaT = new Salida(mundoVirtual, width/2, height/2);
-  bolaT = new Salida(mundoVirtual, width/5, height/3);
-
   tela1 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*2, 1);
   tela1p2 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*2, 1.2);
 
@@ -145,7 +142,7 @@ void setup() {
 
   tela4 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4);
   tela4p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4.2);
-  
+
   telaAlly1 = new TelaAuras(mundoVirtual, 20, width*5/6, (height/16)*14, 4);
   telaAlly2 = new TelaAuras(mundoVirtual, 20, width*1/6, (height/16)*14, 3);
   telaAlly3 = new TelaAuras(mundoVirtual, 20, width*1/6, (height/16)*2, 1);
@@ -329,7 +326,7 @@ void draw() {
 
     ctlMain.dibujar(1);
     ctlMain.mover();
-   // telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), PVector ally1.getPos());
+    // telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), PVector ally1.getPos());
     //analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos());
     ally1.dibujar();
     ally2.dibujar();
@@ -449,9 +446,7 @@ void keyPressed() {
   if (key == ' ') {
     dibujarField = !dibujarField;
   }
-  if (key == 'l') {
-    lightMode = !lightMode;
-  }
+
   // Activar los controladores con el teclado
   if (key == '8') {
     ctlMain.isPresent(true);
@@ -464,6 +459,12 @@ void keyPressed() {
   }
   if (key == '3') {
     ctlAlly3.isPresent(true);
+  }
+  if (key == '5') {
+    lightMode = !lightMode;
+  }
+  if (key == '6') {
+    rewind();
   }
 }
 
@@ -480,6 +481,35 @@ void mousePressed() {
   }
 }
 
+void rewind() {
+  if (escenario == 0) {
+    analizaEscenario0.cancion.rewind();
+    progressBar.setUp(analizaEscenario0.cancion.length());
+  }
+  if (escenario == 1) {
+    analizaEscenario1.cancion.rewind();
+    progressBar.setUp(analizaEscenario1.cancion.length());
+  }
+  if (escenario == 2) {
+    analizaEscenario2.cancion.rewind();
+    progressBar.setUp(analizaEscenario2.cancion.length());
+  }
+  if (escenario == 3) {
+    analizaEscenario3.cancion.rewind();
+    progressBar.setUp(analizaEscenario3.cancion.length());
+  }
+  if (escenario == 4) {
+    analizaEscenario4.cancion.rewind();
+    progressBar.setUp(analizaEscenario4.cancion.length());
+  }
+  if (escenario == 5) {
+    analizaEscenario5.cancion.rewind();
+    progressBar.setUp(analizaEscenario5.cancion.length());
+  }
+  
+}
+
+
 void addTuioObject(TuioObject tobj) {
   if (tobj.getSymbolID() == 8) {
     ctlMain.isPresent(true);
@@ -495,6 +525,14 @@ void addTuioObject(TuioObject tobj) {
 
   if (tobj.getSymbolID() == 3) {
     ctlAlly3.isPresent(true);
+  }
+
+  if (tobj.getSymbolID() == 5) {
+    lightMode = !lightMode;
+  }
+
+  if (tobj.getSymbolID() == 6) {
+    rewind();
   }
 }
 
@@ -516,6 +554,10 @@ void removeTuioObject(TuioObject tobj) {
 
   if (tobj.getSymbolID() == 3) {
     ctlAlly3.isPresent(false);
+  }
+
+  if (tobj.getSymbolID() == 10) {
+    lightMode = !lightMode;
   }
 }
 
