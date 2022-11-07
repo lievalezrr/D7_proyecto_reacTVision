@@ -40,7 +40,7 @@ PImage aliadoPic1;
 PImage aliadoPic2;
 PImage aliadoPic3;
 PImage huecoPic;
-PImage mainPic;
+PImage mainPic1, mainPic2, mainPic3;
 PImage spotPic;
 
 PFont font;
@@ -83,7 +83,9 @@ void setup() {
   minim = new Minim(this);
   tuioClient = new TuioProcessing(this);
   
-  mainPic = loadImage("star.png");
+  mainPic1 = loadImage("star.png");
+  mainPic2 = loadImage("star.png"); //**poner imgs**
+  mainPic3 = loadImage("star.png");
 
   llavePic = loadImage("llave.png");
   //llavePic.resize(width/16, width/16);
