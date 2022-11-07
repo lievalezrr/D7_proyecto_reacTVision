@@ -75,6 +75,8 @@ void setup() {
   mundoVirtual = new ParticleSystem(0, 0.1);
   minim = new Minim(this);
   tuioClient = new TuioProcessing(this);
+  
+  mainPic = loadImage("star.png");
 
   llavePic = loadImage("llave.png");
   //llavePic.resize(width/16, width/16);
@@ -150,7 +152,7 @@ void setup() {
     vehicles.add(new Vehiculo(new PVector(x, y), 3.0, random(2, 5), random(0.1, 0.5), radius, 100.0, 4.0, 20));
   }
 
-  escenario = 4;
+  escenario = 0;
   analizaEscenario4.cancion.play();
 }
 
@@ -212,7 +214,7 @@ void draw() {
       v.sideLen = analizaEscenario1.analizeVehiculo();
     }
 
-    ctlMain.dibujar();
+    ctlMain.dibujar(1);
     ctlMain.mover();
 
     if (analizaEscenario1.cancion.position() > 4700 && analizaEscenario1.cancion.position() < 10000) {
@@ -297,7 +299,7 @@ void draw() {
       llave.soltar();
     }
 
-    ctlMain.dibujar();
+    ctlMain.dibujar(1);
     ctlMain.mover();
     analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos());
     ally1.dibujar();
@@ -381,16 +383,16 @@ void draw() {
       
     }
 
-    ctlMain.dibujar();
+    ctlMain.dibujar(0);
     ctlMain.mover();
 
-    ctlAlly1.dibujar();
+    ctlAlly1.dibujar(0);
     ctlAlly1.mover();
 
-    ctlAlly2.dibujar();
+    ctlAlly2.dibujar(0);
     ctlAlly2.mover();
 
-    ctlAlly3.dibujar();
+    ctlAlly3.dibujar(0);
     ctlAlly3.mover();
 
     if (!analizaEscenario4.cancion.isPlaying() && hAlly1.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y) && hAlly2.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y) &&

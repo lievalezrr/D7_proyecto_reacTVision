@@ -2,7 +2,7 @@ class Control {
 
   float angulo, r;
   PVector pos, posDest;
-  int vlr;
+  int vlr,codigoPersonaje;
   PVector posInicial;
   int vlrMin, vlrMax;
   String tag;
@@ -25,12 +25,18 @@ class Control {
     estaPresente = false;
   }
 
-  void dibujar() {
+  void dibujar(int _personaje) {
+    codigoPersonaje = _personaje;
     textAlign(CENTER);
     strokeWeight(1);
     stroke(#FFFFFF, 95);
     fill(clr);
     arc(pos.x, pos.y, r, r, 0, radians(angulo));
+    
+    if (codigoPersonaje == 1) {
+      image(mainPic,pos.x, pos.y);
+    }
+    
   }
 
   void actualizar(float _x, float _y, float _a) {
