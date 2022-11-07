@@ -81,9 +81,9 @@ class AnalizadorMusica {
           //if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
           float radio = fftLog.getBand(i) ;
           float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
-          colorDeFondo = color (94, 35, 83,50); // color base 219,42,67 o #637CAD
+          colorDeFondo = color (94, 35, 83, 50); // color base 219,42,67 o #637CAD
           fill(colorDeFondo);
-           noStroke();
+          noStroke();
           circle(posAura1.x, posAura1.y, radio/2);
           //imprimaValoresMaximos (i, bandaActual);
         }
@@ -95,7 +95,7 @@ class AnalizadorMusica {
           //if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
           float radio = fftLog.getBand(i) ;
           float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
-          colorDeFondo = color (94, 0, 100,50); // color base 219,42,67 o #637CAD
+          colorDeFondo = color (94, 0, 100, 50); // color base 219,42,67 o #637CAD
           fill(colorDeFondo);
           noStroke();
           circle(posAura2.x, posAura2.y, radio);
@@ -109,15 +109,12 @@ class AnalizadorMusica {
           float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
           colorDeFondo = color (47, 73, 92, 50); // color base 219,42,67 o #637CAD
           fill(colorDeFondo);
-           noStroke();
+          noStroke();
           circle(posAura3.x, posAura3.y, radio);
         } // fin del ciclo FOR de visualización del gráfico por logaritmo
       }
     }
   }
-  
-
-
 
   void analizeSize() {
     size = map(cancion.mix.level(), 0, 1, 1, 100); //analiza el volumen y tira un tamaño en relación

@@ -23,8 +23,8 @@ class Fondo {
     for (float r = radius; r > 0; r -= 24) {
       fill(h, s, b);
       ellipse(width/2, height/2, r, r);
-      if (lightMode) s = (s + 1);
-      else b = (b + 1);
+      if (lightMode) s = (s + 3);
+      else b = (b + 2);
     }
     ellipseMode(CENTER);
   }

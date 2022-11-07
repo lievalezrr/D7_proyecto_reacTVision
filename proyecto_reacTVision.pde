@@ -32,8 +32,8 @@ Hotspot hMain, hAlly1, hAlly2, hAlly3;
 Atrapable ally1, ally2, ally3;
 
 Tela tela1, tela1p2, tela2, tela3, tela4, tela2p2, tela3p2, tela4p2;
-TelaAuras telaAlly1,telaAlly2,telaAlly3;
-AnalizadorMusica analizaEscenario0, analizaEscenario1, analizaEscenario2, analizaEscenario5, analizaEscenario4;
+TelaAuras telaAlly1, telaAlly2, telaAlly3;
+AnalizadorMusica analizaEscenario0, analizaEscenario1, analizaEscenario2, analizaEscenario3, analizaEscenario4, analizaEscenario5;
 
 Atrapable llave;
 PImage llavePic;
@@ -70,6 +70,8 @@ Salida salida, salidaT, bolaT;
 Fondo fondo;
 Texto texto;
 
+ProgressBar progressBar;
+
 void setup() {
   fullScreen();
   colorMode(HSB, 360, 100, 100);
@@ -78,12 +80,12 @@ void setup() {
   font = createFont("PPNeueMachina-InktrapLight.otf", width/50);
   textFont(font);
 
-  radius = width/4;
+  radius = width/3;
 
   mundoVirtual = new ParticleSystem(0, 0.1);
   minim = new Minim(this);
   tuioClient = new TuioProcessing(this);
-  
+
   mainPic1 = loadImage("star.png");
   mainPic2 = loadImage("star.png"); //**poner imgs**
   mainPic3 = loadImage("star.png");
@@ -92,27 +94,23 @@ void setup() {
   //llavePic.resize(width/16, width/16);
 
   aliadoPic1 = loadImage("aliado1.png");
-  //llavePic.resize(width/16, width/16);
 
   aliadoPic2 = loadImage("aliado2.png");
-  //llavePic.resize(width/16, width/16);
 
   aliadoPic3 = loadImage("aliado3.png");
-  //llavePic.resize(width/16, width/16);
-
   huecoPic = loadImage("hueco.png");
-  //llavePic.resize(width/16, width/16);
 
   llave = new Atrapable(llavePic, width/2, height/4, mundoVirtual);
 
-  salida = new Salida(mundoVirtual, width/2, 5*height/6);
+  salida = new Salida(mundoVirtual, width/2, height/6);
 
   analizaEscenario0 = new AnalizadorMusica(minim.loadFile("Esc_0_Eye.mp3", 1024));
   analizaEscenario1 = new AnalizadorMusica(minim.loadFile("Song_Esc1-Alien_1.mp3", 1024));
   analizaEscenario2 = new AnalizadorMusica(minim.loadFile("Song_Esc2-In the fire.mp3", 1024));
-  analizaEscenario5 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
+  analizaEscenario3 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
   analizaEscenario4 = new AnalizadorMusica(minim.loadFile("Song_Esc4-Dark.mp3", 1024));
-
+  analizaEscenario5 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
+  
   ctlMain = new Control(width/2, 3*height/4, 0, 360, colorBlanco, colorNegro, mundoVirtual);
 
   ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, colorRojo, colorRojo, mundoVirtual);
@@ -147,12 +145,12 @@ void setup() {
 
   tela4 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4);
   tela4p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4.2);
-  
+
   telaAlly1 = new TelaAuras(mundoVirtual, 30, width*5/6, (height/16)*14, 4);
   telaAlly2 = new TelaAuras(mundoVirtual, 30, width*1/6, (height/16)*14, 3);
   telaAlly3 = new TelaAuras(mundoVirtual, 30, width*1/6, (height/16)*2, 1);
 
-  fondo = new Fondo (radius, 86, 40, 50); //Fondo(float _r, float _b, float _h, float _s)
+  fondo = new Fondo (radius, 86, 100, 50);
   texto = new Texto();
 
   flowfield = new FlowField(20);
@@ -166,8 +164,12 @@ void setup() {
     vehicles.add(new Vehiculo(new PVector(x, y), 3.0, random(2, 5), random(0.1, 0.5), radius, 100.0, 4.0, 20));
   }
 
-  escenario = 2;
+  progressBar = new ProgressBar(width/16, height*11/12, width - width*2/16, height/64);
+
+  escenario = 0;
   analizaEscenario0.cancion.play();
+
+  progressBar.setUp(analizaEscenario0.cancion.length());
 }
 
 void draw() {
@@ -201,25 +203,28 @@ void draw() {
   }
 
   if (escenario == 0) {
-    
+
     if (lightMode) fondo.hsb(86, analizaEscenario0.analizeFondo(0, 100), 100);
-    else fondo.hsb(86, 40, analizaEscenario0.analizeFondo(0, 40));
+    else fondo.hsb(86, 100, analizaEscenario0.analizeFondo(0, 80));
     fondo.drawFondo();
     texto.say("come, we need your help");
+    progressBar.paint(color(86, 80, 100));
 
     //si se pone fiducial se activa escenario 1
     if (ctlMain.estaPresente == true) {
       escenario = 1;
       analizaEscenario0.cancion.pause();
       analizaEscenario1.cancion.play();
+      progressBar.setUp(analizaEscenario1.cancion.length());
     }
   }
 
   if (escenario == 1) {
 
     if (lightMode) fondo.hsb(86, analizaEscenario1.analizeFondo(0, 100), 100);
-    else fondo.hsb(86, 40, analizaEscenario1.analizeFondo(0, 40));
+    else fondo.hsb(86, 100, analizaEscenario1.analizeFondo(0, 80));
     fondo.drawFondo();
+    progressBar.paint(color(86, 80, 100));
 
     // Mover el flow field y dibujarlo si fuera el caso
     flowfield.run(dibujarField);
@@ -240,7 +245,7 @@ void draw() {
     }
 
     if (analizaEscenario1.cancion.position() > 15000 && analizaEscenario1.cancion.position() < 20000) {
-      texto.say("this energy, it is pulling us");
+      texto.say("this energy, it's pulling us");
     }
 
     if (analizaEscenario1.cancion.position() > 25000 && llave.meAtraparon == false) {
@@ -266,6 +271,7 @@ void draw() {
       llave.soltar();
       analizaEscenario1.cancion.pause();
       analizaEscenario2.cancion.play();
+      progressBar.setUp(analizaEscenario2.cancion.length());
       fondo.h = 0;
     }
   }
@@ -273,8 +279,9 @@ void draw() {
   if (escenario == 2) {
 
     if (lightMode) fondo.hsb(0, analizaEscenario2.analizeFondo(0, 100), 100);
-    else fondo.hsb(0, 40, analizaEscenario2.analizeFondo(0, 40));
+    else fondo.hsb(0, 100, analizaEscenario2.analizeFondo(0, 80));
     fondo.drawFondo();
+    progressBar.paint(color(0, 80, 100));
 
     flowfield.run(dibujarField);
 
@@ -315,6 +322,9 @@ void draw() {
     if (ally3.meAtraparon == true && ctlMain.getPos().dist(salida.getPos()) < width/30) {
       escenario = 3;
       llave.soltar();
+      analizaEscenario2.cancion.pause();
+      analizaEscenario3.cancion.play();
+      progressBar.setUp(analizaEscenario3.cancion.length());
     }
 
     ctlMain.dibujar(1);
@@ -327,25 +337,28 @@ void draw() {
   }
 
   if (escenario == 3) {
-    
+
     if (lightMode) fondo.hsb(241, analizaEscenario2.analizeFondo(0, 100), 100);
-    else fondo.hsb(241, 40, analizaEscenario2.analizeFondo(0, 40));
+    else fondo.hsb(241, 80, analizaEscenario2.analizeFondo(0, 80));
     fondo.drawFondo();
     texto.say("place your allies");
+    progressBar.paint(color(241, 80, 100));
 
     //condicion de poner fiducials
     if (ctlMain.estaPresente == true && ctlAlly1.estaPresente == true && ctlAlly2.estaPresente == true && ctlAlly3.estaPresente == true) {
       escenario = 4;
-      analizaEscenario2.cancion.pause();
+      analizaEscenario3.cancion.pause();
       analizaEscenario4.cancion.play();
+      progressBar.setUp(analizaEscenario4.cancion.length());
     }
   }
 
   if (escenario == 4) {
-    
+
     if (lightMode) fondo.hsb(62, 0, 100);
     else fondo.hsb(62, 40, 0);
     fondo.drawFondo();
+    progressBar.paint(color(62, 80, 100));
 
     hMain.dibujar();
     hAlly1.dibujar();
@@ -362,26 +375,26 @@ void draw() {
     int alliesFaltantes = 4;
 
     if (hAlly1.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y)) {
-      tela1.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(),ctlAlly1.getValor());
-      tela1p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(),1 );
+      tela1.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlAlly1.getValor());
+      tela1p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1 );
       alliesFaltantes--;
     }
 
     if (hAlly2.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y)) {
-      tela2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(),ctlAlly2.getValor() );
-      tela2p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(),1 );
+      tela2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlAlly2.getValor() );
+      tela2p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1 );
       alliesFaltantes--;
     }
 
     if (hAlly3.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y)) {
-      tela3.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(),ctlAlly3.getValor() );
-      tela3p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(),1);
+      tela3.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlAlly3.getValor() );
+      tela3p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1);
       alliesFaltantes--;
     }
 
     if (hMain.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
-      tela4.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(),ctlMain.getValor());
-      tela4p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(),1);
+      tela4.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.getValor());
+      tela4p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1);
       alliesFaltantes--;
     }
 
@@ -418,15 +431,17 @@ void draw() {
       hAlly3.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y) && hMain.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
       escenario = 5;
       analizaEscenario5.cancion.play();
+      progressBar.setUp(analizaEscenario5.cancion.length());
     }
   }
-  
+
   if (escenario == 5) {
-    
+
     if (lightMode) fondo.hsb(173, analizaEscenario5.analizeFondo(0, 80), 100);
-    else fondo.hsb(0, 0, analizaEscenario5.analizeFondo(0, 40));
+    else fondo.hsb(0, 0, analizaEscenario5.analizeFondo(0, 80));
     fondo.drawFondo();
     texto.say("I'd forgotten how it felt to be free \n thank you");
+    progressBar.paint(color(0, 80, 100));
   }
 }
 

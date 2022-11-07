@@ -32,6 +32,7 @@ class Control {
     if (lightMode) fill(clrLight);
     else fill(clrDark);
     arc(pos.x, pos.y, r, r, 0, radians(angulo));
+    imageMode(CENTER);
     
     if (codigoPersonaje == 1) {
       image(mainPic1,pos.x, pos.y);
@@ -42,7 +43,7 @@ class Control {
        if (codigoPersonaje == 1) {
       image(mainPic3,pos.x, pos.y);
     }
-    
+    imageMode(CORNER);
   }
 
   void actualizar(float _x, float _y, float _a) {
