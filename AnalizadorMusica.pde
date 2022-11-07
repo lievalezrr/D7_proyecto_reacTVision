@@ -115,6 +115,8 @@ class AnalizadorMusica {
       }
     }
   }
+  
+
 
 
   void analizeSize() {

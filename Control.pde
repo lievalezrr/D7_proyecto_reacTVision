@@ -35,10 +35,10 @@ class Control {
     
     if (codigoPersonaje == 1) {
       image(mainPic1,pos.x, pos.y);
-    
+    }
      if (codigoPersonaje == 2) {
       image(mainPic2,pos.x, pos.y);
-      
+     }
        if (codigoPersonaje == 1) {
       image(mainPic3,pos.x, pos.y);
     }

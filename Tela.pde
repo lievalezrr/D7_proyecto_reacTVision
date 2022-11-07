@@ -200,6 +200,9 @@ class Tela {
     //}
   }
   
+
+  
+  
  
 // set para cambiar el color de la tela
   void setColor(float _clr) {

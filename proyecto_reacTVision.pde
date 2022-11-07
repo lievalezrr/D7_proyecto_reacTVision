@@ -32,6 +32,7 @@ Hotspot hMain, hAlly1, hAlly2, hAlly3;
 Atrapable ally1, ally2, ally3;
 
 Tela tela1, tela1p2, tela2, tela3, tela4, tela2p2, tela3p2, tela4p2;
+TelaAuras telaAlly1,telaAlly2,telaAlly3;
 AnalizadorMusica analizaEscenario0, analizaEscenario1, analizaEscenario2, analizaEscenario5, analizaEscenario4;
 
 Atrapable llave;
@@ -146,6 +147,10 @@ void setup() {
 
   tela4 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4);
   tela4p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4.2);
+  
+  telaAlly1 = new TelaAuras(mundoVirtual, 30, width*5/6, (height/16)*14, 4);
+  telaAlly2 = new TelaAuras(mundoVirtual, 30, width*1/6, (height/16)*14, 3);
+  telaAlly3 = new TelaAuras(mundoVirtual, 30, width*1/6, (height/16)*2, 1);
 
   fondo = new Fondo (radius, 86, 40, 50); //Fondo(float _r, float _b, float _h, float _s)
   texto = new Texto();
@@ -161,7 +166,7 @@ void setup() {
     vehicles.add(new Vehiculo(new PVector(x, y), 3.0, random(2, 5), random(0.1, 0.5), radius, 100.0, 4.0, 20));
   }
 
-  escenario = 0;
+  escenario = 2;
   analizaEscenario0.cancion.play();
 }
 
@@ -314,7 +319,8 @@ void draw() {
 
     ctlMain.dibujar(1);
     ctlMain.mover();
-    analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos());
+    //telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), PVector ally1.getPos());
+    //analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos());
     ally1.dibujar();
     ally2.dibujar();
     ally3.dibujar();
