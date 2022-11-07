@@ -51,7 +51,7 @@ class Control {
       posDest.x = _x;
       posDest.y = _y;
       // Considerar el angulo del fiduscial
-      //angulo = degrees(_a);
+      angulo = degrees(_a);
     }
   }
 
