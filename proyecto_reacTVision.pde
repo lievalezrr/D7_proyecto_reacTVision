@@ -45,7 +45,14 @@ PImage spotPic;
 
 PFont font;
 
+color colorNegro = #000000;
+color colorBlanco = #FFFFFF;
+color colorRojo = #F56045;
+color colorVerde = #CBF545;
+color colorAzul = #45F5E7;
+
 int escenario;
+boolean lightMode = false;
 
 boolean dibujarField = false;
 FlowField flowfield;
@@ -80,16 +87,16 @@ void setup() {
 
   llavePic = loadImage("llave.png");
   //llavePic.resize(width/16, width/16);
-  
+
   aliadoPic1 = loadImage("aliado1.png");
   //llavePic.resize(width/16, width/16);
-  
+
   aliadoPic2 = loadImage("aliado2.png");
   //llavePic.resize(width/16, width/16);
-  
+
   aliadoPic3 = loadImage("aliado3.png");
   //llavePic.resize(width/16, width/16);
-  
+
   huecoPic = loadImage("hueco.png");
   //llavePic.resize(width/16, width/16);
 
@@ -103,21 +110,21 @@ void setup() {
   analizaEscenario5 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
   analizaEscenario4 = new AnalizadorMusica(minim.loadFile("Song_Esc4-Dark.mp3", 1024));
 
-  ctlMain = new Control(width/2, 3*height/4, 0, 360, #FFFFFF, mundoVirtual);
+  ctlMain = new Control(width/2, 3*height/4, 0, 360, colorBlanco, colorNegro, mundoVirtual);
 
-  ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, #F56045, mundoVirtual);
-  ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, #CBF545, mundoVirtual);
-  ctlAlly3 = new Control(width-80, (height/2)+320, 0, 360, #45F5E7, mundoVirtual);
+  ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, colorRojo, colorRojo, mundoVirtual);
+  ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, colorVerde, colorVerde, mundoVirtual);
+  ctlAlly3 = new Control(width-80, (height/2)+320, 0, 360, colorAzul, colorAzul, mundoVirtual);
 
   controles[0] = ctlMain;
   controles[1] = ctlAlly1;
   controles[2] = ctlAlly2;
   controles[3] = ctlAlly3;
 
-  hMain = new Hotspot(width/18*12, height/18*12, #FFFFFF, width/32);
-  hAlly1 = new Hotspot(width/18*6, height/18*6, #F56045, width/32);
-  hAlly2 = new Hotspot(width/18*12, height/18*6, #CBF545, width/32);
-  hAlly3 = new Hotspot(width/18*6, height/18*12, #45F5E7, width/32);
+  hMain = new Hotspot(width/18*12, height/18*12, colorBlanco, colorNegro, width/32);
+  hAlly1 = new Hotspot(width/18*6, height/18*6, colorRojo, colorRojo, width/32);
+  hAlly2 = new Hotspot(width/18*12, height/18*6, colorVerde, colorVerde, width/32);
+  hAlly3 = new Hotspot(width/18*6, height/18*12, colorAzul, colorAzul, width/32);
 
   ally1 = new Atrapable(aliadoPic1, width*2/6, height/2, mundoVirtual);
   ally2 = new Atrapable(aliadoPic2, width*3/6, height/5, mundoVirtual);
@@ -138,7 +145,7 @@ void setup() {
   tela4 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4);
   tela4p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4.2);
 
-  fondo = new Fondo (radius, 50, 86, 40); //Fondo(float _r, float _b, float _h, float _s)
+  fondo = new Fondo (radius, 86, 40, 50); //Fondo(float _r, float _b, float _h, float _s)
   texto = new Texto();
 
   flowfield = new FlowField(20);
@@ -153,12 +160,14 @@ void setup() {
   }
 
   escenario = 0;
-  analizaEscenario4.cancion.play();
+  analizaEscenario0.cancion.play();
 }
 
 void draw() {
 
-  background(#000000);
+  if (lightMode) background(colorBlanco);
+  else background(colorNegro);
+
   mundoVirtual.tick();
   println(frameRate);
 
@@ -185,8 +194,10 @@ void draw() {
   }
 
   if (escenario == 0) {
+    
+    if (lightMode) fondo.hsb(86, analizaEscenario0.analizeFondo(0, 100), 100);
+    else fondo.hsb(86, 40, analizaEscenario0.analizeFondo(0, 40));
     fondo.drawFondo();
-    fondo.b = analizaEscenario0.analizeFondo();
     texto.say("come, we need your help");
 
     //si se pone fiducial se activa escenario 1
@@ -199,9 +210,9 @@ void draw() {
 
   if (escenario == 1) {
 
-    //Flowfield
+    if (lightMode) fondo.hsb(86, analizaEscenario1.analizeFondo(0, 100), 100);
+    else fondo.hsb(86, 40, analizaEscenario1.analizeFondo(0, 40));
     fondo.drawFondo();
-    fondo.b = analizaEscenario1.analizeFondo();
 
     // Mover el flow field y dibujarlo si fuera el caso
     flowfield.run(dibujarField);
@@ -254,8 +265,8 @@ void draw() {
 
   if (escenario == 2) {
 
-    fondo.h = 0;
-    fondo.b = analizaEscenario2.analizeFondo();
+    if (lightMode) fondo.hsb(0, analizaEscenario2.analizeFondo(0, 100), 100);
+    else fondo.hsb(0, 40, analizaEscenario2.analizeFondo(0, 40));
     fondo.drawFondo();
 
     flowfield.run(dibujarField);
@@ -308,8 +319,9 @@ void draw() {
   }
 
   if (escenario == 3) {
-    fondo.h = 241;
-    fondo.b = analizaEscenario2.analizeFondo();
+    
+    if (lightMode) fondo.hsb(241, analizaEscenario2.analizeFondo(0, 100), 100);
+    else fondo.hsb(241, 40, analizaEscenario2.analizeFondo(0, 40));
     fondo.drawFondo();
     texto.say("place your allies");
 
@@ -322,8 +334,9 @@ void draw() {
   }
 
   if (escenario == 4) {
-    fondo.h = 62;
-    fondo.b = 0;
+    
+    if (lightMode) fondo.hsb(62, 0, 100);
+    else fondo.hsb(62, 40, 0);
     fondo.drawFondo();
 
     hMain.dibujar();
@@ -365,22 +378,20 @@ void draw() {
     }
 
     if (alliesFaltantes > 0) {
-      
-     //tela1.setComportamiento(1);
-     // tela1p2.setComportamiento(1);
-     // tela2.setComportamiento(1);
-     // tela2p2.setComportamiento(1);
-     // tela3.setComportamiento(1);
-     // tela3p2.setComportamiento(1);
-     // tela4.setComportamiento(1);
-     // tela4p2.setComportamiento(1);
-     
+
+      //tela1.setComportamiento(1);
+      // tela1p2.setComportamiento(1);
+      // tela2.setComportamiento(1);
+      // tela2p2.setComportamiento(1);
+      // tela3.setComportamiento(1);
+      // tela3p2.setComportamiento(1);
+      // tela4.setComportamiento(1);
+      // tela4p2.setComportamiento(1);
+
       alliesFaltantes--;
       texto.say("we need to set it free, \n still missing " + alliesFaltantes);
-      
     } else {
       texto.say("yes, it's working!");
-      
     }
 
     ctlMain.dibujar(0);
@@ -396,15 +407,16 @@ void draw() {
     ctlAlly3.mover();
 
     if (!analizaEscenario4.cancion.isPlaying() && hAlly1.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y) && hAlly2.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y) &&
-    hAlly3.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y) && hMain.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
+      hAlly3.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y) && hMain.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
       escenario = 5;
+      analizaEscenario5.cancion.play();
     }
   }
+  
   if (escenario == 5) {
-    analizaEscenario5.cancion.play();
-    fondo.h = 0;
-    fondo.s = 0;
-    fondo.b = analizaEscenario5.analizeFondo();
+    
+    if (lightMode) fondo.hsb(173, analizaEscenario5.analizeFondo(0, 80), 100);
+    else fondo.hsb(0, 0, analizaEscenario5.analizeFondo(0, 40));
     fondo.drawFondo();
     texto.say("I'd forgotten how it felt to be free \n thank you");
   }
@@ -414,19 +426,19 @@ void keyPressed() {
   if (key == ' ') {
     dibujarField = !dibujarField;
   }
+  if (key == 'l') {
+    lightMode = !lightMode;
+  }
   // Activar los controladores con el teclado
   if (key == '8') {
     ctlMain.isPresent(true);
   }
-
   if (key == '1') {
     ctlAlly1.isPresent(true);
   }
-
   if (key == '2') {
     ctlAlly2.isPresent(true);
   }
-
   if (key == '3') {
     ctlAlly3.isPresent(true);
   }

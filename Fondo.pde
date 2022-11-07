@@ -3,8 +3,14 @@ class Fondo {
   float radius;
   float b, h, s;
 
-  Fondo(float _r, float _b, float _h, float _s) {
+  Fondo(float _r, float _h, float _s, float _b) {
     radius = _r;
+    b = _b;
+    h = _h;
+    s = _s;
+  }
+  
+  void hsb(float _h, float _s, float _b){
     b = _b;
     h = _h;
     s = _s;
@@ -17,7 +23,8 @@ class Fondo {
     for (float r = radius; r > 0; r -= 24) {
       fill(h, s, b);
       ellipse(width/2, height/2, r, r);
-      b = (b + 1);
+      if (lightMode) s = (s + 1);
+      else b = (b + 1);
     }
     ellipseMode(CENTER);
   }

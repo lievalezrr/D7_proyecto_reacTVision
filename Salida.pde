@@ -14,7 +14,8 @@ class Salida {
 
   void dibujar() {
     noStroke();
-    fill(#000000);
+    if (lightMode) fill(colorBlanco);
+    else fill(colorNegro);
     ellipse(pos.x, pos.y, width/18, width/18);
   }
 

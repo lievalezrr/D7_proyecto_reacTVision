@@ -30,9 +30,7 @@ class Vehiculo {
     borders();
     //setHue(analizaVehiculo.getColor());
     display();
-    
   }
-
 
   // Implementing Reynolds' flow field following algorithm
   // http://www.red3d.com/cwr/steer/FlowFollow.html
@@ -79,7 +77,8 @@ class Vehiculo {
     //Draw a triangle rotated in the direction of velocity
     float theta = velocity.heading2D() + radians(90);
     //fill(hue,200,100,250);
-    fill(#FFFFFF);
+    if (lightMode) fill(colorNegro);
+    else fill(colorBlanco);
     noStroke();
     pushMatrix();
     translate(location.x, location.y);
