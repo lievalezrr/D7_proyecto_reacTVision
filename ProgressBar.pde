@@ -31,7 +31,6 @@ class ProgressBar {
     rect(posX, posY, map(counter-startTime, 0, maxTime, 0, rectWidth), rectHeight);
     noFill();
     //stroke(0);
-    //rect(posX, posY, rectWidth, rectHeight);
-    
+    //rect(posX, posY, rectWidth, rectHeight);    
   }
 }

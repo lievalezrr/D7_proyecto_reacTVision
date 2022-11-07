@@ -100,7 +100,7 @@ void setup() {
   aliadoPic3 = loadImage("aliado3.png");
   huecoPic = loadImage("hueco.png");
 
-  llave = new Atrapable(llavePic, width/2, height/4, mundoVirtual);
+  llave = new Atrapable(llavePic, width/2, height*3/4, mundoVirtual);
 
   salida = new Salida(mundoVirtual, width/2, height/6);
 
@@ -442,6 +442,33 @@ void draw() {
   }
 }
 
+void rewind() {
+  if (escenario == 0) {
+    analizaEscenario0.cancion.rewind();
+    progressBar.setUp(analizaEscenario0.cancion.length());
+  }
+  if (escenario == 1) {
+    analizaEscenario1.cancion.rewind();
+    progressBar.setUp(analizaEscenario1.cancion.length());
+  }
+  if (escenario == 2) {
+    analizaEscenario2.cancion.rewind();
+    progressBar.setUp(analizaEscenario2.cancion.length());
+  }
+  if (escenario == 3) {
+    analizaEscenario3.cancion.rewind();
+    progressBar.setUp(analizaEscenario3.cancion.length());
+  }
+  if (escenario == 4) {
+    analizaEscenario4.cancion.rewind();
+    progressBar.setUp(analizaEscenario4.cancion.length());
+  }
+  if (escenario == 5) {
+    analizaEscenario5.cancion.rewind();
+    progressBar.setUp(analizaEscenario5.cancion.length());
+  }
+}
+
 void keyPressed() {
   if (key == ' ') {
     dibujarField = !dibujarField;
@@ -479,34 +506,6 @@ void mousePressed() {
       controles[i].seleccionadoConMouse = false;
     }
   }
-}
-
-void rewind() {
-  if (escenario == 0) {
-    analizaEscenario0.cancion.rewind();
-    progressBar.setUp(analizaEscenario0.cancion.length());
-  }
-  if (escenario == 1) {
-    analizaEscenario1.cancion.rewind();
-    progressBar.setUp(analizaEscenario1.cancion.length());
-  }
-  if (escenario == 2) {
-    analizaEscenario2.cancion.rewind();
-    progressBar.setUp(analizaEscenario2.cancion.length());
-  }
-  if (escenario == 3) {
-    analizaEscenario3.cancion.rewind();
-    progressBar.setUp(analizaEscenario3.cancion.length());
-  }
-  if (escenario == 4) {
-    analizaEscenario4.cancion.rewind();
-    progressBar.setUp(analizaEscenario4.cancion.length());
-  }
-  if (escenario == 5) {
-    analizaEscenario5.cancion.rewind();
-    progressBar.setUp(analizaEscenario5.cancion.length());
-  }
-  
 }
 
 
