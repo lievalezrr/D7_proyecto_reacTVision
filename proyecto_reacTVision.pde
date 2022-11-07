@@ -148,9 +148,9 @@ void setup() {
   tela4 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4);
   tela4p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4.2);
   
-  telaAlly1 = new TelaAuras(mundoVirtual, 30, width*5/6, (height/16)*14, 4);
-  telaAlly2 = new TelaAuras(mundoVirtual, 30, width*1/6, (height/16)*14, 3);
-  telaAlly3 = new TelaAuras(mundoVirtual, 30, width*1/6, (height/16)*2, 1);
+  telaAlly1 = new TelaAuras(mundoVirtual, 20, width*5/6, (height/16)*14, 4);
+  telaAlly2 = new TelaAuras(mundoVirtual, 20, width*1/6, (height/16)*14, 3);
+  telaAlly3 = new TelaAuras(mundoVirtual, 20, width*1/6, (height/16)*2, 1);
 
   fondo = new Fondo (radius, 86, 40, 50); //Fondo(float _r, float _b, float _h, float _s)
   texto = new Texto();
@@ -319,7 +319,7 @@ void draw() {
 
     ctlMain.dibujar(1);
     ctlMain.mover();
-    //telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), PVector ally1.getPos());
+   // telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), PVector ally1.getPos());
     //analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos());
     ally1.dibujar();
     ally2.dibujar();
