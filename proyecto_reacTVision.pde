@@ -37,9 +37,7 @@ AnalizadorMusica analizaEscenario0, analizaEscenario1, analizaEscenario2, analiz
 
 Atrapable llave;
 PImage llavePic;
-PImage aliadoPic1;
-PImage aliadoPic2;
-PImage aliadoPic3;
+PImage aliadoPic1, aliadoPic2, aliadoPic3;
 PImage huecoPic;
 PImage mainPic1, mainPic2, mainPic3;
 PImage spotPic;
@@ -51,6 +49,10 @@ color colorBlanco = #FFFFFF;
 color colorRojo = #F56045;
 color colorVerde = #CBF545;
 color colorAzul = #45F5E7;
+
+int hueVerde = 86;
+int hueRojo = 0;
+int hueAzul = 241;
 
 int escenario;
 boolean lightMode = false;
@@ -86,9 +88,9 @@ void setup() {
   minim = new Minim(this);
   tuioClient = new TuioProcessing(this);
 
-  mainPic1 = loadImage("star.png");
-  mainPic2 = loadImage("star.png"); //**poner imgs**
-  mainPic3 = loadImage("star.png");
+  mainPic1 = loadImage("mainAzul.png");
+  mainPic2 = loadImage("mainRojo.png"); 
+  mainPic3 = loadImage("mainVerde.png");
 
   llavePic = loadImage("llave.png");
   //llavePic.resize(width/16, width/16);
@@ -111,11 +113,11 @@ void setup() {
   analizaEscenario4 = new AnalizadorMusica(minim.loadFile("Song_Esc4-Dark.mp3", 1024));
   analizaEscenario5 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
 
-  ctlMain = new Control(width/2, height/2, 0, 360, colorBlanco, colorNegro, mundoVirtual);
+  ctlMain = new Control(width/2, height/2, 0, 360, colorBlanco, colorNegro, mundoVirtual, mainPic1, mainPic2, mainPic3);
 
-  ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, colorRojo, colorRojo, mundoVirtual);
-  ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, colorVerde, colorVerde, mundoVirtual);
-  ctlAlly3 = new Control(width-80, (height/2)+320, 0, 360, colorAzul, colorAzul, mundoVirtual);
+  ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, colorRojo, colorRojo, mundoVirtual, aliadoPic1, aliadoPic1, aliadoPic1);
+  ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, colorVerde, colorVerde, mundoVirtual, aliadoPic2, aliadoPic2, aliadoPic2);
+  ctlAlly3 = new Control(width-80, (height/2)+320, 0, 360, colorAzul, colorAzul, mundoVirtual, aliadoPic3, aliadoPic3, aliadoPic3);
 
   controles[0] = ctlMain;
   controles[1] = ctlAlly1;
@@ -201,11 +203,11 @@ void draw() {
 
   if (escenario == 0) {
 
-    if (lightMode) fondo.hsb(86, analizaEscenario0.analizeFondo(0, 100), 100);
-    else fondo.hsb(86, 100, analizaEscenario0.analizeFondo(0, 80));
+    if (lightMode) fondo.hsb(ctlMain.hueTheme, analizaEscenario0.analizeFondo(0, 100), 100);
+    else fondo.hsb(ctlMain.hueTheme, 100, analizaEscenario0.analizeFondo(0, 80));
     fondo.drawFondo();
     texto.say("come, we need your help");
-    progressBar.paint(color(86, 80, 100));
+    progressBar.paint(color(ctlMain.hueTheme, 80, 100));
 
     //si se pone fiducial se activa escenario 1
     if (ctlMain.estaPresente == true) {
@@ -218,10 +220,10 @@ void draw() {
 
   if (escenario == 1) {
 
-    if (lightMode) fondo.hsb(86, analizaEscenario1.analizeFondo(0, 100), 100);
-    else fondo.hsb(86, 100, analizaEscenario1.analizeFondo(0, 80));
+    if (lightMode) fondo.hsb(ctlMain.hueTheme, analizaEscenario1.analizeFondo(0, 100), 100);
+    else fondo.hsb(ctlMain.hueTheme, 100, analizaEscenario1.analizeFondo(0, 80));
     fondo.drawFondo();
-    progressBar.paint(color(86, 80, 100));
+    progressBar.paint(color(ctlMain.hueTheme, 80, 100));
 
     // Mover el flow field y dibujarlo si fuera el caso
     flowfield.run(dibujarField);
@@ -234,7 +236,7 @@ void draw() {
       v.sideLen = analizaEscenario1.analizeVehiculo();
     }
 
-    ctlMain.dibujar(1);
+    ctlMain.dibujar();
     ctlMain.mover();
 
     if (analizaEscenario1.cancion.position() > 4700 && analizaEscenario1.cancion.position() < 10000) {
@@ -324,7 +326,7 @@ void draw() {
       progressBar.setUp(analizaEscenario3.cancion.length());
     }
 
-    ctlMain.dibujar(1);
+    ctlMain.dibujar();
     ctlMain.mover();
     // telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), PVector ally1.getPos());
     //analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos());
@@ -412,16 +414,16 @@ void draw() {
       texto.say("yes, it's working!");
     }
 
-    ctlMain.dibujar(0);
+    ctlMain.dibujar();
     ctlMain.mover();
 
-    ctlAlly1.dibujar(0);
+    ctlAlly1.dibujar();
     ctlAlly1.mover();
 
-    ctlAlly2.dibujar(0);
+    ctlAlly2.dibujar();
     ctlAlly2.mover();
 
-    ctlAlly3.dibujar(0);
+    ctlAlly3.dibujar();
     ctlAlly3.mover();
 
     if (!analizaEscenario4.cancion.isPlaying() && hAlly1.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y) && hAlly2.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y) &&

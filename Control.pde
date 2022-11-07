@@ -2,46 +2,55 @@ class Control {
 
   float angulo, r;
   PVector pos, posDest;
-  int vlr,codigoPersonaje;
+  int vlr, codigoPersonaje;
   PVector posInicial;
   int vlrMin, vlrMax;
   String tag;
   boolean estaPresente, seleccionadoConMouse;
   color clrDark, clrLight;
+  int hueTheme;
   Particle particle;
+  PImage angulo1, angulo2, angulo3;
 
-  public Control(float _x, float _y, int _vMin, int _vMax, color _clrDark, color _clrLight, ParticleSystem mundoVirtual) {
+  public Control(float _x, float _y, int _vMin, int _vMax, color _clrDark, color _clrLight, ParticleSystem mundoVirtual,
+    PImage _angulo1, PImage _angulo2, PImage _angulo3) {
 
     pos = new PVector (_x, _y);
     posDest = new PVector (_x, _y);
     posInicial = new PVector (_x, _y);
-    angulo = 360;
+    angulo = 0;
     vlrMin = _vMin;
     vlrMax = _vMax;
     clrDark = _clrDark;
     clrLight = _clrLight;
+    hueTheme = hueAzul;
     r = 50;
     particle = mundoVirtual.makeParticle(1, _x, _y, 0);
     seleccionadoConMouse = false;
     estaPresente = false;
+    angulo1 = _angulo1;
+    angulo2 = _angulo2;
+    angulo3 = _angulo3;
   }
 
-  void dibujar(int _personaje) {
-    codigoPersonaje = _personaje;
+  void dibujar() {
     textAlign(CENTER);
     if (lightMode) fill(clrLight);
     else fill(clrDark);
     arc(pos.x, pos.y, r, r, 0, radians(angulo));
+
     imageMode(CENTER);
-    
-    if (codigoPersonaje == 1) {
-      image(mainPic1,pos.x, pos.y);
+    if (angulo >= 0 && angulo <= 120) {
+      image(angulo1, pos.x, pos.y);
+      hueTheme = int(map(angulo, 0, 120, 176, 263));
     }
-     if (codigoPersonaje == 2) {
-      image(mainPic2,pos.x, pos.y);
-     }
-       if (codigoPersonaje == 1) {
-      image(mainPic3,pos.x, pos.y);
+    if (angulo > 120 && angulo <= 240) {
+      image(angulo2, pos.x, pos.y);
+      hueTheme = int(map(angulo, 120, 240, 300, 360));
+    }
+    if (angulo > 240 && angulo <= 360) {
+      image(angulo3, pos.x, pos.y);
+      hueTheme = int(map(angulo, 240, 360, 65, 155));
     }
     imageMode(CORNER);
   }
@@ -60,7 +69,7 @@ class Control {
       posDest.x = posInicial.x;
       posDest.y = posInicial.y;
     }
-    
+
     //Para mover con el mouse
     if (seleccionadoConMouse == true) {
       posDest.x = mouseX;
