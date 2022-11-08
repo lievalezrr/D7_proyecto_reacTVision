@@ -1,7 +1,7 @@
 class TelaAuras {
 
   Particle[][] arrayDeParticulas; // matriz que contiene particulas
-  int cantidadDeParticulasPorLado,mitad, fin;
+  int cantidadDeParticulasPorLado,mitad, fin, hue;
   float durezaDeResortes;
   float elasticidadDeResortes;
   float clr, vol, tag, freq, comp, golpe, cambioColor,volumen,pasoEnY, pasoEnX;
@@ -49,12 +49,13 @@ class TelaAuras {
 
 
 
-  void dibujar(float _clr, float _freq, float _golpe, PVector _posAura, float _vol) {
+  void dibujar(float _clr, float _freq, float _golpe, PVector _posAura, float _vol, int _huetheme) {
     
     freq = _freq;
     golpe = _golpe;
     volumen = _vol;
     posAura = _posAura;
+    hue = _huetheme;
     //clr = 100;
     //text(vol, width/4,height/3);
     //text(clr, width/4, height/4);
@@ -75,23 +76,23 @@ class TelaAuras {
           vertex(arrayDeParticulas[i][j+1].position().x(), arrayDeParticulas[i][j+1].position().y());
           vertex(arrayDeParticulas[i][j].position().x(), arrayDeParticulas[i][j].position().y());
           endShape();
-          fill((j+105)/1.3, 90, i+80*1.1, 120);
+          fill(hue, 90, i+80*1.1, 120);
         }
     }
     //se dibujan las posiciones al centro
     
       for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
-        //arrayDeParticulas[j][0].position().set(posAura.x-width/80, posAura.y,0); //posAura.x-(posAura.x-j), posAura.y-width/80, 0
-        ////arrayDeParticulas[j][0].makeFixed();
+        arrayDeParticulas[j][0].position().set(posAura.x-width/80, posAura.y,0); //posAura.x-(posAura.x-j), posAura.y-width/80, 0
+        //arrayDeParticulas[j][0].makeFixed();
         
-        //arrayDeParticulas[0][j].position().set(posAura.x, posAura.y-width/80, 0);
-        ////arrayDeParticulas[0][j].makeFixed();
+        arrayDeParticulas[0][j].position().set(posAura.x, posAura.y-width/80, 0);
+        //arrayDeParticulas[0][j].makeFixed();
         
-        //arrayDeParticulas[j][9].position().set(posAura.x+width/80, posAura.y, 0);
-        ////arrayDeParticulas[j][9].makeFixed();
+        arrayDeParticulas[j][9].position().set(posAura.x+width/80, posAura.y, 0);
+        //arrayDeParticulas[j][9].makeFixed();
         
-        //arrayDeParticulas[9][j].position().set(posAura.x, posAura.y+width/80, 0);
-        //arrayDeParticulas[9][j].makeFixed();
+        arrayDeParticulas[9][j].position().set(posAura.x, posAura.y+width/80, 0);
+        arrayDeParticulas[9][j].makeFixed();
         
         
       //  //arrayDeParticulas[j][9].position().set(posAura.x, posAura.y, 0);
@@ -100,10 +101,10 @@ class TelaAuras {
       arrayDeParticulas[mitad][mitad].position().set(posAura.x, posAura.y, 0);
       arrayDeParticulas[mitad][mitad].makeFixed();
       
-      arrayDeParticulas[0][fin].position().set(posAura.x-width/80, posAura.y-width/80, 0);
-      arrayDeParticulas[fin][0].position().set(posAura.x+width/80, posAura.y-width/80, 0);
-      arrayDeParticulas[0][0].position().set(posAura.x-width/80, posAura.y+width/80, 0);
-      arrayDeParticulas[fin][fin].position().set(posAura.x+width/80, posAura.y+width/80, 0);
+      //arrayDeParticulas[0][fin].position().set(posAura.x-width/80, posAura.y-width/80, 0);
+      //arrayDeParticulas[fin][0].position().set(posAura.x+width/80, posAura.y-width/80, 0);
+      //arrayDeParticulas[0][0].position().set(posAura.x-width/80, posAura.y+width/80, 0);
+      //arrayDeParticulas[fin][fin].position().set(posAura.x+width/80, posAura.y+width/80, 0);
       
       
       
@@ -148,13 +149,13 @@ class TelaAuras {
        }
       }
       
-      if (vol > 25) {
-        arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), random(0, 1920), 0.01), height/13, 100);
-        arrayDeParticulas[7][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), random(0, 1920), 0.01), height/13, 0);
-        arrayDeParticulas[3][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), random(0, 1920), 0.01), height/13*8, 0);
-        arrayDeParticulas[7][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), random(0, 1920), 0.01), height/13*8, 0);
-        //arrayDeParticulas[30][30].makeFixed();
-      }
+      //if (vol > 25) {
+      //  arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), random(0, 1920), 0.01), height/13, 100);
+      //  arrayDeParticulas[7][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), random(0, 1920), 0.01), height/13, 0);
+      //  arrayDeParticulas[3][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), random(0, 1920), 0.01), height/13*8, 0);
+      //  arrayDeParticulas[7][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), random(0, 1920), 0.01), height/13*8, 0);
+      //  //arrayDeParticulas[30][30].makeFixed();
+      //}
     }
 }
 

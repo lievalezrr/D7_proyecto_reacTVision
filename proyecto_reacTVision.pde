@@ -89,19 +89,19 @@ void setup() {
   minim = new Minim(this);
   tuioClient = new TuioProcessing(this);
 
-  mainPic1 = loadImage("MainCtlAzul.png");
+  mainPic1 = loadImage("aura_azul.png");
   mainPic1.resize(width/16, width/16);
-  mainPic2 = loadImage("MainCtlRojo.png");
+  mainPic2 = loadImage("aura_rojo.png");
   mainPic2.resize(width/16, width/16);
   mainPic3 = loadImage("mainVerde.png");
 
   llavePic = loadImage("llave.png");
   //llavePic.resize(width/16, width/16);
 
-  aliadoPic1 = loadImage("here.png");
-
-  aliadoPic2 = loadImage("here.png");
-
+  aliadoPic1 = loadImage("aliado despierto.png");
+  aliadoPic1.resize(width/16, width/16);
+  aliadoPic2 = loadImage("aliado despierto.png");
+  aliadoPic2.resize(width/16, width/16);
   aliadoPic3 = loadImage("here.png");
   huecoPic = loadImage("hueco.png");
 
@@ -121,8 +121,8 @@ void setup() {
   ctlMain = new Control(width/2, height/2, 0, 360, colorBlanco, colorNegro, mundoVirtual, mainPic1, mainPic2, mainPic3);
 
   ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, colorRojo, colorRojo, mundoVirtual, aliadoPic1, aliadoPic1, aliadoPic1);
-  ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, colorVerde, colorVerde, mundoVirtual, aliadoPic2, aliadoPic2, aliadoPic2);
-  ctlAlly3 = new Control(width-80, (height/2)+320, 0, 360, colorAzul, colorAzul, mundoVirtual, aliadoPic3, aliadoPic3, aliadoPic3);
+  ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, colorVerde, colorVerde, mundoVirtual, aliadoPic1, aliadoPic1, aliadoPic1);
+  ctlAlly3 = new Control(width-80, (height/2)+320, 0, 360, colorAzul, colorAzul, mundoVirtual, aliadoPic1, aliadoPic1, aliadoPic1);
 
   controles[0] = ctlMain;
   controles[1] = ctlAlly1;
@@ -135,8 +135,8 @@ void setup() {
   hAlly3 = new Hotspot(width/18*6, height/18*12, colorAzul, colorAzul, width/32);
 
   ally1 = new Atrapable(aliadoPic1, width*2/6, height/2, mundoVirtual);
-  ally2 = new Atrapable(aliadoPic2, width*3/6, height/5, mundoVirtual);
-  ally3 = new Atrapable(aliadoPic3, width*4/6, height/2, mundoVirtual);
+  ally2 = new Atrapable(aliadoPic1, width*3/6, height/5, mundoVirtual);
+  ally3 = new Atrapable(aliadoPic1, width*4/6, height/2, mundoVirtual);
 
   tela1 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*2, 1);
   tela1p2 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*2, 1.2);
@@ -354,11 +354,11 @@ void draw() {
     analizaEscenario2.analizeFreq();
     analizaEscenario2.analizeSize();
     text(analizaEscenario2.getFreq(),width/2, height/8*7);
-    telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally1.getPos(),analizaEscenario2.getSize());
-    telaAlly2.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally2.getPos(),analizaEscenario2.getSize());
-    telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos(),analizaEscenario2.getSize());
+    telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally1.getPos(),analizaEscenario2.getSize(),ctlMain.hueTheme);
+    telaAlly2.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally2.getPos(),analizaEscenario2.getSize(),ctlMain.hueTheme);
+    telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos(),analizaEscenario2.getSize(),ctlMain.hueTheme);
     fill(#FFFFFF);
-    text(analizaEscenario2.getFreq(),width/2, width/8*7);
+   // text(analizaEscenario2.getFreq(),width/2, width/8*7);
     // analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos());
     ally1.dibujar();
     ally2.dibujar();
