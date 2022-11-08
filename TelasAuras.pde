@@ -4,7 +4,7 @@ class TelaAuras {
   int cantidadDeParticulasPorLado;
   float durezaDeResortes;
   float elasticidadDeResortes;
-  float clr, vol, tag, freq, comp, golpe, cambioColor;
+  float clr, vol, tag, freq, comp, golpe, cambioColor,volumen;
   PVector posAura;
 
   public TelaAuras(ParticleSystem mundoVirtual, int cantidad, float _naceX, float _naceY, float _tag) {
@@ -21,8 +21,8 @@ class TelaAuras {
 
 
     arrayDeParticulas = new Particle[cantidadDeParticulasPorLado][cantidadDeParticulasPorLado];
-    float pasoEnX = (width/9) / cantidadDeParticulasPorLado;
-    float pasoEnY = (width/9) / cantidadDeParticulasPorLado;
+    float pasoEnX = (width/20) / cantidadDeParticulasPorLado;
+    float pasoEnY = (width/20) / cantidadDeParticulasPorLado;
 
     // se define la posición de las partículas y la separación entre sus resortes horizontales
     for (int i = 0; i < cantidadDeParticulasPorLado; i++) {
@@ -51,12 +51,13 @@ class TelaAuras {
 
 
 
-  void dibujar(float _clr, float _freq, float _golpe, PVector _posAura) {
+  void dibujar(float _clr, float _freq, float _golpe, PVector _posAura, float _vol) {
     
     freq = _freq;
     golpe = _golpe;
+    volumen = _vol;
     posAura = _posAura;
-    clr = 100;
+    //clr = 100;
     //text(vol, width/4,height/3);
     //text(clr, width/4, height/4);
     noStroke();
@@ -76,7 +77,7 @@ class TelaAuras {
           vertex(arrayDeParticulas[i][j+1].position().x(), arrayDeParticulas[i][j+1].position().y());
           vertex(arrayDeParticulas[i][j].position().x(), arrayDeParticulas[i][j].position().y());
           endShape();
-          fill((j+105)/1.3*clr, 90, i+80*1.1, 120);
+          fill((j+105)/1.3, 90, i+80*1.1, 120);
         }
     }
     //se dibujan las posiciones al centro
@@ -105,17 +106,17 @@ class TelaAuras {
     
       if (tag == 1) {
         if (freq > 10) {
-          arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 0);
-          arrayDeParticulas[7][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 0);
-          arrayDeParticulas[3][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
-          arrayDeParticulas[7][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
+          arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[3][3].position().x(), golpe, 0.01), height/13, 0);
+          arrayDeParticulas[7][3].position().set(lerp(arrayDeParticulas[7][3].position().x(), golpe, 0.01), height/13, 0);
+          arrayDeParticulas[3][7].position().set(lerp(arrayDeParticulas[3][7].position().x(), golpe, 0.01), height/13*8, 0);
+          arrayDeParticulas[7][7].position().set(lerp(arrayDeParticulas[7][7].position().x(), golpe, 0.01), height/13*8, 0);
           //arrayDeParticulas[30][30].makeFixed();
         }
       }
       
       if (tag == 2) {
         if (freq < 100 || freq > 50) {
-            arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 0);
+            arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[3][3].position().x(), golpe, 0.01), height/13, 0);
           arrayDeParticulas[7][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 0);
           arrayDeParticulas[3][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
           arrayDeParticulas[7][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);

@@ -84,7 +84,7 @@ void setup() {
 
   radius = width/3;
 
-  mundoVirtual = new ParticleSystem(0, 0.1);
+  mundoVirtual = new ParticleSystem(0.01, 0.1);
   minim = new Minim(this);
   tuioClient = new TuioProcessing(this);
 
@@ -95,11 +95,11 @@ void setup() {
   llavePic = loadImage("llave.png");
   //llavePic.resize(width/16, width/16);
 
-  aliadoPic1 = loadImage("aliado1.png");
+  aliadoPic1 = loadImage("here.png");
 
-  aliadoPic2 = loadImage("aliado2.png");
+  aliadoPic2 = loadImage("here.png");
 
-  aliadoPic3 = loadImage("aliado3.png");
+  aliadoPic3 = loadImage("here.png");
   huecoPic = loadImage("hueco.png");
 
   llave = new Atrapable(llavePic, width/2, height*3/4, mundoVirtual);
@@ -328,10 +328,10 @@ void draw() {
 
     ctlMain.dibujar();
     ctlMain.mover();
-    //analizaEscenario2.analizeFreq();
-    telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally1.getPos());
-    telaAlly2.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally2.getPos());
-    telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos());
+    analizaEscenario2.analizeFreq();
+    telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally1.getPos(),analizaEscenario2.getSize());
+    telaAlly2.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally2.getPos(),analizaEscenario2.getSize());
+    telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos(),analizaEscenario2.getSize());
     // analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos());
     ally1.dibujar();
     ally2.dibujar();
