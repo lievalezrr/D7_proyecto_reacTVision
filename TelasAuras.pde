@@ -21,8 +21,8 @@ class TelaAuras {
 
 
     arrayDeParticulas = new Particle[cantidadDeParticulasPorLado][cantidadDeParticulasPorLado];
-    float pasoEnX = (width/5) / cantidadDeParticulasPorLado;
-    float pasoEnY = (width/5) / cantidadDeParticulasPorLado;
+    float pasoEnX = (width/100) / cantidadDeParticulasPorLado;
+    float pasoEnY = (width/100) / cantidadDeParticulasPorLado;
 
     // se define la posición de las partículas y la separación entre sus resortes horizontales
     for (int i = 0; i < cantidadDeParticulasPorLado; i++) {
@@ -74,15 +74,15 @@ class TelaAuras {
     
       for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
         arrayDeParticulas[j][0].position().set(posAura.x, posAura.y, 0);
-        arrayDeParticulas[j][0].makeFixed();
+        //arrayDeParticulas[j][0].makeFixed();
         
-        arrayDeParticulas[j][9].position().set(posAura.x, posAura.y, 0);
+        //arrayDeParticulas[j][9].position().set(posAura.x, posAura.y, 0);
         
       }
     
 
 
-    text(analizaEscenario2.getFreq(),width/2, width/8);
+    text(analizaEscenario2.getFreq(),width/2, width/8*6);
     
 
  
@@ -94,33 +94,32 @@ class TelaAuras {
     
       if (tag == 1) {
         if (freq > 10) {
-          arrayDeParticulas[5][15].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 100);
-          arrayDeParticulas[5][15].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 0);
-          arrayDeParticulas[15][5].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
-          arrayDeParticulas[15][5].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
+          arrayDeParticulas[0][0].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 0);
+          arrayDeParticulas[9][0].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 0);
+          arrayDeParticulas[0][9].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
+          arrayDeParticulas[9][9].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
           //arrayDeParticulas[30][30].makeFixed();
         }
       }
       
-    ////  if (tag == 2) {
-    ////    if (freq < 100 || freq > 50) {
-    ////      arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13, 100);
-    ////      arrayDeParticulas[10][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13, 0);
-    ////      arrayDeParticulas[20][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13*8, 0);
-    ////      arrayDeParticulas[20][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13*8, 0);
-    ////      //arrayDeParticulas[30][30].makeFixed();
-    ////    }
-    ////  }
+      if (tag == 2) {
+        if (freq < 100 || freq > 50) {
+            arrayDeParticulas[0][0].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 100);
+          arrayDeParticulas[9][0].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 0);
+          arrayDeParticulas[0][9].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
+          arrayDeParticulas[9][9].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
+        }
+      }
       
-    ////   if (tag == 3) {
-    ////    if (freq < 30 || freq > 10) {
-    ////      arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13, 100);
-    ////      arrayDeParticulas[10][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13, 0);
-    ////      arrayDeParticulas[20][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13*8, 0);
-    ////      arrayDeParticulas[20][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13*8, 0);
-    ////      //arrayDeParticulas[30][30].makeFixed();
-    ////    }
-    ////  }
+       if (tag == 3) {
+      if (freq < 150 || freq > 100) {
+          arrayDeParticulas[0][0].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 100);
+          arrayDeParticulas[9][0].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 0);
+          arrayDeParticulas[0][9].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
+          arrayDeParticulas[9][9].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
+    //      //arrayDeParticulas[30][30].makeFixed();
+       }
+      }
     }
 }
 
