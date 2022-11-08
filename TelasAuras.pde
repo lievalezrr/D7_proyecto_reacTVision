@@ -11,7 +11,7 @@ class TelaAuras {
 
     cantidadDeParticulasPorLado = cantidad;
     durezaDeResortes = 0.01;
-    elasticidadDeResortes = 0.0001;
+    elasticidadDeResortes = 0.01;
     clr = color(#ffffff);
     tag = _tag; // identifica cuál de las cuatro telas es
      //posAura = _posAura;
@@ -106,7 +106,7 @@ class TelaAuras {
       
       
 
-    
+    text(analizaEscenario2.getFreq(),width/2, width/8*7);
     
 
  
@@ -116,34 +116,34 @@ class TelaAuras {
     
      //golpes en la tela por rango de frecuencias correspondiente a cada una
     
-    //  if (tag == 1) {
-    //    if (freq > 10) {
-    //      arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[3][3].position().x(), golpe, 0.01), height/13, 0);
-    //      arrayDeParticulas[7][3].position().set(lerp(arrayDeParticulas[7][3].position().x(), golpe, 0.01), height/13, 0);
-    //      arrayDeParticulas[3][7].position().set(lerp(arrayDeParticulas[3][7].position().x(), golpe, 0.01), height/13*8, 0);
-    //      arrayDeParticulas[7][7].position().set(lerp(arrayDeParticulas[7][7].position().x(), golpe, 0.01), height/13*8, 0);
+      if (tag == 1) {
+        if (freq > 10) {
+          arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[3][3].position().x(), golpe, 0.01), height/13, 0);
+          arrayDeParticulas[7][3].position().set(lerp(arrayDeParticulas[7][3].position().x(), golpe, 0.01), height/13, 0);
+          arrayDeParticulas[3][7].position().set(lerp(arrayDeParticulas[3][7].position().x(), golpe, 0.01), height/13*8, 0);
+          arrayDeParticulas[7][7].position().set(lerp(arrayDeParticulas[7][7].position().x(), golpe, 0.01), height/13*8, 0);
+          //arrayDeParticulas[30][30].makeFixed();
+        }
+      }
+      
+      if (tag == 2) {
+        if (freq < 100 || freq > 50) {
+            arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[3][3].position().x(), golpe, 0.01), height/13, 0);
+          arrayDeParticulas[7][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 0);
+          arrayDeParticulas[3][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
+          arrayDeParticulas[7][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
+        }
+      }
+      
+       if (tag == 3) {
+      if (freq < 150 || freq > 100) {
+          arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 0);
+          arrayDeParticulas[7][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 0);
+          arrayDeParticulas[3][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
+          arrayDeParticulas[7][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
     //      //arrayDeParticulas[30][30].makeFixed();
-    //    }
-    //  }
-      
-    //  if (tag == 2) {
-    //    if (freq < 100 || freq > 50) {
-    //        arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[3][3].position().x(), golpe, 0.01), height/13, 0);
-    //      arrayDeParticulas[7][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 0);
-    //      arrayDeParticulas[3][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
-    //      arrayDeParticulas[7][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
-    //    }
-    //  }
-      
-    //   if (tag == 3) {
-    //  if (freq < 150 || freq > 100) {
-    //      arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 0);
-    //      arrayDeParticulas[7][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13, 0);
-    //      arrayDeParticulas[3][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
-    //      arrayDeParticulas[7][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), golpe, 0.01), height/13*8, 0);
-    ////      //arrayDeParticulas[30][30].makeFixed();
-    //   }
-    //  }
+       }
+      }
       
       if (vol > 25) {
         arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), random(0, 1920), 0.01), height/13, 100);

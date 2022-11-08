@@ -21,6 +21,7 @@ FFT fftLog;
 FFT fftLin;
 
 AudioMetaData metaDatos;
+AudioSample cambioPersonaje, aliado, finalExplosion, hotSpot, llaveSonido, salidaSonido, salida1;
 
 TuioProcessing tuioClient;
 Control ctlMain;
@@ -88,8 +89,10 @@ void setup() {
   minim = new Minim(this);
   tuioClient = new TuioProcessing(this);
 
-  mainPic1 = loadImage("mainAzul.png");
-  mainPic2 = loadImage("mainRojo.png");
+  mainPic1 = loadImage("MainCtlAzul.png");
+  mainPic1.resize(width/16, width/16);
+  mainPic2 = loadImage("MainCtlRojo.png");
+  mainPic2.resize(width/16, width/16);
   mainPic3 = loadImage("mainVerde.png");
 
   llavePic = loadImage("llave.png");
@@ -112,6 +115,8 @@ void setup() {
   analizaEscenario3 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
   analizaEscenario4 = new AnalizadorMusica(minim.loadFile("Song_Esc4-Dark.mp3", 1024));
   analizaEscenario5 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
+  
+  
 
   ctlMain = new Control(width/2, height/2, 0, 360, colorBlanco, colorNegro, mundoVirtual, mainPic1, mainPic2, mainPic3);
 
@@ -154,6 +159,14 @@ void setup() {
 
   flowfield = new FlowField(20);
   vehicles = new ArrayList<Vehiculo>();
+  
+  cambioPersonaje= minim.loadSample("sfxCambioPersonaje.mp3");
+  aliado= minim.loadSample("sfxAliado.mp3");
+  finalExplosion= minim.loadSample("sfxFinalExplosion.mp3");
+  hotSpot= minim.loadSample("sfxHotSpot.mp3");
+  llaveSonido=minim.loadSample("sfxLlave.mp3");
+  salidaSonido= minim.loadSample("sfxSalida.mp3");
+  salida1=minim.loadSample("sfxSalida1.mp3");
 
   for (int i = 0; i < vehicleAmount; i++) {
     float r = radius * sqrt(random(1));
@@ -249,6 +262,7 @@ void draw() {
 
     if (analizaEscenario1.cancion.position() > 25000 && llave.meAtraparon == false) {
       llave.dibujar();
+      llaveSonido.trigger();
       texto.say("look, a key");
 
       // Atrapar la llave
@@ -261,6 +275,8 @@ void draw() {
     if (llave.meAtraparon == true) {
       llave.dibujar();
       salida.dibujar();
+      salidaSonido.trigger();
+      
       texto.say("let's find out what's going on");
     }
 
@@ -270,6 +286,7 @@ void draw() {
       llave.soltar();
       analizaEscenario1.cancion.pause();
       analizaEscenario2.cancion.play();
+      salida1.trigger();
       progressBar.setUp(analizaEscenario2.cancion.length());
       fondo.h = 0;
     }
@@ -295,6 +312,7 @@ void draw() {
       texto.say("find your allies \n 3 to go");
       if (ally1.getPos().dist(ctlMain.getPos()) < width/30) {
         ally1.atrapar(ctlMain.particle);
+        aliado.trigger();
       }
     }
 
@@ -302,6 +320,7 @@ void draw() {
       texto.say("find your allies \n 2 to go");
       if (ally2.getPos().dist(ctlMain.getPos()) < width/30) {
         ally2.atrapar(ally1.particle);
+        aliado.trigger();
       }
     }
 
@@ -309,12 +328,14 @@ void draw() {
       texto.say("find your allies \n 1 to go");
       if (ally3.getPos().dist(ctlMain.getPos()) < width/30) {
         ally3.atrapar(ally2.particle);
+        aliado.trigger();
       }
     }
 
     if (analizaEscenario2.cancion.position() > 5000 && ally1.meAtraparon == true && ally2.meAtraparon == true && ally3.meAtraparon == true) {
       texto.say("we're in this together \n are you ready for what's on the other side?");
       salida.dibujar();
+      salidaSonido.trigger();
     }
 
     // Llegar a la salida
@@ -322,7 +343,9 @@ void draw() {
       escenario = 3;
       llave.soltar();
       analizaEscenario2.cancion.pause();
+      salida1.trigger();
       analizaEscenario3.cancion.play();
+      
       progressBar.setUp(analizaEscenario3.cancion.length());
     }
 
@@ -382,24 +405,28 @@ void draw() {
       tela1.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela1p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1 );
       alliesFaltantes--;
+      hotSpot.trigger();
     }
 
     if (hAlly2.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y)) {
       tela2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela2p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1 );
       alliesFaltantes--;
+      hotSpot.trigger();
     }
 
     if (hAlly3.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y)) {
       tela3.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela3p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1);
       alliesFaltantes--;
+      hotSpot.trigger();
     }
 
     if (hMain.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
       tela4.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela4p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1);
       alliesFaltantes--;
+      hotSpot.trigger();
     }
 
     if (alliesFaltantes > 0) {
