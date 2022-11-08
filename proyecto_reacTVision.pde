@@ -105,9 +105,9 @@ void setup() {
   aliadoPic3 = loadImage("here.png");
   huecoPic = loadImage("hueco.png");
 
-  llave = new Atrapable(llavePic, width/2, height*3/4, mundoVirtual);
+  llave = new Atrapable(llavePic, width/2, height/4, mundoVirtual);
 
-  salida = new Salida(mundoVirtual, width/2, height/6);
+  salida = new Salida(mundoVirtual, width/2, height*5/6);
 
   analizaEscenario0 = new AnalizadorMusica(minim.loadFile("Esc_0_Eye.mp3", 1024));
   analizaEscenario1 = new AnalizadorMusica(minim.loadFile("Song_Esc1-Alien_1.mp3", 1024));
@@ -115,8 +115,6 @@ void setup() {
   analizaEscenario3 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
   analizaEscenario4 = new AnalizadorMusica(minim.loadFile("Song_Esc4-Dark.mp3", 1024));
   analizaEscenario5 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
-  
-  
 
   ctlMain = new Control(width/2, height/2, 0, 360, colorBlanco, colorNegro, mundoVirtual, mainPic1, mainPic2, mainPic3);
 
@@ -134,9 +132,9 @@ void setup() {
   hAlly2 = new Hotspot(width/18*12, height/18*6, colorVerde, colorVerde, width/32);
   hAlly3 = new Hotspot(width/18*6, height/18*12, colorAzul, colorAzul, width/32);
 
-  ally1 = new Atrapable(aliadoPic1, width*2/6, height/2, mundoVirtual);
-  ally2 = new Atrapable(aliadoPic1, width*3/6, height/5, mundoVirtual);
-  ally3 = new Atrapable(aliadoPic1, width*4/6, height/2, mundoVirtual);
+  ally1 = new Atrapable(aliadoPic1, width*2/6 + width/30, height/2, mundoVirtual);
+  ally2 = new Atrapable(aliadoPic1, width*3/6, height/3.5, mundoVirtual);
+  ally3 = new Atrapable(aliadoPic1, width*4/6 - width/30, height/2, mundoVirtual);
 
   tela1 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*2, 1);
   tela1p2 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*2, 1.2);
@@ -176,12 +174,12 @@ void setup() {
     vehicles.add(new Vehiculo(new PVector(x, y), 3.0, random(2, 5), random(0.1, 0.5), radius, 100.0, 4.0, 20));
   }
 
-  progressBar = new ProgressBar(width/16, height*11/12, width - width*2/16, height/64);
+  progressBar = new ProgressBar(width/16, height/12, width - width*2/16, height/64);
 
-  escenario = 0;
-  analizaEscenario0.cancion.play();
+  escenario = 2;
+  analizaEscenario2.cancion.play();
 
-  progressBar.setUp(analizaEscenario4.cancion.length());
+  progressBar.setUp(analizaEscenario2.cancion.length());
 }
 
 void draw() {
@@ -202,15 +200,15 @@ void draw() {
     }
 
     if (tobj.getSymbolID() == 1) {
-      ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
+      ctlAlly1.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
     }
 
     if (tobj.getSymbolID() == 2) {
-      ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
+      ctlAlly2.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
     }
 
     if (tobj.getSymbolID() == 3) {
-      ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
+      ctlAlly3.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
     }
   }
 
