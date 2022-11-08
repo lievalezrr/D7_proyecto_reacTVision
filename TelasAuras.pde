@@ -45,9 +45,11 @@ class TelaAuras {
 
 
   void dibujar(float _clr, float _freq, float _golpe, PVector _posAura) {
+    
     freq = _freq;
     golpe = _golpe;
     posAura = _posAura;
+    clr = 100;
     //text(vol, width/4,height/3);
     //text(clr, width/4, height/4);
     noStroke();
