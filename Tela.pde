@@ -43,7 +43,7 @@ class Tela {
 
 
 
-  void dibujar(float _size, float _clr, float _freq, float _comp, float _golpe, float _cambio) {
+  void dibujar(float _size, float _clr, float _freq, float _comp, float _golpe, int _cambio) {
     vol = _size;
     clr = _clr;
     freq = _freq;
@@ -53,8 +53,8 @@ class Tela {
     //text(vol, width/4,height/3);
     //text(clr, width/4, height/4);
     noStroke();
-    
-    
+
+
 
     // se definen los colores los colores y opacidades de los segmentos de tela
 
@@ -71,7 +71,8 @@ class Tela {
           vertex(arrayDeParticulas[i][j+1].position().x(), arrayDeParticulas[i][j+1].position().y());
           vertex(arrayDeParticulas[i][j].position().x(), arrayDeParticulas[i][j].position().y());
           endShape();
-          fill((j+105)/1.3*cambioColor, 90, i+80*1.1, 120);
+          fill(cambioColor, 90, i+80*1.1, 120);
+          //fill((j+105)/1.3*cambioColor, 90, i+80*1.1, 120);
         }
 
         if (tag == 1.2 | tag == 2.2 | tag == 3.2 | tag == 4.2 ) {
@@ -86,13 +87,13 @@ class Tela {
         }
       }
     }
-    
+
     //se dibujan las posiciones al centro
     if (tag == 1 | tag == 1.2 ) {
       for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
         arrayDeParticulas[j][0].position().set(width/18*6, height/18*6, 0);
         arrayDeParticulas[j][0].makeFixed();
-        
+
         arrayDeParticulas[j][29].position().set(width/2, height/2, 0);
         //arrayDeParticulas[j][39].makeFixed();
       }
@@ -128,12 +129,12 @@ class Tela {
       }
     }
 
-    text(analizaEscenario5.getFreq(),width/2, width/8);
-    
+    text(analizaEscenario5.getFreq(), width/2, width/8);
 
- 
-  // comportamiento de telas cuando se llega a un nivel de volumen
-    
+
+
+    // comportamiento de telas cuando se llega a un nivel de volumen
+
     if (comp == 1) {
       if (vol > 25) {
         arrayDeParticulas[5][15].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 1920), 0.01), height/13, 100);
@@ -143,8 +144,8 @@ class Tela {
         //arrayDeParticulas[30][30].makeFixed();
       }
     }
-    
-    
+
+
     // golpes en la tela por rango de frecuencias correspondiente a cada una
     //if (comp == 2) {
     //  if (tag == 1 || tag == 1.2) {
@@ -156,7 +157,7 @@ class Tela {
     //      //arrayDeParticulas[30][30].makeFixed();
     //    }
     //  }
-      
+
     //  if (tag == 2 || tag == 2.2) {
     //    if (freq < 100 || freq > 50) {
     //      arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13, 100);
@@ -166,7 +167,7 @@ class Tela {
     //      //arrayDeParticulas[30][30].makeFixed();
     //    }
     //  }
-      
+
     //   if (tag == 3 || tag == 3.2) {
     //    if (freq < 30 || freq > 10) {
     //      arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13, 100);
@@ -176,7 +177,7 @@ class Tela {
     //      //arrayDeParticulas[30][30].makeFixed();
     //    }
     //  }
-      
+
     //   if (tag == 4 || tag == 4.2) {
     //    if (freq < 10 || freq > 0) {
     //      arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), golpe, 0.01), height/13, 100);
@@ -186,25 +187,25 @@ class Tela {
     //      //arrayDeParticulas[30][30].makeFixed();
     //    }
     //  }
-    }
+  }
 
 
 
 
 
-    //for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
-    //for (int i = 0; i < cantidadDeParticulasPorLado-1; i++) {
-    //mundoVirtual.makeAttraction(salida.particle, arrayDeParticulas[i][j], random(-2000,100), 50);
-    //}
-    ////arrayDeParticulas[30][30].makeFixed();
-    //}
-  
-  
+  //for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
+  //for (int i = 0; i < cantidadDeParticulasPorLado-1; i++) {
+  //mundoVirtual.makeAttraction(salida.particle, arrayDeParticulas[i][j], random(-2000,100), 50);
+  //}
+  ////arrayDeParticulas[30][30].makeFixed();
+  //}
 
-  
-  
- 
-// set para cambiar el color de la tela
+
+
+
+
+
+  // set para cambiar el color de la tela
   void setColor(float _clr) {
     clr = _clr;
   }
@@ -212,5 +213,4 @@ class Tela {
   void setComportamiento(float _comp) {
     comp = _comp;
   }
-  }
-  
+}

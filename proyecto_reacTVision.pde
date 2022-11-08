@@ -89,7 +89,7 @@ void setup() {
   tuioClient = new TuioProcessing(this);
 
   mainPic1 = loadImage("mainAzul.png");
-  mainPic2 = loadImage("mainRojo.png"); 
+  mainPic2 = loadImage("mainRojo.png");
   mainPic3 = loadImage("mainVerde.png");
 
   llavePic = loadImage("llave.png");
@@ -165,10 +165,10 @@ void setup() {
 
   progressBar = new ProgressBar(width/16, height*11/12, width - width*2/16, height/64);
 
-  escenario = 0;
-  analizaEscenario0.cancion.play();
+  escenario = 4;
+  analizaEscenario4.cancion.play();
 
-  progressBar.setUp(analizaEscenario0.cancion.length());
+  progressBar.setUp(analizaEscenario4.cancion.length());
 }
 
 void draw() {
@@ -277,10 +277,10 @@ void draw() {
 
   if (escenario == 2) {
 
-    if (lightMode) fondo.hsb(0, analizaEscenario2.analizeFondo(0, 100), 100);
-    else fondo.hsb(0, 100, analizaEscenario2.analizeFondo(0, 80));
+    if (lightMode) fondo.hsb(ctlMain.hueTheme, analizaEscenario2.analizeFondo(0, 100), 100);
+    else fondo.hsb(ctlMain.hueTheme, 100, analizaEscenario2.analizeFondo(0, 80));
     fondo.drawFondo();
-    progressBar.paint(color(0, 80, 100));
+    progressBar.paint(color(ctlMain.hueTheme, 80, 100));
 
     flowfield.run(dibujarField);
 
@@ -332,7 +332,7 @@ void draw() {
     telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally1.getPos());
     telaAlly2.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally2.getPos());
     telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos());
-   // analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos());
+    // analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos());
     ally1.dibujar();
     ally2.dibujar();
     ally3.dibujar();
@@ -340,11 +340,11 @@ void draw() {
 
   if (escenario == 3) {
 
-    if (lightMode) fondo.hsb(241, analizaEscenario2.analizeFondo(0, 100), 100);
-    else fondo.hsb(241, 80, analizaEscenario2.analizeFondo(0, 80));
+    if (lightMode) fondo.hsb(ctlMain.hueTheme, analizaEscenario2.analizeFondo(0, 100), 100);
+    else fondo.hsb(ctlMain.hueTheme, 80, analizaEscenario2.analizeFondo(0, 80));
     fondo.drawFondo();
     texto.say("place your allies");
-    progressBar.paint(color(241, 80, 100));
+    progressBar.paint(color(ctlMain.hueTheme, 80, 100));
 
     //condicion de poner fiducials
     if (ctlMain.estaPresente == true && ctlAlly1.estaPresente == true && ctlAlly2.estaPresente == true && ctlAlly3.estaPresente == true) {
@@ -357,10 +357,10 @@ void draw() {
 
   if (escenario == 4) {
 
-    if (lightMode) fondo.hsb(62, 0, 100);
-    else fondo.hsb(62, 40, 0);
+    if (lightMode) fondo.hsb(ctlMain.hueTheme, analizaEscenario4.analizeFondo(0, 100), 100);
+    else fondo.hsb(ctlMain.hueTheme, 100, analizaEscenario4.analizeFondo(0, 80));
     fondo.drawFondo();
-    progressBar.paint(color(62, 80, 100));
+    progressBar.paint(color(ctlMain.hueTheme, 80, 100));
 
     hMain.dibujar();
     hAlly1.dibujar();
@@ -377,25 +377,25 @@ void draw() {
     int alliesFaltantes = 4;
 
     if (hAlly1.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y)) {
-      tela1.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlAlly1.getValor());
+      tela1.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela1p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1 );
       alliesFaltantes--;
     }
 
     if (hAlly2.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y)) {
-      tela2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlAlly2.getValor() );
+      tela2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela2p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1 );
       alliesFaltantes--;
     }
 
     if (hAlly3.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y)) {
-      tela3.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlAlly3.getValor() );
+      tela3.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela3p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1);
       alliesFaltantes--;
     }
 
     if (hMain.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
-      tela4.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.getValor());
+      tela4.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela4p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1);
       alliesFaltantes--;
     }
@@ -411,10 +411,18 @@ void draw() {
       // tela4.setComportamiento(1);
       // tela4p2.setComportamiento(1);
 
-      alliesFaltantes--;
+      //alliesFaltantes--;
       texto.say("we need to set it free, \n still missing " + alliesFaltantes);
     } else {
-      texto.say("yes, it's working!");
+      if (analizaEscenario4.cancion.position() < 40000) {
+        texto.say("yes, it's working!");
+      }
+      if (analizaEscenario4.cancion.position() > 40000 && analizaEscenario4.cancion.position() < 60000) {
+        texto.say("we're halfway there!");
+      }
+      if (analizaEscenario4.cancion.position() > 60000) {
+        texto.say("soon, very soon, \n it'll be free");
+      }
     }
 
     ctlMain.dibujar();
@@ -433,17 +441,18 @@ void draw() {
       hAlly3.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y) && hMain.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
       escenario = 5;
       analizaEscenario5.cancion.play();
-      progressBar.setUp(analizaEscenario5.cancion.length());
+      analizaEscenario5.cancion.loop();
+      //progressBar.setUp(analizaEscenario5.cancion.length());
     }
   }
 
   if (escenario == 5) {
 
-    if (lightMode) fondo.hsb(173, analizaEscenario5.analizeFondo(0, 80), 100);
+    if (lightMode) fondo.hsb(241, analizaEscenario5.analizeFondo(0, 100), 100);
     else fondo.hsb(0, 0, analizaEscenario5.analizeFondo(0, 80));
     fondo.drawFondo();
-    texto.say("I'd forgotten how it felt to be free \n thank you");
-    progressBar.paint(color(0, 80, 100));
+    texto.say("I'd forgotten how it felt to be free, \n thank you");
+    //progressBar.paint(color(0, 0, 100));
   }
 }
 
@@ -472,11 +481,6 @@ void rewind() {
     analizaEscenario4.cancion.play();
     analizaEscenario4.cancion.rewind();
     progressBar.setUp(analizaEscenario4.cancion.length());
-  }
-  if (escenario == 5) {
-    analizaEscenario5.cancion.play();
-    analizaEscenario5.cancion.rewind();
-    progressBar.setUp(analizaEscenario5.cancion.length());
   }
 }
 
