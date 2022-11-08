@@ -145,9 +145,9 @@ void setup() {
   tela4 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4);
   tela4p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4.2);
 
-  telaAlly1 = new TelaAuras(mundoVirtual, 20, width*5/6, (height/16)*14, 4);
-  telaAlly2 = new TelaAuras(mundoVirtual, 20, width*1/6, (height/16)*14, 3);
-  telaAlly3 = new TelaAuras(mundoVirtual, 20, width*1/6, (height/16)*2, 1);
+  telaAlly1 = new TelaAuras(mundoVirtual, 10, width*5/6, (height/16)*14, 1);
+  telaAlly2 = new TelaAuras(mundoVirtual, 10, width*1/6, (height/16)*14, 2);
+  telaAlly3 = new TelaAuras(mundoVirtual, 10, width*1/6, (height/16)*2, 3);
 
   fondo = new Fondo (radius, 86, 100, 50);
   texto = new Texto();
