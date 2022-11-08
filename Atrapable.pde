@@ -16,7 +16,7 @@ class Atrapable {
     particle.makeFixed();
     meAtraparon = false;
     imagen = _imagen;
-    springLength = 150;
+    springLength = 80;
   }
 
   void dibujar() {

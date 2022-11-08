@@ -40,6 +40,7 @@ class Control {
     arc(pos.x, pos.y, r, r, 0, radians(angulo));
 
     imageMode(CENTER);
+    
     if (angulo >= 0 && angulo <= 120) {
       image(angulo1, pos.x, pos.y);
       hueTheme = int(map(angulo, 0, 120, 176, 263));

@@ -98,9 +98,9 @@ void setup() {
   llavePic = loadImage("llave.png");
   //llavePic.resize(width/16, width/16);
 
-  aliadoPic1 = loadImage("aliado despierto.png");
+  aliadoPic1 = loadImage("aliado dormido.png");
   aliadoPic1.resize(width/16, width/16);
-  aliadoPic2 = loadImage("aliado despierto.png");
+  aliadoPic2 = loadImage("aliado dormido.png");
   aliadoPic2.resize(width/16, width/16);
   aliadoPic3 = loadImage("here.png");
   huecoPic = loadImage("hueco.png");
@@ -157,7 +157,7 @@ void setup() {
 
   flowfield = new FlowField(20);
   vehicles = new ArrayList<Vehiculo>();
-  
+
   cambioPersonaje= minim.loadSample("sfxCambioPersonaje.mp3");
   aliado= minim.loadSample("sfxAliado.mp3");
   finalExplosion= minim.loadSample("sfxFinalExplosion.mp3");
@@ -260,7 +260,7 @@ void draw() {
 
     if (analizaEscenario1.cancion.position() > 25000 && llave.meAtraparon == false) {
       llave.dibujar();
-     // llaveSonido.trigger();
+      // llaveSonido.trigger();
       texto.say("look, a key");
 
       // Atrapar la llave
@@ -274,7 +274,7 @@ void draw() {
       llave.dibujar();
       salida.dibujar();
       //salidaSonido.trigger();
-      
+
       texto.say("let's find out what's going on");
     }
 
@@ -341,9 +341,9 @@ void draw() {
       escenario = 3;
       llave.soltar();
       analizaEscenario2.cancion.pause();
-     // salida1.trigger();
+      // salida1.trigger();
       analizaEscenario3.cancion.play();
-      
+
       progressBar.setUp(analizaEscenario3.cancion.length());
     }
 
@@ -351,13 +351,13 @@ void draw() {
     ctlMain.mover();
     analizaEscenario2.analizeFreq();
     analizaEscenario2.analizeSize();
-    text(analizaEscenario2.getFreq(),width/2, height/8*7);
-    telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally1.getPos(),analizaEscenario2.getSize(),ctlMain.hueTheme);
-    telaAlly2.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally2.getPos(),analizaEscenario2.getSize(),ctlMain.hueTheme);
-    telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos(),analizaEscenario2.getSize(),ctlMain.hueTheme);
+    text(analizaEscenario2.getFreq(), width/2, height/8*7);
+    telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally1.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
+    telaAlly2.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally2.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
+    telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
     fill(#FFFFFF);
-   // text(analizaEscenario2.getFreq(),width/2, width/8*7);
-     analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos());
+    // text(analizaEscenario2.getFreq(),width/2, width/8*7);
+    analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos());
     ally1.dibujar();
     ally2.dibujar();
     ally3.dibujar();
@@ -426,7 +426,7 @@ void draw() {
       tela4.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela4p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1);
       alliesFaltantes--;
-     // hotSpot.trigger();
+      // hotSpot.trigger();
     }
 
     if (alliesFaltantes > 0) {
