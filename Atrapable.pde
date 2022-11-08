@@ -40,4 +40,13 @@ class Atrapable {
   PVector getPos() {
     return new PVector (particle.position().x(), particle.position().y());
   }
+
+
+float getX() {
+  return particle.position().x();
+}
+
+float getY() {
+  return particle.position().y();
+}
 }

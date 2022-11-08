@@ -145,9 +145,9 @@ void setup() {
   tela4 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4);
   tela4p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4.2);
 
-  telaAlly1 = new TelaAuras(mundoVirtual, 10, width*5/6, (height/16)*14, 1);
-  telaAlly2 = new TelaAuras(mundoVirtual, 10, width*1/6, (height/16)*14, 2);
-  telaAlly3 = new TelaAuras(mundoVirtual, 10, width*1/6, (height/16)*2, 3);
+  telaAlly1 = new TelaAuras(mundoVirtual, 10, ally1.getX(), ally1.getY(), 1);
+  telaAlly2 = new TelaAuras(mundoVirtual, 10, ally2.getX(), ally2.getY(), 2);
+  telaAlly3 = new TelaAuras(mundoVirtual, 10, ally3.getX(), ally3.getY(), 3);
 
   fondo = new Fondo (radius, 86, 100, 50);
   texto = new Texto();
@@ -165,8 +165,8 @@ void setup() {
 
   progressBar = new ProgressBar(width/16, height*11/12, width - width*2/16, height/64);
 
-  escenario = 4;
-  analizaEscenario4.cancion.play();
+  escenario = 0;
+  analizaEscenario0.cancion.play();
 
   progressBar.setUp(analizaEscenario4.cancion.length());
 }
@@ -328,7 +328,7 @@ void draw() {
 
     ctlMain.dibujar();
     ctlMain.mover();
-    analizaEscenario2.analizeFreq();
+    //analizaEscenario2.analizeFreq();
     telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally1.getPos());
     telaAlly2.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally2.getPos());
     telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos());
