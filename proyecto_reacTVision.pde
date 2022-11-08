@@ -100,12 +100,12 @@ void setup() {
 
   aliadoPic1 = loadImage("aliado dormido.png");
   aliadoPic1.resize(width/16, width/16);
-  aliadoPic2 = loadImage("aliado dormido.png");
+  aliadoPic2 = loadImage("aliado despierto.png");
   aliadoPic2.resize(width/16, width/16);
   aliadoPic3 = loadImage("here.png");
   huecoPic = loadImage("hueco.png");
 
-  llave = new Atrapable(llavePic, width/2, height/4, mundoVirtual);
+  llave = new Atrapable(llavePic, llavePic, width/2, height/4, mundoVirtual);
 
   salida = new Salida(mundoVirtual, width/2, height*5/6);
 
@@ -132,9 +132,9 @@ void setup() {
   hAlly2 = new Hotspot(width/18*12, height/18*6, colorVerde, colorVerde, width/32);
   hAlly3 = new Hotspot(width/18*6, height/18*12, colorAzul, colorAzul, width/32);
 
-  ally1 = new Atrapable(aliadoPic1, width*2/6 + width/30, height/2, mundoVirtual);
-  ally2 = new Atrapable(aliadoPic1, width*3/6, height/3.5, mundoVirtual);
-  ally3 = new Atrapable(aliadoPic1, width*4/6 - width/30, height/2, mundoVirtual);
+  ally1 = new Atrapable(aliadoPic1, aliadoPic2, width*2/6 + width/30, height/2, mundoVirtual);
+  ally2 = new Atrapable(aliadoPic1, aliadoPic2, width*3/6, height/3.5, mundoVirtual);
+  ally3 = new Atrapable(aliadoPic1, aliadoPic2, width*4/6 - width/30, height/2, mundoVirtual);
 
   tela1 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*2, 1);
   tela1p2 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*2, 1.2);
