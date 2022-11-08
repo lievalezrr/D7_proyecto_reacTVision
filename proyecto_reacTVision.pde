@@ -84,7 +84,7 @@ void setup() {
 
   radius = width/3;
 
-  mundoVirtual = new ParticleSystem(0.01, 0.1);
+  mundoVirtual = new ParticleSystem(0, 0.1);
   minim = new Minim(this);
   tuioClient = new TuioProcessing(this);
 
@@ -329,9 +329,11 @@ void draw() {
     ctlMain.dibujar();
     ctlMain.mover();
     analizaEscenario2.analizeFreq();
+    analizaEscenario2.analizeSize();
     telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally1.getPos(),analizaEscenario2.getSize());
     telaAlly2.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally2.getPos(),analizaEscenario2.getSize());
     telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos(),analizaEscenario2.getSize());
+    text(analizaEscenario2.getFreq(),width/2, width/8*7);
     // analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos());
     ally1.dibujar();
     ally2.dibujar();

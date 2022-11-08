@@ -187,7 +187,7 @@ class Tela {
     //      //arrayDeParticulas[30][30].makeFixed();
     //    }
     //  }
-  }
+    }
 
 
 
