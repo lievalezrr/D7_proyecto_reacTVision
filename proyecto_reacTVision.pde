@@ -150,9 +150,9 @@ void setup() {
   tela4 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4);
   tela4p2 = new Tela (mundoVirtual, 30, width*5/6, (height/16)*14, 4.2);
 
-  telaAlly1 = new TelaAuras(mundoVirtual, 10, ally1.getX(), ally1.getY(), 1);
-  telaAlly2 = new TelaAuras(mundoVirtual, 10, ally2.getX(), ally2.getY(), 2);
-  telaAlly3 = new TelaAuras(mundoVirtual, 10, ally3.getX(), ally3.getY(), 3);
+  telaAlly1 = new TelaAuras(mundoVirtual, 20, ally1.getX(), ally1.getY(), 1);
+  telaAlly2 = new TelaAuras(mundoVirtual, 20, ally2.getX(), ally2.getY(), 2);
+  telaAlly3 = new TelaAuras(mundoVirtual, 20, ally3.getX(), ally3.getY(), 3);
 
   fondo = new Fondo (radius, 86, 100, 50);
   texto = new Texto();

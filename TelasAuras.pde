@@ -1,7 +1,7 @@
 class TelaAuras {
 
   Particle[][] arrayDeParticulas; // matriz que contiene particulas
-  int cantidadDeParticulasPorLado;
+  int cantidadDeParticulasPorLado,mitad, fin;
   float durezaDeResortes;
   float elasticidadDeResortes;
   float clr, vol, tag, freq, comp, golpe, cambioColor,volumen,pasoEnY, pasoEnX;
@@ -10,14 +10,16 @@ class TelaAuras {
   public TelaAuras(ParticleSystem mundoVirtual, int cantidad, float _naceX, float _naceY, float _tag) {
 
     cantidadDeParticulasPorLado = cantidad;
-    durezaDeResortes = 0.01;
-    elasticidadDeResortes = 0.01;
+    durezaDeResortes = 0.25;
+    elasticidadDeResortes = 0.05;
     clr = color(#ffffff);
     tag = _tag; // identifica cuál de las cuatro telas es
      //posAura = _posAura;
     // aca se definen en el constructor donde va a nacer la matriz
+    mitad = cantidad/2;
     float naceX = _naceX;
     float naceY = _naceY;
+    fin = cantidadDeParticulasPorLado-1;
 
 
     arrayDeParticulas = new Particle[cantidadDeParticulasPorLado][cantidadDeParticulasPorLado];
@@ -79,30 +81,31 @@ class TelaAuras {
     //se dibujan las posiciones al centro
     
       for (int j = 0; j < cantidadDeParticulasPorLado-1; j++) {
-        arrayDeParticulas[j][0].position().set(posAura.x-width/80, posAura.y,0); //posAura.x-(posAura.x-j), posAura.y-width/80, 0
-        //arrayDeParticulas[j][0].makeFixed();
+        //arrayDeParticulas[j][0].position().set(posAura.x-width/80, posAura.y,0); //posAura.x-(posAura.x-j), posAura.y-width/80, 0
+        ////arrayDeParticulas[j][0].makeFixed();
         
-        arrayDeParticulas[0][j].position().set(posAura.x, posAura.y-width/80, 0);
-        //arrayDeParticulas[0][j].makeFixed();
+        //arrayDeParticulas[0][j].position().set(posAura.x, posAura.y-width/80, 0);
+        ////arrayDeParticulas[0][j].makeFixed();
         
-        arrayDeParticulas[j][9].position().set(posAura.x+width/80, posAura.y, 0);
-        //arrayDeParticulas[j][9].makeFixed();
+        //arrayDeParticulas[j][9].position().set(posAura.x+width/80, posAura.y, 0);
+        ////arrayDeParticulas[j][9].makeFixed();
         
-        arrayDeParticulas[9][j].position().set(posAura.x, posAura.y+width/80, 0);
+        //arrayDeParticulas[9][j].position().set(posAura.x, posAura.y+width/80, 0);
         //arrayDeParticulas[9][j].makeFixed();
         
         
       //  //arrayDeParticulas[j][9].position().set(posAura.x, posAura.y, 0);
         
       }
-      arrayDeParticulas[4][4].position().set(posAura.x, posAura.y, 0);
+      arrayDeParticulas[mitad][mitad].position().set(posAura.x, posAura.y, 0);
+      arrayDeParticulas[mitad][mitad].makeFixed();
       
-      // arrayDeParticulas[0][9].position().set(posAura.x-width/80, posAura.y-width/80, 0);
-      //arrayDeParticulas[9][0].position().set(posAura.x+width/80, posAura.y-width/80, 0);
-      //arrayDeParticulas[0][0].position().set(posAura.x-width/80, posAura.y+width/80, 0);
-      //arrayDeParticulas[9][9].position().set(posAura.x+width/80, posAura.y+width/80, 0);
+      arrayDeParticulas[0][fin].position().set(posAura.x-width/80, posAura.y-width/80, 0);
+      arrayDeParticulas[fin][0].position().set(posAura.x+width/80, posAura.y-width/80, 0);
+      arrayDeParticulas[0][0].position().set(posAura.x-width/80, posAura.y+width/80, 0);
+      arrayDeParticulas[fin][fin].position().set(posAura.x+width/80, posAura.y+width/80, 0);
       
-      //arrayDeParticulas[4][4].makeFixed();
+      
       
       
 
@@ -118,10 +121,10 @@ class TelaAuras {
     
       if (tag == 1) {
         if (freq > 10) {
-          arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[3][3].position().x(), golpe, 0.01), height/13, 0);
-          arrayDeParticulas[7][3].position().set(lerp(arrayDeParticulas[7][3].position().x(), golpe, 0.01), height/13, 0);
-          arrayDeParticulas[3][7].position().set(lerp(arrayDeParticulas[3][7].position().x(), golpe, 0.01), height/13*8, 0);
-          arrayDeParticulas[7][7].position().set(lerp(arrayDeParticulas[7][7].position().x(), golpe, 0.01), height/13*8, 0);
+          arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[3][3].position().x(), golpe, 0.01), arrayDeParticulas[3][3].position().x()-height/13, 0);
+          arrayDeParticulas[7][3].position().set(lerp(arrayDeParticulas[7][3].position().x(), golpe, 0.01), arrayDeParticulas[7][3].position().x()-height/13, 0);
+          arrayDeParticulas[3][7].position().set(lerp(arrayDeParticulas[3][7].position().x(), golpe, 0.01), arrayDeParticulas[3][7].position().x()+height/13, 0);
+          arrayDeParticulas[7][7].position().set(lerp(arrayDeParticulas[7][7].position().x(), golpe, 0.01),  arrayDeParticulas[7][7].position().x()+height/13, 0);
           //arrayDeParticulas[30][30].makeFixed();
         }
       }
