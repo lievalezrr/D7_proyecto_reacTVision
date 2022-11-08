@@ -262,7 +262,7 @@ void draw() {
 
     if (analizaEscenario1.cancion.position() > 25000 && llave.meAtraparon == false) {
       llave.dibujar();
-      llaveSonido.trigger();
+     // llaveSonido.trigger();
       texto.say("look, a key");
 
       // Atrapar la llave
@@ -275,7 +275,7 @@ void draw() {
     if (llave.meAtraparon == true) {
       llave.dibujar();
       salida.dibujar();
-      salidaSonido.trigger();
+      //salidaSonido.trigger();
       
       texto.say("let's find out what's going on");
     }
@@ -286,7 +286,7 @@ void draw() {
       llave.soltar();
       analizaEscenario1.cancion.pause();
       analizaEscenario2.cancion.play();
-      salida1.trigger();
+      //salida1.trigger();
       progressBar.setUp(analizaEscenario2.cancion.length());
       fondo.h = 0;
     }
@@ -312,7 +312,7 @@ void draw() {
       texto.say("find your allies \n 3 to go");
       if (ally1.getPos().dist(ctlMain.getPos()) < width/30) {
         ally1.atrapar(ctlMain.particle);
-        aliado.trigger();
+        //aliado.trigger();
       }
     }
 
@@ -320,7 +320,7 @@ void draw() {
       texto.say("find your allies \n 2 to go");
       if (ally2.getPos().dist(ctlMain.getPos()) < width/30) {
         ally2.atrapar(ally1.particle);
-        aliado.trigger();
+        //aliado.trigger();
       }
     }
 
@@ -328,14 +328,14 @@ void draw() {
       texto.say("find your allies \n 1 to go");
       if (ally3.getPos().dist(ctlMain.getPos()) < width/30) {
         ally3.atrapar(ally2.particle);
-        aliado.trigger();
+        //aliado.trigger();
       }
     }
 
     if (analizaEscenario2.cancion.position() > 5000 && ally1.meAtraparon == true && ally2.meAtraparon == true && ally3.meAtraparon == true) {
       texto.say("we're in this together \n are you ready for what's on the other side?");
       salida.dibujar();
-      salidaSonido.trigger();
+      //salidaSonido.trigger();
     }
 
     // Llegar a la salida
@@ -343,7 +343,7 @@ void draw() {
       escenario = 3;
       llave.soltar();
       analizaEscenario2.cancion.pause();
-      salida1.trigger();
+     // salida1.trigger();
       analizaEscenario3.cancion.play();
       
       progressBar.setUp(analizaEscenario3.cancion.length());
@@ -353,6 +353,7 @@ void draw() {
     ctlMain.mover();
     analizaEscenario2.analizeFreq();
     analizaEscenario2.analizeSize();
+    text(analizaEscenario2.getFreq(),width/2, height/8*7);
     telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally1.getPos(),analizaEscenario2.getSize());
     telaAlly2.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally2.getPos(),analizaEscenario2.getSize());
     telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos(),analizaEscenario2.getSize());
@@ -406,28 +407,28 @@ void draw() {
       tela1.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela1p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1 );
       alliesFaltantes--;
-      hotSpot.trigger();
+      //hotSpot.trigger();
     }
 
     if (hAlly2.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y)) {
       tela2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela2p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1 );
       alliesFaltantes--;
-      hotSpot.trigger();
+      //hotSpot.trigger();
     }
 
     if (hAlly3.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y)) {
       tela3.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela3p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1);
       alliesFaltantes--;
-      hotSpot.trigger();
+      //hotSpot.trigger();
     }
 
     if (hMain.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
       tela4.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela4p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1);
       alliesFaltantes--;
-      hotSpot.trigger();
+     // hotSpot.trigger();
     }
 
     if (alliesFaltantes > 0) {
