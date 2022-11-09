@@ -110,7 +110,7 @@ class TelaAuras {
       
       
 
-    text(analizaEscenario2.getFreq(),width/2, width/8*7);
+    //text(analizaEscenario2.getFreq(),width/2, width/8*7);
     
 
  
