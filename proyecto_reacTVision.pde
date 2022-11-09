@@ -363,7 +363,7 @@ void draw() {
     telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
     fill(#FFFFFF);
    // text(analizaEscenario2.getFreq(),width/2, width/8*7);
-     analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos(),blob1,blob2,ctlMain.hueTheme);
+     analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos(),blob1,blob2,ctlMain.hueTheme,lightMode);
     ally1.dibujar();
     ally2.dibujar();
     ally3.dibujar();

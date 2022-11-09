@@ -23,6 +23,7 @@ class AnalizadorMusica {
   PVector posAura1, posAura2, posAura3;
   PShape blob1,blob2;
   int hue;
+  boolean lightMode;
 
   public AnalizadorMusica(AudioPlayer _cancion) {
 
@@ -65,13 +66,14 @@ class AnalizadorMusica {
     } // fin del ciclo FOR de visualización del gráfico por logaritmo
   }
 
-  void dibujarAuras(PVector _aura1, PVector _aura2, PVector _aura3, PShape _blob1, PShape _blob2, int _hue) {
+  void dibujarAuras(PVector _aura1, PVector _aura2, PVector _aura3, PShape _blob1, PShape _blob2, int _hue, boolean _mode) {
     posAura1 = _aura1;
     posAura2 = _aura2;
     posAura3 = _aura3;
     blob1 = _blob1;
     blob2 = _blob1;
     hue = _hue;
+    lightMode = _mode;
     fftLog.forward( cancion.mix );
     for (int i = 0; i < fftLog.specSize(); i++) {
 
@@ -86,7 +88,12 @@ class AnalizadorMusica {
           //if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
           float radio = fftLog.getBand(i) ;
           float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
+          if (!lightMode) {
           colorDeFondo = color (hue, 0, 0, 90); // color base 219,42,67 o #637CAD
+          }
+          else {
+            colorDeFondo = color (hue, 0, 250, 90); 
+          }
           fill(colorDeFondo);
           noStroke();
           //blob1.rotate(random(0.360));
@@ -105,7 +112,12 @@ class AnalizadorMusica {
           //if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
           float radio = fftLog.getBand(i) ;
           float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
+          if (!lightMode) {
           colorDeFondo = color (hue, 0, 0, 90); // color base 219,42,67 o #637CAD
+          }
+          else {
+            colorDeFondo = color (hue, 0, 250, 90); 
+          }
           fill(colorDeFondo);
           noStroke();
           blob1.disableStyle();
@@ -122,7 +134,12 @@ class AnalizadorMusica {
         if (i>bandaActual-10 && i <bandaActual+10) {
           float radio = fftLog.getBand(i);
           float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
+         if (!lightMode) {
           colorDeFondo = color (hue, 0, 0, 90); // color base 219,42,67 o #637CAD
+          }
+          else {
+            colorDeFondo = color (hue, 0, 250, 90); 
+          }
           fill(colorDeFondo);
           noStroke();
            blob1.disableStyle();
