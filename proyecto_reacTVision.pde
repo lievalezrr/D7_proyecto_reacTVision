@@ -118,9 +118,9 @@ void setup() {
 
   ctlMain = new Control(width/2, height/2, 0, 360, colorBlanco, colorNegro, mundoVirtual, mainPic1, mainPic2, mainPic3);
 
-  ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, colorRojo, colorRojo, mundoVirtual, aliadoPic1, aliadoPic1, aliadoPic1);
-  ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, colorVerde, colorVerde, mundoVirtual, aliadoPic1, aliadoPic1, aliadoPic1);
-  ctlAlly3 = new Control(width-80, (height/2)+320, 0, 360, colorAzul, colorAzul, mundoVirtual, aliadoPic1, aliadoPic1, aliadoPic1);
+  ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, colorRojo, colorRojo, mundoVirtual, aliadoPic2, aliadoPic2, aliadoPic2);
+  ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, colorVerde, colorVerde, mundoVirtual, aliadoPic2, aliadoPic2, aliadoPic2);
+  ctlAlly3 = new Control(width-80, (height/2)+320, 0, 360, colorAzul, colorAzul, mundoVirtual, aliadoPic2, aliadoPic2, aliadoPic2);
 
   controles[0] = ctlMain;
   controles[1] = ctlAlly1;
@@ -176,10 +176,10 @@ void setup() {
 
   progressBar = new ProgressBar(width/16, height/12, width - width*2/16, height/64);
 
-  escenario = 2;
-  analizaEscenario2.cancion.play();
+  escenario = 0;
+  analizaEscenario0.cancion.play();
 
-  progressBar.setUp(analizaEscenario2.cancion.length());
+  progressBar.setUp(analizaEscenario0.cancion.length());
 }
 
 void draw() {
