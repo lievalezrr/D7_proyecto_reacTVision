@@ -43,6 +43,8 @@ PImage huecoPic;
 PImage mainPic1, mainPic2, mainPic3;
 PImage spotPic;
 
+PShape blob1, blob2;
+
 PFont font;
 
 color colorNegro = #000000;
@@ -104,6 +106,10 @@ void setup() {
   aliadoPic2.resize(width/16, width/16);
   aliadoPic3 = loadImage("here.png");
   huecoPic = loadImage("hueco.png");
+  
+  blob1 = loadShape("blob1.svg");
+  blob2 = loadShape("blob2.svg");
+  
 
   llave = new Atrapable(llavePic, width/2, height*3/4, mundoVirtual);
 
@@ -359,7 +365,7 @@ void draw() {
     telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos(),analizaEscenario2.getSize(),ctlMain.hueTheme);
     fill(#FFFFFF);
    // text(analizaEscenario2.getFreq(),width/2, width/8*7);
-     analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos());
+     analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos(),blob1,blob2,ctlMain.hueTheme);
     ally1.dibujar();
     ally2.dibujar();
     ally3.dibujar();

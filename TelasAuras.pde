@@ -150,10 +150,10 @@ class TelaAuras {
     //  }
       
       if (vol > 10) {
-        arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), random(0, 1920), 0.01), height/13, 100);
-        arrayDeParticulas[7][3].position().set(lerp(arrayDeParticulas[5][5].position().x(), random(0, 1920), 0.01), height/13, 0);
-        arrayDeParticulas[3][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), random(0, 1920), 0.01), height/13*8, 0);
-        arrayDeParticulas[7][7].position().set(lerp(arrayDeParticulas[5][5].position().x(), random(0, 1920), 0.01), height/13*8, 0);
+        arrayDeParticulas[3][3].position().set(lerp(arrayDeParticulas[3][3].position().x(), random(0, 1920), 0.01), height/13, 100);
+        arrayDeParticulas[7][3].position().set(lerp(arrayDeParticulas[7][3].position().x(), random(0, 1920), 0.01), height/13, 0);
+        arrayDeParticulas[3][7].position().set(lerp(arrayDeParticulas[3][7].position().x(), random(0, 1920), 0.01), height/13*8, 0);
+        arrayDeParticulas[7][7].position().set(lerp(arrayDeParticulas[7][7].position().x(), random(0, 1920), 0.01), height/13*8, 0);
         //arrayDeParticulas[30][30].makeFixed();
       }
     }

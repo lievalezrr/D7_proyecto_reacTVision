@@ -21,6 +21,8 @@ class AnalizadorMusica {
   float size, freq, golpe;
   color colorDeFondo;
   PVector posAura1, posAura2, posAura3;
+  PShape blob1,blob2;
+  int hue;
 
   public AnalizadorMusica(AudioPlayer _cancion) {
 
@@ -63,10 +65,13 @@ class AnalizadorMusica {
     } // fin del ciclo FOR de visualización del gráfico por logaritmo
   }
 
-  void dibujarAuras(PVector _aura1, PVector _aura2, PVector _aura3) {
+  void dibujarAuras(PVector _aura1, PVector _aura2, PVector _aura3, PShape _blob1, PShape _blob2, int _hue) {
     posAura1 = _aura1;
     posAura2 = _aura2;
     posAura3 = _aura3;
+    blob1 = _blob1;
+    blob2 = _blob1;
+    hue = _hue;
     fftLog.forward( cancion.mix );
     for (int i = 0; i < fftLog.specSize(); i++) {
 
@@ -81,10 +86,15 @@ class AnalizadorMusica {
           //if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
           float radio = fftLog.getBand(i) ;
           float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
-          colorDeFondo = color (94, 35, 83, 50); // color base 219,42,67 o #637CAD
+          colorDeFondo = color (hue, 0, 0, 90); // color base 219,42,67 o #637CAD
           fill(colorDeFondo);
           noStroke();
-          circle(posAura1.x, posAura1.y, radio/2);
+          //blob1.rotate(random(0.360));
+          blob1.disableStyle();
+          shapeMode(CENTER);
+          shape(blob1,posAura1.x, posAura1.y,radio*0.3,radio*0.3);
+          
+          //circle(posAura1.x, posAura1.y, radio/2);
           //imprimaValoresMaximos (i, bandaActual);
         }
         // piano---------------------
@@ -95,10 +105,15 @@ class AnalizadorMusica {
           //if (maximo < fftLog.getBand(i)) maximo = fftLog.getBand(i);
           float radio = fftLog.getBand(i) ;
           float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
-          colorDeFondo = color (94, 0, 100, 50); // color base 219,42,67 o #637CAD
+          colorDeFondo = color (hue, 0, 0, 90); // color base 219,42,67 o #637CAD
           fill(colorDeFondo);
           noStroke();
-          circle(posAura2.x, posAura2.y, radio);
+          blob1.disableStyle();
+          //blob1.rotate(random(0.360));
+          shapeMode(CENTER);
+          shape(blob1,posAura2.x, posAura2.y,radio,radio);
+          
+          //circle(posAura2.x, posAura2.y, radio);
           //imprimaValoresMaximos (i, bandaActual);
         }
         // synth---------------------
@@ -107,10 +122,15 @@ class AnalizadorMusica {
         if (i>bandaActual-10 && i <bandaActual+10) {
           float radio = fftLog.getBand(i);
           float transparencia = map (fftLog.getBand(i), 0, 3, 1, 0.5);
-          colorDeFondo = color (47, 73, 92, 50); // color base 219,42,67 o #637CAD
+          colorDeFondo = color (hue, 0, 0, 90); // color base 219,42,67 o #637CAD
           fill(colorDeFondo);
           noStroke();
-          circle(posAura3.x, posAura3.y, radio);
+           blob1.disableStyle();
+          // blob1.rotate(random(0.360));
+          shapeMode(CENTER);
+          shape(blob1,posAura3.x, posAura3.y,radio*2,radio*2);
+          
+          //circle(posAura3.x, posAura3.y, radio);
         } // fin del ciclo FOR de visualización del gráfico por logaritmo
       }
     }
