@@ -100,7 +100,7 @@ void setup() {
   llavePic = loadImage("llave.png");
   //llavePic.resize(width/16, width/16);
 
-  aliadoPic1 = loadImage("aliado despierto.png");
+  aliadoPic1 = loadImage("aliado dormido.png");
   aliadoPic1.resize(width/16, width/16);
   aliadoPic2 = loadImage("aliado despierto.png");
   aliadoPic2.resize(width/16, width/16);
@@ -111,9 +111,9 @@ void setup() {
   blob2 = loadShape("blob2.svg");
   
 
-  llave = new Atrapable(llavePic, width/2, height*3/4, mundoVirtual);
+  llave = new Atrapable(llavePic, llavePic, width/2, height/4, mundoVirtual);
 
-  salida = new Salida(mundoVirtual, width/2, height/6);
+  salida = new Salida(mundoVirtual, width/2, height*5/6);
 
   analizaEscenario0 = new AnalizadorMusica(minim.loadFile("Esc_0_Eye.mp3", 1024));
   analizaEscenario1 = new AnalizadorMusica(minim.loadFile("Song_Esc1-Alien_1.mp3", 1024));
@@ -121,14 +121,12 @@ void setup() {
   analizaEscenario3 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
   analizaEscenario4 = new AnalizadorMusica(minim.loadFile("Song_Esc4-Dark.mp3", 1024));
   analizaEscenario5 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
-  
-  
 
   ctlMain = new Control(width/2, height/2, 0, 360, colorBlanco, colorNegro, mundoVirtual, mainPic1, mainPic2, mainPic3);
 
-  ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, colorRojo, colorRojo, mundoVirtual, aliadoPic1, aliadoPic1, aliadoPic1);
-  ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, colorVerde, colorVerde, mundoVirtual, aliadoPic1, aliadoPic1, aliadoPic1);
-  ctlAlly3 = new Control(width-80, (height/2)+320, 0, 360, colorAzul, colorAzul, mundoVirtual, aliadoPic1, aliadoPic1, aliadoPic1);
+  ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, colorRojo, colorRojo, mundoVirtual, aliadoPic2, aliadoPic2, aliadoPic2);
+  ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, colorVerde, colorVerde, mundoVirtual, aliadoPic2, aliadoPic2, aliadoPic2);
+  ctlAlly3 = new Control(width-80, (height/2)+320, 0, 360, colorAzul, colorAzul, mundoVirtual, aliadoPic2, aliadoPic2, aliadoPic2);
 
   controles[0] = ctlMain;
   controles[1] = ctlAlly1;
@@ -140,9 +138,9 @@ void setup() {
   hAlly2 = new Hotspot(width/18*12, height/18*6, colorVerde, colorVerde, width/32);
   hAlly3 = new Hotspot(width/18*6, height/18*12, colorAzul, colorAzul, width/32);
 
-  ally1 = new Atrapable(aliadoPic1, width*2/6, height/2, mundoVirtual);
-  ally2 = new Atrapable(aliadoPic1, width*3/6, height/5, mundoVirtual);
-  ally3 = new Atrapable(aliadoPic1, width*4/6, height/2, mundoVirtual);
+  ally1 = new Atrapable(aliadoPic1, aliadoPic2, width*2/6 + width/30, height/2, mundoVirtual);
+  ally2 = new Atrapable(aliadoPic1, aliadoPic2, width*3/6, height/3.5, mundoVirtual);
+  ally3 = new Atrapable(aliadoPic1, aliadoPic2, width*4/6 - width/30, height/2, mundoVirtual);
 
   tela1 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*2, 1);
   tela1p2 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*2, 1.2);
@@ -165,7 +163,7 @@ void setup() {
 
   flowfield = new FlowField(20);
   vehicles = new ArrayList<Vehiculo>();
-  
+
   cambioPersonaje= minim.loadSample("sfxCambioPersonaje.mp3");
   aliado= minim.loadSample("sfxAliado.mp3");
   finalExplosion= minim.loadSample("sfxFinalExplosion.mp3");
@@ -182,12 +180,12 @@ void setup() {
     vehicles.add(new Vehiculo(new PVector(x, y), 3.0, random(2, 5), random(0.1, 0.5), radius, 100.0, 4.0, 20));
   }
 
-  progressBar = new ProgressBar(width/16, height*11/12, width - width*2/16, height/64);
+  progressBar = new ProgressBar(width/16, height/12, width - width*2/16, height/64);
 
   escenario = 0;
   analizaEscenario0.cancion.play();
 
-  progressBar.setUp(analizaEscenario4.cancion.length());
+  progressBar.setUp(analizaEscenario0.cancion.length());
 }
 
 void draw() {
@@ -208,15 +206,15 @@ void draw() {
     }
 
     if (tobj.getSymbolID() == 1) {
-      ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
+      ctlAlly1.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
     }
 
     if (tobj.getSymbolID() == 2) {
-      ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
+      ctlAlly2.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
     }
 
     if (tobj.getSymbolID() == 3) {
-      ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
+      ctlAlly3.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
     }
   }
 
@@ -268,7 +266,7 @@ void draw() {
 
     if (analizaEscenario1.cancion.position() > 25000 && llave.meAtraparon == false) {
       llave.dibujar();
-     // llaveSonido.trigger();
+      // llaveSonido.trigger();
       texto.say("look, a key");
 
       // Atrapar la llave
@@ -282,7 +280,7 @@ void draw() {
       llave.dibujar();
       salida.dibujar();
       //salidaSonido.trigger();
-      
+
       texto.say("let's find out what's going on");
     }
 
@@ -349,9 +347,9 @@ void draw() {
       escenario = 3;
       llave.soltar();
       analizaEscenario2.cancion.pause();
-     // salida1.trigger();
+      // salida1.trigger();
       analizaEscenario3.cancion.play();
-      
+
       progressBar.setUp(analizaEscenario3.cancion.length());
     }
 
@@ -359,10 +357,10 @@ void draw() {
     ctlMain.mover();
     analizaEscenario2.analizeFreq();
     analizaEscenario2.analizeSize();
-    text(analizaEscenario2.getFreq(),width/2, height/8*7);
-    telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally1.getPos(),analizaEscenario2.getSize(),ctlMain.hueTheme);
-    telaAlly2.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally2.getPos(),analizaEscenario2.getSize(),ctlMain.hueTheme);
-    telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos(),analizaEscenario2.getSize(),ctlMain.hueTheme);
+    text(analizaEscenario2.getFreq(), width/2, height/8*7);
+    telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally1.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
+    telaAlly2.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally2.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
+    telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
     fill(#FFFFFF);
    // text(analizaEscenario2.getFreq(),width/2, width/8*7);
      analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos(),blob1,blob2,ctlMain.hueTheme);
@@ -434,7 +432,7 @@ void draw() {
       tela4.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela4p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1);
       alliesFaltantes--;
-     // hotSpot.trigger();
+      // hotSpot.trigger();
     }
 
     if (alliesFaltantes > 0) {

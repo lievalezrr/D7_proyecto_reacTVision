@@ -8,6 +8,6 @@ class Texto {
     textAlign(CENTER, BOTTOM);
     if (lightMode) fill(colorNegro);
     else fill(colorBlanco);
-    text("\"" + mensaje + "\"", width/2, height*8/9);
+    text("\"" + mensaje + "\"", width/2, height/5);
   }
 }

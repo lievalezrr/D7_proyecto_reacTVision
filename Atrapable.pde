@@ -7,21 +7,26 @@ class Atrapable {
   boolean meAtraparon;
   ParticleSystem mundoVirtual;
   Spring spring;
-  PImage imagen;
+  PImage imagen, imagenAtrapado;
 
-  public Atrapable(PImage _imagen, float _x, float _y, ParticleSystem _mundoVirtual) {
+  public Atrapable(PImage _imagen, PImage _imagenAtrapado, float _x, float _y, ParticleSystem _mundoVirtual) {
 
     mundoVirtual = _mundoVirtual;
     particle = mundoVirtual.makeParticle(1, _x, _y, 0);
     particle.makeFixed();
     meAtraparon = false;
     imagen = _imagen;
-    springLength = 150;
+    imagenAtrapado = _imagenAtrapado;
+    springLength = 80;
   }
 
   void dibujar() {
     imageMode(CENTER);
-    image (imagen, particle.position().x(), particle.position().y());
+    if (meAtraparon == false) {
+      image (imagen, particle.position().x(), particle.position().y());
+    } else {
+      image (imagenAtrapado, particle.position().x(), particle.position().y());
+    }
     imageMode(CORNER);
   }
 
@@ -42,11 +47,11 @@ class Atrapable {
   }
 
 
-float getX() {
-  return particle.position().x();
-}
+  float getX() {
+    return particle.position().x();
+  }
 
-float getY() {
-  return particle.position().y();
-}
+  float getY() {
+    return particle.position().y();
+  }
 }
