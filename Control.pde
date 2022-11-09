@@ -18,7 +18,7 @@ class Control {
     pos = new PVector (_x, _y);
     posDest = new PVector (_x, _y);
     posInicial = new PVector (_x, _y);
-    angulo = 0;
+    angulo = 220;
     vlrMin = _vMin;
     vlrMax = _vMax;
     clrDark = _clrDark;
@@ -37,21 +37,24 @@ class Control {
     textAlign(CENTER);
     if (lightMode) fill(clrLight);
     else fill(clrDark);
-    arc(pos.x, pos.y, r, r, 0, radians(angulo));
+    //arc(pos.x, pos.y, r, r, 0, radians(angulo));
 
     imageMode(CENTER);
     
+    //verde
     if (angulo >= 0 && angulo <= 120) {
       image(angulo1, pos.x, pos.y);
-      hueTheme = int(map(angulo, 0, 120, 176, 263));
+      hueTheme = int(map(angulo, 0, 120, 80, 160));
     }
+    //azul
     if (angulo > 120 && angulo <= 240) {
       image(angulo2, pos.x, pos.y);
-      hueTheme = int(map(angulo, 120, 240, 300, 360));
+      hueTheme = int(map(angulo, 120, 240, 180, 260));
     }
+    //rojo
     if (angulo > 240 && angulo <= 360) {
       image(angulo3, pos.x, pos.y);
-      hueTheme = int(map(angulo, 240, 360, 65, 155));
+      hueTheme = int(map(angulo, 240, 360, 280, 360));
     }
     imageMode(CORNER);
   }

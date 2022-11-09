@@ -40,10 +40,8 @@ Atrapable llave;
 PImage llavePic;
 PImage aliadoPic1, aliadoPic2, aliadoPic3;
 PImage huecoPic;
-PImage mainPicVerde, mainPicAzul, mainPicRojo;
+PImage mainPic1, mainPic2, mainPic3;
 PImage spotPic;
-
-PShape blob1, blob2;
 
 PFont font;
 
@@ -72,7 +70,7 @@ float hFondo;
 
 Salida salida, salidaT, bolaT;
 
-Fondo fondo, villano;
+Fondo fondo;
 Texto texto;
 
 ProgressBar progressBar;
@@ -91,15 +89,14 @@ void setup() {
   minim = new Minim(this);
   tuioClient = new TuioProcessing(this);
 
-  mainPicVerde = loadImage("aura_azul.png");
-  mainPicVerde.resize(width/16, width/16);
-  mainPicAzul = loadImage("aura_azul.png");
-  mainPicAzul.resize(width/16, width/16);
-  mainPicRojo = loadImage("aura_rojo.png");
-  mainPicRojo.resize(width/16, width/16);
+  mainPic1 = loadImage("aura_azul.png");
+  mainPic1.resize(width/16, width/16);
+  mainPic2 = loadImage("aura_rojo.png");
+  mainPic2.resize(width/16, width/16);
+  mainPic3 = loadImage("mainVerde.png");
 
   llavePic = loadImage("llave.png");
-  //llavePic.resize(width/16, width/16);
+  llavePic.resize(width/20, width/20);
 
   aliadoPic1 = loadImage("aliado dormido.png");
   aliadoPic1.resize(width/16, width/16);
@@ -108,13 +105,9 @@ void setup() {
   aliadoPic3 = loadImage("here.png");
   huecoPic = loadImage("hueco.png");
 
-  blob1 = loadShape("blob1.svg");
-  blob2 = loadShape("blob2.svg");
-
-
   llave = new Atrapable(llavePic, llavePic, width/2, height/3, mundoVirtual);
 
-  salida = new Salida(mundoVirtual, width/2, height*2/3);
+  salida = new Salida(mundoVirtual, width/2, height*5/6);
 
   analizaEscenario0 = new AnalizadorMusica(minim.loadFile("Esc_0_Eye.mp3", 1024));
   analizaEscenario1 = new AnalizadorMusica(minim.loadFile("Song_Esc1-Alien_1.mp3", 1024));
@@ -123,7 +116,7 @@ void setup() {
   analizaEscenario4 = new AnalizadorMusica(minim.loadFile("Song_Esc4-Dark.mp3", 1024));
   analizaEscenario5 = new AnalizadorMusica(minim.loadFile("Esc_3_Eye.mp3", 1024));
 
-  ctlMain = new Control(width/2, height/2, 0, 360, colorBlanco, colorNegro, mundoVirtual, mainPicVerde, mainPicAzul, mainPicRojo);
+  ctlMain = new Control(width/2, height/2, 0, 360, colorBlanco, colorNegro, mundoVirtual, mainPic1, mainPic2, mainPic3);
 
   ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, colorRojo, colorRojo, mundoVirtual, aliadoPic2, aliadoPic2, aliadoPic2);
   ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, colorVerde, colorVerde, mundoVirtual, aliadoPic2, aliadoPic2, aliadoPic2);
@@ -140,7 +133,7 @@ void setup() {
   hAlly3 = new Hotspot(width/18*6, height/18*12, colorAzul, colorAzul, width/32);
 
   ally1 = new Atrapable(aliadoPic1, aliadoPic2, width*2/6 + width/30, height/2, mundoVirtual);
-  ally2 = new Atrapable(aliadoPic1, aliadoPic2, width*3/6, height/2 + width/8, mundoVirtual);
+  ally2 = new Atrapable(aliadoPic1, aliadoPic2, width*3/6, height/3.5, mundoVirtual);
   ally3 = new Atrapable(aliadoPic1, aliadoPic2, width*4/6 - width/30, height/2, mundoVirtual);
 
   tela1 = new Tela (mundoVirtual, 30, width*1/6, (height/16)*2, 1);
@@ -160,8 +153,6 @@ void setup() {
   telaAlly3 = new TelaAuras(mundoVirtual, 20, ally3.getX(), ally3.getY(), 3);
 
   fondo = new Fondo (radius, 86, 100, 50);
-  villano = new Fondo (width/16, 0, 0, 100);
-
   texto = new Texto();
 
   flowfield = new FlowField(20);
@@ -185,10 +176,10 @@ void setup() {
 
   progressBar = new ProgressBar(width/16, height/12, width - width*2/16, height/64);
 
-  escenario = 4;
-  analizaEscenario4.cancion.play();
+  escenario = 0;
+  analizaEscenario0.cancion.play();
 
-  progressBar.setUp(analizaEscenario4.cancion.length());
+  progressBar.setUp(analizaEscenario0.cancion.length());
 }
 
 void draw() {
@@ -260,21 +251,17 @@ void draw() {
     ctlMain.mover();
 
     if (analizaEscenario1.cancion.position() > 4700 && analizaEscenario1.cancion.position() < 10000) {
-      texto.say("there's something wrong inside me");
+      texto.say("there's something wrong here");
     }
 
     if (analizaEscenario1.cancion.position() > 15000 && analizaEscenario1.cancion.position() < 20000) {
-      texto.say("this darkness, it's consuming me");
+      texto.say("this energy, it's pulling us");
     }
 
-    if (analizaEscenario1.cancion.position() > 25000 && analizaEscenario1.cancion.position() < 35000) {
-      texto.say("turn around, \n you'll see my world in colors");
-    }
-
-    if (analizaEscenario1.cancion.position() > 43000 && llave.meAtraparon == false) {
+    if (analizaEscenario1.cancion.position() > 25000 && llave.meAtraparon == false) {
       llave.dibujar();
       // llaveSonido.trigger();
-      texto.say("if you're willing to help me, \n take my light with you");
+      texto.say("look, a key");
 
       // Atrapar la llave
       if (llave.getPos().dist(ctlMain.getPos()) < width/30) {
@@ -288,7 +275,7 @@ void draw() {
       salida.dibujar();
       //salidaSonido.trigger();
 
-      texto.say("save me, brave soul");
+      texto.say("let's find out what's going on");
     }
 
     // Llegar a la salida
@@ -370,7 +357,7 @@ void draw() {
     telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
     fill(#FFFFFF);
     // text(analizaEscenario2.getFreq(),width/2, width/8*7);
-    analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos(), blob1, blob2, ctlMain.hueTheme, lightMode);
+    analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos());
     ally1.dibujar();
     ally2.dibujar();
     ally3.dibujar();
@@ -400,9 +387,6 @@ void draw() {
     fondo.drawFondo();
     progressBar.paint(color(ctlMain.hueTheme, 80, 100));
 
-    //villano.hsb(0, 0, analizaEscenario4.analizeFondo(0, 100));
-    //villano.drawFondo();
-    
     hMain.dibujar();
     hAlly1.dibujar();
     hAlly2.dibujar();
@@ -615,9 +599,9 @@ void removeTuioObject(TuioObject tobj) {
     ctlAlly3.isPresent(false);
   }
 
-  //if (tobj.getSymbolID() == 5) {
-  //  lightMode = !lightMode;
-  //}
+  if (tobj.getSymbolID() == 5) {
+    lightMode = !lightMode;
+  }
 }
 
 // called when a cursor is added to the scene
