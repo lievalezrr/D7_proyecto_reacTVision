@@ -43,17 +43,17 @@ class Control {
     
     //verde
     if (angulo >= 0 && angulo <= 120) {
-      image(angulo1, pos.x, pos.y);
+      image(angulo1, pos.x + offset, pos.y + offset);
       hueTheme = int(map(angulo, 0, 120, 80, 160));
     }
     //azul
     if (angulo > 120 && angulo <= 240) {
-      image(angulo2, pos.x, pos.y);
+      image(angulo2, pos.x + offset, pos.y + offset);
       hueTheme = int(map(angulo, 120, 240, 180, 260));
     }
     //rojo
     if (angulo > 240 && angulo <= 360) {
-      image(angulo3, pos.x, pos.y);
+      image(angulo3, pos.x + offset, pos.y + offset);
       hueTheme = int(map(angulo, 240, 360, 280, 360));
     }
     imageMode(CORNER);
