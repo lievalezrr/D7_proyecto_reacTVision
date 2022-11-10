@@ -3,20 +3,23 @@ class Hotspot {
   color clrDark, clrLight;
   PVector pos;
   float r;
+  PImage img;
 
-  public Hotspot (float _x, float _y, color _clrDark, color _clrLight, float _r) {
+  public Hotspot (float _x, float _y, color _clrDark, color _clrLight, float _r, PImage _h) {
 
     pos = new PVector (_x, _y);
     clrDark = _clrDark;
     clrLight = _clrLight;
     r = _r;
+    img = _h;
   }
 
   void dibujar() {
     noStroke();
     if (lightMode) fill(clrLight);
     else fill(clrDark);
-    circle(pos.x, pos.y, r);
+    imageMode(CENTER);
+    image(img, pos.x, pos.y);
   }
 
   boolean meToco(float _x, float _y) {

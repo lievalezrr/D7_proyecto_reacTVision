@@ -42,6 +42,8 @@ PImage aliadoPic1, aliadoPic2, aliadoPic3;
 PImage huecoPic;
 PImage mainPicVerde, mainPicAzul, mainPicRojo;
 PImage spotPic;
+PImage hotspotImg;
+PImage salidaImg;
 
 PShape blob1, blob2;
 
@@ -91,7 +93,7 @@ void setup() {
   minim = new Minim(this);
   tuioClient = new TuioProcessing(this);
 
-  mainPicVerde = loadImage("aura_azul.png");
+  mainPicVerde = loadImage("aura_verde.png");
   mainPicVerde.resize(width/16, width/16);
   mainPicAzul = loadImage("aura_azul.png");
   mainPicAzul.resize(width/16, width/16);
@@ -110,11 +112,15 @@ void setup() {
 
   blob1 = loadShape("blob1.svg");
   blob2 = loadShape("blob2.svg");
+  
+  hotspotImg = loadImage("hotSpot.png");
+  
+  salidaImg = loadImage("hueco.png");
 
 
   llave = new Atrapable(llavePic, llavePic, width/2, height/3, mundoVirtual);
 
-  salida = new Salida(mundoVirtual, width/2, height*2/3);
+  salida = new Salida(mundoVirtual, width/2, height*2/3, salidaImg);
 
   analizaEscenario0 = new AnalizadorMusica(minim.loadFile("Esc_0_Eye.mp3", 1024));
   analizaEscenario1 = new AnalizadorMusica(minim.loadFile("Song_Esc1-Alien_1.mp3", 1024));
@@ -134,10 +140,10 @@ void setup() {
   controles[2] = ctlAlly2;
   controles[3] = ctlAlly3;
 
-  hMain = new Hotspot(width/18*12, height/18*12, colorBlanco, colorNegro, width/32);
-  hAlly1 = new Hotspot(width/18*6, height/18*6, colorRojo, colorRojo, width/32);
-  hAlly2 = new Hotspot(width/18*12, height/18*6, colorVerde, colorVerde, width/32);
-  hAlly3 = new Hotspot(width/18*6, height/18*12, colorAzul, colorAzul, width/32);
+  hMain = new Hotspot(width/18*12, height/18*12, colorBlanco, colorNegro, width/32,hotspotImg);
+  hAlly1 = new Hotspot(width/18*6, height/18*6, colorRojo, colorRojo, width/32, hotspotImg);
+  hAlly2 = new Hotspot(width/18*12, height/18*6, colorVerde, colorVerde, width/32,hotspotImg);
+  hAlly3 = new Hotspot(width/18*6, height/18*12, colorAzul, colorAzul, width/32,hotspotImg);
 
   ally1 = new Atrapable(aliadoPic1, aliadoPic2, width*2/6 + width/30, height/2, mundoVirtual);
   ally2 = new Atrapable(aliadoPic1, aliadoPic2, width*3/6, height/2 + width/8, mundoVirtual);
@@ -316,9 +322,25 @@ void draw() {
       v.run();
       v.sideLen = analizaEscenario2.analizeVehiculo();
     }
+    
+    ctlMain.dibujar();
+    ctlMain.mover();
+    analizaEscenario2.analizeFreq();
+    analizaEscenario2.analizeSize();
+    //text(analizaEscenario2.getFreq(), width/2, height/8*7);
+    telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally1.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
+    telaAlly2.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally2.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
+    telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
+    fill(#FFFFFF);
+    // text(analizaEscenario2.getFreq(),width/2, width/8*7);
+    //analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos(), blob1, blob2, ctlMain.hueTheme, lightMode);
+    ally1.dibujar();
+    ally2.dibujar();
+    ally3.dibujar();
 
     if (analizaEscenario2.cancion.position() > 4700 && ally1.meAtraparon == false && ally2.meAtraparon == false && ally3.meAtraparon == false) {
       texto.say("find your allies \n 3 to go");
+      analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos(), blob1, blob2, ctlMain.hueTheme, lightMode, 1);
       if (ally1.getPos().dist(ctlMain.getPos()) < width/30) {
         ally1.atrapar(ctlMain.particle);
         sfxAliado.trigger();
@@ -327,6 +349,7 @@ void draw() {
 
     if (analizaEscenario2.cancion.position() > 5000 && ally1.meAtraparon == true && ally2.meAtraparon == false && ally3.meAtraparon == false) {
       texto.say("find your allies \n 2 to go");
+      analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos(), blob1, blob2, ctlMain.hueTheme, lightMode, 2);
       if (ally2.getPos().dist(ctlMain.getPos()) < width/30) {
         ally2.atrapar(ally1.particle);
         sfxAliado.trigger();
@@ -335,6 +358,7 @@ void draw() {
 
     if (analizaEscenario2.cancion.position() > 5000 && ally1.meAtraparon == true && ally2.meAtraparon == true && ally3.meAtraparon == false) {
       texto.say("find your allies \n 1 to go");
+      analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos(), blob1, blob2, ctlMain.hueTheme, lightMode, 3);
       if (ally3.getPos().dist(ctlMain.getPos()) < width/30) {
         ally3.atrapar(ally2.particle);
         sfxAliado.trigger();
@@ -343,6 +367,7 @@ void draw() {
 
     if (analizaEscenario2.cancion.position() > 5000 && ally1.meAtraparon == true && ally2.meAtraparon == true && ally3.meAtraparon == true) {
       texto.say("we're in this together \n are you ready for what's on the other side?");
+      analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos(), blob1, blob2, ctlMain.hueTheme, lightMode, 4);
       salida.dibujar();
       
     }
@@ -358,20 +383,7 @@ void draw() {
       progressBar.setUp(analizaEscenario3.cancion.length());
     }
 
-    ctlMain.dibujar();
-    ctlMain.mover();
-    analizaEscenario2.analizeFreq();
-    analizaEscenario2.analizeSize();
-    text(analizaEscenario2.getFreq(), width/2, height/8*7);
-    telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally1.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
-    telaAlly2.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally2.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
-    telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
-    fill(#FFFFFF);
-    // text(analizaEscenario2.getFreq(),width/2, width/8*7);
-    analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos(), blob1, blob2, ctlMain.hueTheme, lightMode);
-    ally1.dibujar();
-    ally2.dibujar();
-    ally3.dibujar();
+    
   }
 
   if (escenario == 3) {
