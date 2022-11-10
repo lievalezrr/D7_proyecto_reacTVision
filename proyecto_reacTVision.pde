@@ -218,19 +218,19 @@ void draw() {
   for (int i=0; i<tuioObjectList.size(); i++) {
     TuioObject tobj = tuioObjectList.get(i);
 
-    if (tobj.getSymbolID() == 14) {
+    if (tobj.getSymbolID() == idFidMain) {
       ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
     }
 
-    if (tobj.getSymbolID() == 7) {
+    if (tobj.getSymbolID() == idFidAlly1) {
       ctlAlly1.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
     }
 
-    if (tobj.getSymbolID() == 10) {
+    if (tobj.getSymbolID() == idFidAlly2) {
       ctlAlly2.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
     }
 
-    if (tobj.getSymbolID() == 12) {
+    if (tobj.getSymbolID() == idFidAlly3) {
       ctlAlly3.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
     }
   }
