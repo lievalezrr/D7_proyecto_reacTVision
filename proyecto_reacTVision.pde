@@ -143,9 +143,9 @@ void setup() {
 
   ctlMain = new Control(width/2, height/2, 0, 360, colorBlanco, colorNegro, mundoVirtual, mainPicVerde, mainPicAzul, mainPicRojo);
 
-  ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, colorRojo, colorRojo, mundoVirtual, aliadoPic2, aliadoPic2, aliadoPic2);
-  ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, colorVerde, colorVerde, mundoVirtual, aliadoPic2, aliadoPic2, aliadoPic2);
-  ctlAlly3 = new Control(width-80, (height/2)+320, 0, 360, colorAzul, colorAzul, mundoVirtual, aliadoPic2, aliadoPic2, aliadoPic2);
+  ctlAlly1 = new Control(width-80, (height/2)+160, 0, 360, colorRojo, colorRojo, mundoVirtual, mainPicVerde, mainPicAzul, mainPicRojo);
+  ctlAlly2 = new Control(width-80, (height/2)+240, 0, 360, colorVerde, colorVerde, mundoVirtual, mainPicVerde, mainPicAzul, mainPicRojo);
+  ctlAlly3 = new Control(width-80, (height/2)+320, 0, 360, colorAzul, colorAzul, mundoVirtual, mainPicVerde, mainPicAzul, mainPicRojo);
 
   controles[0] = ctlMain;
   controles[1] = ctlAlly1;
@@ -436,7 +436,7 @@ void draw() {
     
     int alliesFaltantes = 4;
     
-    if (hAlly1.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y)) {
+    if (hAlly1.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y) || hAlly1.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y) || hAlly1.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y) || hAlly1.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
       //sfxHotSpot.trigger();
       tela1.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela1p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1 );
@@ -449,7 +449,7 @@ void draw() {
       hAlly1.primerContacto = true;
     }
 
-    if (hAlly2.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y)) {
+    if (hAlly2.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y) || hAlly2.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y) || hAlly2.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y) || hAlly2.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
       tela2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela2p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1 );
       alliesFaltantes--;
@@ -461,7 +461,7 @@ void draw() {
       hAlly2.primerContacto = true;
     }
 
-    if (hAlly3.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y)) {
+    if (hAlly3.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y) || hAlly3.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y) || hAlly3.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y) || hAlly3.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
       tela3.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela3p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1);
       alliesFaltantes--;
@@ -473,7 +473,7 @@ void draw() {
       hAlly3.primerContacto = true;
     }
 
-    if (hMain.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
+    if (hMain.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y) || hMain.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y) || hMain.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y) ||hMain.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
       tela4.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
       tela4p2.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), 1);
       alliesFaltantes--;
