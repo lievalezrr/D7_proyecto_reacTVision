@@ -139,9 +139,9 @@ class Tela {
      
       if (vol > 20) {
         arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(),arrayDeParticulas[25][25].position().x()+random(1000, 2500), 0.01), height/13, 100);
-        arrayDeParticulas[10][10].position().set(lerp(arrayDeParticulas[25][25].position().x(),arrayDeParticulas[25][25].position().x()+random(1000, 2500), 0.01), height/13, 0);
-        arrayDeParticulas[20][20].position().set(lerp(arrayDeParticulas[25][25].position().x(),arrayDeParticulas[25][25].position().x()-random(1000, 2500), 0.01), height/13*8, 0);
-        arrayDeParticulas[20][10].position().set(lerp(arrayDeParticulas[25][25].position().x(),arrayDeParticulas[25][25].position().x()-random(1000, 2500), 0.01), height/13*8, 0);
+        arrayDeParticulas[10][10].position().set(lerp(arrayDeParticulas[25][25].position().x(),arrayDeParticulas[25][25].position().x()+random(1000, 2500), 0.01), height/13, 100);
+        arrayDeParticulas[20][20].position().set(lerp(arrayDeParticulas[25][25].position().x(),arrayDeParticulas[25][25].position().x()-random(1000, 2500), 0.01), height/13*8, 100);
+        arrayDeParticulas[20][10].position().set(lerp(arrayDeParticulas[25][25].position().x(),arrayDeParticulas[25][25].position().x()-random(1000, 2500), 0.01), height/13*8, 100);
         //arrayDeParticulas[25][25].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 2500), 0.01), height/13*4, 0);
         //arrayDeParticulas[30][30].makeFixed();
       }

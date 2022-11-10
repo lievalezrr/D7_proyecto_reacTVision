@@ -151,7 +151,7 @@ class AnalizadorMusica {
            blob1.disableStyle();
           // blob1.rotate(random(0.360));
           shapeMode(CENTER);
-          shape(blob1,posAura3.x, posAura3.y,radio*2.2,radio*2.2);
+          shape(blob1,posAura3.x, posAura3.y,radio*2.3,radio*2.3);
           
           //circle(posAura3.x, posAura3.y, radio);
         }

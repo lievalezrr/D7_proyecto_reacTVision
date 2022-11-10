@@ -202,7 +202,7 @@ void setup() {
 
   progressBar = new ProgressBar(width/16, height/12, width - width*2/16, height/64);
 
-  escenario = 4;
+  escenario = 0;
   analizaEscenario4.cancion.play();
 
   progressBar.setUp(analizaEscenario4.cancion.length());
@@ -334,6 +334,21 @@ void draw() {
       v.run();
       v.sideLen = analizaEscenario2.analizeVehiculo();
     }
+    
+     ctlMain.dibujar();
+    ctlMain.mover();
+    analizaEscenario2.analizeFreq();
+    analizaEscenario2.analizeSize();
+    //text(analizaEscenario2.getFreq(), width/2, height/8*7);
+    telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally1.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
+    telaAlly2.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally2.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
+    telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
+    fill(#FFFFFF);
+    // text(analizaEscenario2.getFreq(),width/2, width/8*7);
+    //analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos(), blob1, blob2, ctlMain.hueTheme, lightMode);
+    ally1.dibujar();
+    ally2.dibujar();
+    ally3.dibujar();
 
     if (analizaEscenario2.cancion.position() > 4700 && ally1.meAtraparon == false && ally2.meAtraparon == false && ally3.meAtraparon == false) {
       texto.say("there are others who can help, find them \n 3 to go");
@@ -379,20 +394,7 @@ void draw() {
       progressBar.setUp(analizaEscenario3.cancion.length());
     }
 
-    ctlMain.dibujar();
-    ctlMain.mover();
-    analizaEscenario2.analizeFreq();
-    analizaEscenario2.analizeSize();
-    //text(analizaEscenario2.getFreq(), width/2, height/8*7);
-    telaAlly1.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally1.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
-    telaAlly2.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally2.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
-    telaAlly3.dibujar(1, analizaEscenario2.getFreq(), analizaEscenario2.getGolpe(), ally3.getPos(), analizaEscenario2.getSize(), ctlMain.hueTheme);
-    fill(#FFFFFF);
-    // text(analizaEscenario2.getFreq(),width/2, width/8*7);
-    //analizaEscenario2.dibujarAuras(ally1.getPos(), ally2.getPos(), ally3.getPos(), blob1, blob2, ctlMain.hueTheme, lightMode);
-    ally1.dibujar();
-    ally2.dibujar();
-    ally3.dibujar();
+   
   }
 
   if (escenario == 3) {
