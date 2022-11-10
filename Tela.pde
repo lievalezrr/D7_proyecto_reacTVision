@@ -71,8 +71,7 @@ class Tela {
           vertex(arrayDeParticulas[i][j+1].position().x(), arrayDeParticulas[i][j+1].position().y());
           vertex(arrayDeParticulas[i][j].position().x(), arrayDeParticulas[i][j].position().y());
           endShape();
-          fill(cambioColor, 90, i+80*1.1, 120);
-          //fill((j+105)/1.3*cambioColor, 90, i+80*1.1, 120);
+          fill(cambioColor, 90, (i+80*1.1), 120);
         }
 
         if (tag == 1.2 | tag == 2.2 | tag == 3.2 | tag == 4.2 ) {
@@ -136,11 +135,14 @@ class Tela {
     // comportamiento de telas cuando se llega a un nivel de volumen
 
     if (comp == 1) {
-      if (vol > 25) {
-        arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 1920), 0.01), height/13, 100);
-        arrayDeParticulas[10][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 1920), 0.01), height/13, 0);
-        arrayDeParticulas[20][20].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 1920), 0.01), height/13*8, 0);
-        arrayDeParticulas[20][10].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 1920), 0.01), height/13*8, 0);
+      
+     
+      if (vol > 20) {
+        arrayDeParticulas[10][20].position().set(lerp(arrayDeParticulas[25][25].position().x(),arrayDeParticulas[25][25].position().x()+random(1000, 2500), 0.01), height/13, 100);
+        arrayDeParticulas[10][10].position().set(lerp(arrayDeParticulas[25][25].position().x(),arrayDeParticulas[25][25].position().x()+random(1000, 2500), 0.01), height/13, 0);
+        arrayDeParticulas[20][20].position().set(lerp(arrayDeParticulas[25][25].position().x(),arrayDeParticulas[25][25].position().x()-random(1000, 2500), 0.01), height/13*8, 0);
+        arrayDeParticulas[20][10].position().set(lerp(arrayDeParticulas[25][25].position().x(),arrayDeParticulas[25][25].position().x()-random(1000, 2500), 0.01), height/13*8, 0);
+        //arrayDeParticulas[25][25].position().set(lerp(arrayDeParticulas[25][25].position().x(), random(0, 2500), 0.01), height/13*4, 0);
         //arrayDeParticulas[30][30].makeFixed();
       }
     }
