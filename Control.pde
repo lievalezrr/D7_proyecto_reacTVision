@@ -69,10 +69,10 @@ class Control {
   }
 
   void mover() {
-    if (!estaPresente) {
-      posDest.x = posInicial.x;
-      posDest.y = posInicial.y;
-    }
+    //if (!estaPresente) {
+    //  posDest.x = posInicial.x;
+    //  posDest.y = posInicial.y;
+    //}
 
     //Para mover con el mouse
     if (seleccionadoConMouse == true) {

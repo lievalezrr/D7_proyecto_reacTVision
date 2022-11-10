@@ -4,6 +4,7 @@ class Hotspot {
   PVector pos;
   float r;
   PImage img;
+  boolean primerContacto;
 
   public Hotspot (float _x, float _y, color _clrDark, color _clrLight, float _r, PImage _h) {
 
@@ -12,6 +13,7 @@ class Hotspot {
     clrLight = _clrLight;
     r = _r;
     img = _h;
+    primerContacto = true;
   }
 
   void dibujar() {
