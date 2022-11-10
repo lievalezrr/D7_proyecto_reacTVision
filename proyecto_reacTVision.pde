@@ -110,21 +110,22 @@ void setup() {
   mainPicRojo.resize(width/16, width/16);
 
   llavePic = loadImage("llave.png");
-  //llavePic.resize(width/16, width/16);
+  llavePic.resize(width/16, width/16);
 
   aliadoPic1 = loadImage("aliado dormido.png");
-  aliadoPic1.resize(width/16, width/16);
+  aliadoPic1.resize(width/20, width/20);
   aliadoPic2 = loadImage("aliado despierto.png");
-  aliadoPic2.resize(width/16, width/16);
+  aliadoPic2.resize(width/20, width/20);
   aliadoPic3 = loadImage("here.png");
-  huecoPic = loadImage("hueco.png");
 
   blob1 = loadShape("blob1.svg");
   blob2 = loadShape("blob2.svg");
 
   hotspotImg = loadImage("hotSpot.png");
+  hotspotImg.resize(width/20, width/20);
 
   salidaImg = loadImage("hueco.png");
+  salidaImg.resize(width/16, width/16);
 
 
   llave = new Atrapable(llavePic, llavePic, width/2, height/3, mundoVirtual);
@@ -199,10 +200,10 @@ void setup() {
 
   progressBar = new ProgressBar(width/16, height/12, width - width*2/16, height/64);
 
-  escenario = 5;
-  analizaEscenario5.cancion.play();
+  escenario = 2;
+  analizaEscenario2.cancion.play();
 
-  progressBar.setUp(analizaEscenario5.cancion.length());
+  progressBar.setUp(analizaEscenario2.cancion.length());
 }
 
 void draw() {
