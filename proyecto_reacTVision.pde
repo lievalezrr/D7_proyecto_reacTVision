@@ -185,10 +185,10 @@ void setup() {
 
   progressBar = new ProgressBar(width/16, height/12, width - width*2/16, height/64);
 
-  escenario = 4;
-  analizaEscenario4.cancion.play();
+  escenario = 0;
+  analizaEscenario0.cancion.play();
 
-  progressBar.setUp(analizaEscenario4.cancion.length());
+  progressBar.setUp(analizaEscenario0.cancion.length());
 }
 
 void draw() {
@@ -204,19 +204,19 @@ void draw() {
   for (int i=0; i<tuioObjectList.size(); i++) {
     TuioObject tobj = tuioObjectList.get(i);
 
-    if (tobj.getSymbolID() == 8) {
+    if (tobj.getSymbolID() == 14) {
       ctlMain.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
     }
 
-    if (tobj.getSymbolID() == 1) {
+    if (tobj.getSymbolID() == 7) {
       ctlAlly1.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
     }
 
-    if (tobj.getSymbolID() == 2) {
+    if (tobj.getSymbolID() == 10) {
       ctlAlly2.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
     }
 
-    if (tobj.getSymbolID() == 3) {
+    if (tobj.getSymbolID() == 12) {
       ctlAlly3.actualizar(tobj.getScreenX(width), tobj.getScreenY(height), tobj.getAngle());
     }
   }
@@ -570,19 +570,19 @@ void mousePressed() {
 
 
 void addTuioObject(TuioObject tobj) {
-  if (tobj.getSymbolID() == 8) {
+  if (tobj.getSymbolID() == 14) {
     ctlMain.isPresent(true);
   }
 
-  if (tobj.getSymbolID() == 1) {
+  if (tobj.getSymbolID() == 7) {
     ctlAlly1.isPresent(true);
   }
 
-  if (tobj.getSymbolID() == 2) {
+  if (tobj.getSymbolID() == 10) {
     ctlAlly2.isPresent(true);
   }
 
-  if (tobj.getSymbolID() == 3) {
+  if (tobj.getSymbolID() == 12) {
     ctlAlly3.isPresent(true);
   }
 
@@ -599,19 +599,19 @@ void updateTuioObject (TuioObject tobj) {
 }
 
 void removeTuioObject(TuioObject tobj) {
-  if (tobj.getSymbolID() == 8) {
+  if (tobj.getSymbolID() == 14) {
     ctlMain.isPresent(false);
   }
 
-  if (tobj.getSymbolID() == 1) {
+  if (tobj.getSymbolID() == 7) {
     ctlAlly1.isPresent(false);
   }
 
-  if (tobj.getSymbolID() == 2) {
+  if (tobj.getSymbolID() == 10) {
     ctlAlly2.isPresent(false);
   }
 
-  if (tobj.getSymbolID() == 3) {
+  if (tobj.getSymbolID() == 12) {
     ctlAlly3.isPresent(false);
   }
 
