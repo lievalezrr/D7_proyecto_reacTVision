@@ -13,12 +13,12 @@ import ddf.minim.*;
 import TUIO.*;
 
 // Numero de los controles fiducial
-int idFidMain = 14;
-int idFidAlly1 = 7;
-int idFidAlly2 = 10;
-int idFidAlly3 = 12;
-int idFidLightMode = 5;
-int idFidRewind = 0;
+int idFidMain = 6;
+int idFidAlly1 = 1;
+int idFidAlly2 = 2;
+int idFidAlly3 = 3;
+int idFidLightMode = 14;
+int idFidRewind = 10;
 
 ParticleSystem mundoVirtual;
 
@@ -538,9 +538,9 @@ void draw() {
 
   if (escenario == 5) {
     if (radioDestello < width + width/4) {
-      fill(colorBlanco);
+      fill(colorBlanco, 80);
       circle(width/2, height/2, radioDestello);
-      radioDestello += 150;
+      radioDestello += 100;
     } else {
       if (lightMode) fondo.hsb(241, analizaEscenario5.analizeFondo(0, 100), 100);
       else fondo.hsb(0, 0, analizaEscenario5.analizeFondo(0, 80));
