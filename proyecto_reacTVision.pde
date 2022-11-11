@@ -204,10 +204,10 @@ void setup() {
 
   progressBar = new ProgressBar(width/16, height/12, width - width*2/16, height/64);
 
-  escenario = 4;
-  analizaEscenario4.cancion.play();
+  escenario = 0;
+  analizaEscenario0.cancion.play();
 
-  progressBar.setUp(analizaEscenario4.cancion.length());
+  progressBar.setUp(analizaEscenario0.cancion.length());
 }
 
 void draw() {
@@ -275,7 +275,7 @@ void draw() {
       v.sideLen = analizaEscenario1.analizeVehiculo();
     }
 
-    ctlMain.dibujar();
+    ctlMain.dibujar(ctlMain.angulo);
     ctlMain.mover();
 
     if (analizaEscenario1.cancion.position() > 4700 && analizaEscenario1.cancion.position() < 10000) {
@@ -337,7 +337,7 @@ void draw() {
       v.sideLen = analizaEscenario2.analizeVehiculo();
     }
 
-    ctlMain.dibujar();
+    ctlMain.dibujar(ctlMain.angulo);
     ctlMain.mover();
     analizaEscenario2.analizeFreq();
     analizaEscenario2.analizeSize();
@@ -516,20 +516,19 @@ void draw() {
       }
     }
 
-    ctlMain.dibujar();
+    ctlMain.dibujar(ctlMain.angulo);
     ctlMain.mover();
 
-    ctlAlly1.dibujar();
+    ctlAlly1.dibujar(ctlMain.angulo);
     ctlAlly1.mover();
 
-    ctlAlly2.dibujar();
+    ctlAlly2.dibujar(ctlMain.angulo);
     ctlAlly2.mover();
 
-    ctlAlly3.dibujar();
+    ctlAlly3.dibujar(ctlMain.angulo);
     ctlAlly3.mover();
 
-    if (!analizaEscenario4.cancion.isPlaying() && hAlly1.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y) && hAlly2.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y) &&
-      hAlly3.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y) && hMain.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
+    if (!analizaEscenario4.cancion.isPlaying() && alliesFaltantes == 0) {
       escenario = 5;
       analizaEscenario5.cancion.play();
       analizaEscenario5.cancion.loop();

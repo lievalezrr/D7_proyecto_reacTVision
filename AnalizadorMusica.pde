@@ -169,7 +169,7 @@ class AnalizadorMusica {
   }
 
   float analizeVehiculo() {
-    return map(cancion.mix.level(), 0, 1, 0.5, 25); //analiza el volumen y tira un tamaño en relación
+    return map(cancion.mix.level(), 0, 1, 0.5, 10); //analiza el volumen y tira un tamaño en relación
   }
 
   float getColor() {

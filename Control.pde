@@ -33,26 +33,24 @@ class Control {
     angulo3 = _angulo3;
   }
 
-  void dibujar() {
-    textAlign(CENTER);
+  void dibujar(float anguloMain) {
     if (lightMode) fill(clrLight);
     else fill(clrDark);
     //arc(pos.x, pos.y, r, r, 0, radians(angulo));
 
     imageMode(CENTER);
-    
     //verde
-    if (angulo >= 0 && angulo <= 120) {
+    if (anguloMain >= 0 && anguloMain <= 120) {
       image(angulo1, pos.x + offset, pos.y + offset);
       hueTheme = int(map(angulo, 0, 120, 80, 160));
     }
     //azul
-    if (angulo > 120 && angulo <= 240) {
+    if (anguloMain > 120 && anguloMain <= 240) {
       image(angulo2, pos.x + offset, pos.y + offset);
       hueTheme = int(map(angulo, 120, 240, 180, 260));
     }
     //rojo
-    if (angulo > 240 && angulo <= 360) {
+    if (anguloMain > 240 && anguloMain <= 360) {
       image(angulo3, pos.x + offset, pos.y + offset);
       hueTheme = int(map(angulo, 240, 360, 280, 360));
     }
