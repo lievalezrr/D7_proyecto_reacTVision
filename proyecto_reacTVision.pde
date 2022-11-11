@@ -52,6 +52,7 @@ PImage mainPicVerde, mainPicAzul, mainPicRojo;
 PImage spotPic;
 PImage hotspotImg;
 PImage salidaImg;
+PImage villano;
 
 PShape blob1, blob2;
 
@@ -82,7 +83,7 @@ float hFondo;
 
 Salida salida, salidaT, bolaT;
 
-Fondo fondo, villano;
+Fondo fondo;
 Texto texto;
 
 ProgressBar progressBar;
@@ -129,6 +130,8 @@ void setup() {
   salidaImg = loadImage("hueco.png");
   salidaImg.resize(width/16, width/16);
 
+  villano = loadImage("villano.png");
+  villano.resize(width/16, width/16);
 
   llave = new Atrapable(llavePic, llavePic, width/2, height/3, mundoVirtual);
 
@@ -178,7 +181,6 @@ void setup() {
   telaAlly3 = new TelaAuras(mundoVirtual, 20, ally3.getX(), ally3.getY(), 3);
 
   fondo = new Fondo (radius, 86, 100, 50);
-  villano = new Fondo (width/16, 0, 0, 100);
 
   texto = new Texto();
 
@@ -202,7 +204,7 @@ void setup() {
 
   progressBar = new ProgressBar(width/16, height/12, width - width*2/16, height/64);
 
-  escenario = 0;
+  escenario = 4;
   analizaEscenario4.cancion.play();
 
   progressBar.setUp(analizaEscenario4.cancion.length());
@@ -334,8 +336,8 @@ void draw() {
       v.run();
       v.sideLen = analizaEscenario2.analizeVehiculo();
     }
-    
-     ctlMain.dibujar();
+
+    ctlMain.dibujar();
     ctlMain.mover();
     analizaEscenario2.analizeFreq();
     analizaEscenario2.analizeSize();
@@ -393,8 +395,6 @@ void draw() {
 
       progressBar.setUp(analizaEscenario3.cancion.length());
     }
-
-   
   }
 
   if (escenario == 3) {
@@ -429,15 +429,19 @@ void draw() {
     hAlly2.dibujar();
     hAlly3.dibujar();
 
+    imageMode(CENTER);
+    image(villano, width/2, height/2);
+    imageMode(CORNER);
+
     analizaEscenario4.analizeColor();
     analizaEscenario4.analizeSize();
     analizaEscenario4.analizeFreq();
     //text(analizaEscenario3.getSize(), width/3, height/3);
     //fill(#FFFFFF);
     //text(analizaEscenario3.getFreq(), width/2, height/7*6);
-    
+
     int alliesFaltantes = 4;
-    
+
     if (hAlly1.meToco(ctlAlly1.pos.x, ctlAlly1.pos.y) || hAlly1.meToco(ctlAlly2.pos.x, ctlAlly2.pos.y) || hAlly1.meToco(ctlAlly3.pos.x, ctlAlly3.pos.y) || hAlly1.meToco(ctlMain.pos.x, ctlMain.pos.y)) {
       //sfxHotSpot.trigger();
       tela1.dibujar(analizaEscenario4.getSize(), analizaEscenario4.getColor(), analizaEscenario4.getFreq(), 1, analizaEscenario4.getGolpe(), ctlMain.hueTheme);
@@ -534,7 +538,7 @@ void draw() {
   }
 
   if (escenario == 5) {
-    if (radioDestello < width + width/4){
+    if (radioDestello < width + width/4) {
       fill(colorBlanco);
       circle(width/2, height/2, radioDestello);
       radioDestello += 150;
