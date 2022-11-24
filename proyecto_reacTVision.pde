@@ -29,7 +29,7 @@ FFT fftLog;
 FFT fftLin;
 
 AudioMetaData metaDatos;
-AudioSample sfxCambioPersonaje, sfxAliado, sfxFinalExplosion, sfxHotSpot, sfxLlave, sfxSalida, salida1;
+AudioSample sfxCambioPersonaje, sfxAliado, sfxFinalExplosion, sfxHotSpot, sfxLlave, sfxSalida, salida1, sfxExplode;
 
 TuioProcessing tuioClient;
 Control ctlMain;
@@ -193,6 +193,7 @@ void setup() {
   sfxHotSpot= minim.loadSample("sfxHotSpot.mp3");
   sfxLlave=minim.loadSample("sfxLlave.mp3");
   sfxSalida= minim.loadSample("sfxSalida.mp3");
+  sfxExplode= minim.loadSample("explode4.mp3");
 
   for (int i = 0; i < vehicleAmount; i++) {
     float r = radius * sqrt(random(1));
@@ -204,8 +205,8 @@ void setup() {
 
   progressBar = new ProgressBar(width/16, height/12, width - width*2/16, height/64);
 
-  escenario = 0;
-  analizaEscenario0.cancion.play();
+  escenario = 5;
+  analizaEscenario5.cancion.play();
 
   progressBar.setUp(analizaEscenario0.cancion.length());
 }
@@ -537,10 +538,16 @@ void draw() {
   }
 
   if (escenario == 5) {
+    
     if (radioDestello < width + width/4) {
+       if (radioDestello == 1){
+      sfxExplode.trigger();
+       }
       fill(colorBlanco, 80);
       circle(width/2, height/2, radioDestello);
       radioDestello += 100;
+    
+     
     } else {
       if (lightMode) fondo.hsb(241, analizaEscenario5.analizeFondo(0, 100), 100);
       else fondo.hsb(0, 0, analizaEscenario5.analizeFondo(0, 80));
