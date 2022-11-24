@@ -205,8 +205,8 @@ void setup() {
 
   progressBar = new ProgressBar(width/16, height/12, width - width*2/16, height/64);
 
-  escenario = 5;
-  analizaEscenario5.cancion.play();
+  escenario = 0;
+  analizaEscenario0.cancion.play();
 
   progressBar.setUp(analizaEscenario0.cancion.length());
 }
